@@ -12,7 +12,7 @@ public class Game {
 	//TODO fill your code
 	public Game(int nLevel) {	
 		
-		this.gameObjects= new GameObjectContainer();
+		this.gameObjects= new GameObjectContainer();	//Inicializa el contenedor de objetos a vacio
 		if(nLevel==0) {
 			initLevel0();
 		}
@@ -25,7 +25,7 @@ public class Game {
 			
 		Position pos= new Position (row,col);
 		
-		 return gameObjects.positionToString(pos);	//Le pasa posicion al array de objetos que va ala clase y devuelve
+		 return gameObjects.positionToString(pos);	//Le pasa posicion al array de objetos que va a la clase y devuelve
 		 //El objecto que haya en la posicion en forma de string
 	}
 	

@@ -23,23 +23,37 @@ public class Controller {
 	 * 
 	 */
 	public void run() {
-		view.showWelcome();
-		
-		//TODO fill your code: The main loop that displays the game, asks the user for input, and executes the action.
-		view.showGame();
-		
-		view.showEndMessage();
-	}
-
-	public void Command() {
-		show_commands();
-		Scanner scanner = new Scanner(System.in);
+		view.showWelcome();	//Enseña el titulo
+		Scanner scanner = new Scanner(System.in);	//Crea el scanner
+		view.showGame();	//Muestra el tablero
 		System.out.println();
 		System.out.println("Command>");
-		String c=scanner.nextLine();	//cin>>c;
-		
-		
-		
+		String command=scanner.nextLine();	//Pido comando por pantalla
+		while(!(command.equalsIgnoreCase("exit")||command.equalsIgnoreCase("e"))) {	//Mientras que el texto sea distinto de exit...
+			if(command.equalsIgnoreCase("help")||command.equalsIgnoreCase("h")) {
+				show_commands();	//Si pide ayuda muestro comandos por pantalla
+			}
+			else {
+				if(command.equalsIgnoreCase("update")||command.equalsIgnoreCase("u")||command.isEmpty()) {	//Actualiza juego
+					//game.update();
+					/*Supongo que en la funcion update hay que modificar la posicion de mario en el juego y cambiarlo en el tablero*/
+					view.showGame();
+				}
+				else {
+					if(command.equalsIgnoreCase("reset")||command.equalsIgnoreCase("r")) {	//Resetea el juego
+						//game.reset();
+						view.showGame();
+					}
+					else {
+						System.out.println("Error: Unknown command: comandoTecleadoPorElUsuario.");	//No existe el comando
+					}
+				}
+			}
+			System.out.println();
+			System.out.println("Command>");
+			command=scanner.nextLine();	//Pido comando por pantalla
+		}
+		view.showEndMessage();	//Muestra el final
 		 scanner.close();
 	}
 	public void show_commands() {

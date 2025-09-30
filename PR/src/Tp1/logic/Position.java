@@ -14,6 +14,7 @@ public class Position {
 		this.row=row;
 		this.col=col;
 	}
+	
 	public int getCol() {
 		return this.col;
 	}
@@ -26,5 +27,13 @@ public class Position {
 	public void setCol(int col) {
 		this.col=col;
 	}
-
+	public boolean equals(Object pos) {
+		if(this==pos) return true;
+		
+		if(getClass()!=pos.getClass() || pos== null) 
+			return false;
+		
+		Position a=(Position) pos;
+		return this.row==a.row && this.col==a.col;
+	}
 }

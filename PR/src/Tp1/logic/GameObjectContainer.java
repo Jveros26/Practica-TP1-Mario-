@@ -16,7 +16,6 @@ public class GameObjectContainer {
 	public GameObjectContainer() {
 		lands=new ArrayList<Land>();			//Inicializar el array de los objetos
 		goombas=new ArrayList<Goombas>();
-		
 	}
 	public void add(Land land) {	//Añade en el arraylist lands el argumento land
 		lands.add(land);
@@ -46,7 +45,7 @@ public class GameObjectContainer {
 		}
 		if(mario.isInPosition(pos)) buffer.append(mario.getIcon());
 		if(exitdoor.isInPosition(pos)) buffer.append(exitdoor.getIcon());
-
+		
 		
 		return buffer.toString();
 	}

@@ -10,10 +10,15 @@ public class Game {
     private GameObjectContainer gameObjects;
 
 	//TODO fill your code
-	public Game(int nLevel) {	//222666
+	public Game(int nLevel) {	
+		
 		this.gameObjects= new GameObjectContainer();
-		gameObjects.add(new Land(new Position(9,7)));
-		gameObjects.add(new Land(new Position(5,6)));
+		if(nLevel==0) {
+			initLevel0();
+		}
+		else {
+		initLevel1();
+		}
 	}
 	
 	public String positionToString(int col, int row) {
@@ -56,12 +61,11 @@ public class Game {
 		return "TODO: Hola soy el game";
 	}
 	
-	/*private void initLevel0() {  
+	private void initLevel0() {  
 		this.nLevel = 0;
 		this.remainingTime = 100;
 		
 		// 1. Mapa
-		gameObjects = new GameObjectContainer();
 		for(int col = 0; col < 15; col++) {
 			gameObjects.add(new Land(new Position(13,col)));
 			gameObjects.add(new Land(new Position(14,col)));		
@@ -97,6 +101,55 @@ public class Game {
 		gameObjects.add(this.mario);
 
 		gameObjects.add(new Goombas(this,new Position(0, 19)));
-	}*/
+	}
 	
+
+private void initLevel1() {  
+	this.nLevel = 1;
+	this.remainingTime = 100;
+	
+	// 1. Mapa
+	for(int col = 0; col < 15; col++) {
+		gameObjects.add(new Land(new Position(13,col)));
+		gameObjects.add(new Land(new Position(14,col)));		
+	}
+
+	gameObjects.add(new Land(new Position(Game.DIM_Y-3,9)));
+	gameObjects.add(new Land(new Position(Game.DIM_Y-3,12)));
+	for(int col = 17; col < Game.DIM_X; col++) {
+		gameObjects.add(new Land(new Position(Game.DIM_Y-2, col)));
+		gameObjects.add(new Land(new Position(Game.DIM_Y-1, col)));		
+	}
+
+	gameObjects.add(new Land(new Position(9,2)));
+	gameObjects.add(new Land(new Position(9,5)));
+	gameObjects.add(new Land(new Position(9,6)));
+	gameObjects.add(new Land(new Position(9,7)));
+	gameObjects.add(new Land(new Position(5,6)));
+	
+	// Salto final
+	int tamX = 8, tamY= 8;
+	int posIniX = Game.DIM_X-3-tamX, posIniY = Game.DIM_Y-3;
+	
+	for(int col = 0; col < tamX; col++) {
+		for (int fila = 0; fila < col+1; fila++) {
+			gameObjects.add(new Land(new Position(posIniY- fila, posIniX+ col)));
+		}
+	}
+
+	gameObjects.add(new ExitDoor(new Position(Game.DIM_Y-3, Game.DIM_X-1)));
+
+	// 3. Personajes
+	this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0));	//222666
+	gameObjects.add(this.mario);
+
+	gameObjects.add(new Goombas(this,new Position(0, 19)));
+	gameObjects.add(new Goombas(this,new Position(4,6)));
+	gameObjects.add(new Goombas(this,new Position(12,6)));
+	gameObjects.add(new Goombas(this,new Position(12,8)));
+	gameObjects.add(new Goombas(this,new Position(10,10)));
+	gameObjects.add(new Goombas(this,new Position(12,11)));
+	gameObjects.add(new Goombas(this,new Position(12, 14)));
+}
+
 }

@@ -2,12 +2,14 @@ package Tp1.logic.gameobjects;
 
 import Tp1.logic.Position;
 import Tp1.view.Messages;
+import Tp1.logic.Game;
 
 public class Goombas {
 	private Position pos;
-	public Goombas(Position pos) {
-		this.pos.setCol(pos.getCol());
-		this.pos.setRow(pos.getRow());
+	private Game game;
+	public Goombas(Game game,Position pos) {
+		this.pos=pos;
+		this.game=game;
 	}
 	public String getIcon() {
 		return Messages.GOOMBA;
@@ -18,12 +20,12 @@ public class Goombas {
 	public int getCol() {
 		return pos.getCol();
 	}
-	public Boolean isInPosition(Position pos) {
+	public boolean isInPosition(Position pos) {
 		
-		Boolean ok=true;
-		if(this.pos.getCol()!= pos.getCol()|| this.pos.getRow()!= pos.getRow()) {
-			ok=false;
+
+		if(this.pos.equals(pos)) {
+			return true;
 		}
-		return ok;
+		return false;
 	}
 }

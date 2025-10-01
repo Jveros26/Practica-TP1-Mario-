@@ -39,4 +39,10 @@ public class Mario {
 		}
 		return false;
 	}
+	public Position posicion() {
+		return this.pos;
+	}
+	public void update() {
+		
+	}
 }

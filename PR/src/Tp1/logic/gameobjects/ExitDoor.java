@@ -25,4 +25,7 @@ public class ExitDoor {
 		}
 		return false;
 	}
+	public Position posicion() {
+		return this.pos;
+	}
 }

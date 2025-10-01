@@ -158,9 +158,9 @@ public class ConsoleView extends GameView {
 	 */
 	@Override
 	public String[] getPrompt() {
-		System.out.print(Messages.PROMPT);
-		String line = scanner.nextLine();
-		String[] words = line.trim().split("\\s+");
+		System.out.print(Messages.PROMPT);	//Enseña mensaje de comando
+		String line = scanner.nextLine();	//Coge lo que escribamos
+		String[] words = line.trim().split("\\s+");	//Cada palabra separada por espacios es un elemento del array word (String)
 
         System.out.println(Messages.DEBUG.formatted(line));		
 

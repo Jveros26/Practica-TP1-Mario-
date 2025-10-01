@@ -20,6 +20,7 @@ public class Goombas {
 	public int getCol() {
 		return pos.getCol();
 	}
+
 	public boolean isInPosition(Position pos) {
 		
 
@@ -28,4 +29,18 @@ public class Goombas {
 		}
 		return false;
 	}
+	/*public void update() {
+		
+		if(game.isSolid(pos.move(Action.DOWN))) {
+			step();
+		}
+		else {
+			fall();
+		}
+		
+		if(!game.pisitionIsIn(pos)) {
+			dead();
+		}
+		
+	}*/
 }

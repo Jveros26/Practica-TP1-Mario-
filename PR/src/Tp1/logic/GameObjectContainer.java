@@ -49,5 +49,31 @@ public class GameObjectContainer {
 		
 		return buffer.toString();
 	}
+	public void update() {
+		mario.update();
+		//checkMarioinExit();
+		for(Goombas goomba:goombas) {
+			//goomba.update();
+		}
+		//doInteractionsFrom(mario);
+		
+		//clean();	
+	}
+	/*public boolean checkMarioinExit() {
+		boolean yes=false;
+		if(mario.posicion().equals(exitdoor.posicion())) {
+			yes=true;
+			
+		}
+		return yes;
+	}*/
+	/*private void clear() {
+		for(int i=Goombas.size()-1;i>=0;i--) {
+			Goombas goomba goombaList.get(i);
+			if(!goomba.isAlive()) {
+				Goombas.remove(i);
+			}
+		}
+	}*/
 }
 

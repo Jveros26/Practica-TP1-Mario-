@@ -2,6 +2,9 @@ package Tp1.control;
 
 import Tp1.logic.Game;
 import Tp1.view.GameView;
+import Tp1.view.Messages;
+import Tp1.logic.Action;
+
 import java.util.Scanner;
 
 /**
@@ -23,38 +26,14 @@ public class Controller {
 	 * 
 	 */
 	public void run() {
-		view.showWelcome();	//Enseña el titulo
-		Scanner scanner = new Scanner(System.in);	//Crea el scanner
-		view.showGame();	//Muestra el tablero
-		System.out.println();
-		System.out.println("Command>");
-		String command=scanner.nextLine();	//Pido comando por pantalla
-		while(!(command.equalsIgnoreCase("exit")||command.equalsIgnoreCase("e"))) {	//Mientras que el texto sea distinto de exit...
-			if(command.equalsIgnoreCase("help")||command.equalsIgnoreCase("h")) {
-				show_commands();	//Si pide ayuda muestro comandos por pantalla
-			}
-			else {
-				if(command.equalsIgnoreCase("update")||command.equalsIgnoreCase("u")||command.isEmpty()) {	//Actualiza juego
-					//game.update();
-					/*Supongo que en la funcion update hay que modificar la posicion de mario en el juego y cambiarlo en el tablero*/
-					view.showGame();
-				}
-				else {
-					if(command.equalsIgnoreCase("reset")||command.equalsIgnoreCase("r")) {	//Resetea el juego
-						//game.reset();
-						view.showGame();
-					}
-					else {
-						System.out.println("Error: Unknown command: comandoTecleadoPorElUsuario.");	//No existe el comando
-					}
-				}
-			}
-			System.out.println();
-			System.out.println("Command>");
-			command=scanner.nextLine();	//Pido comando por pantalla
+		view.showWelcome();	
+		view.showGame();	
+		while(!game.isFinished()) {
+			String [] words=view.getPrompt();
+			//execute(words);
+			
 		}
 		view.showEndMessage();	//Muestra el final
-		 scanner.close();
 	}
 	public void show_commands() {
 		System.out.println("Available commands:");
@@ -64,5 +43,80 @@ public class Controller {
 				+ "			   [h]elp: print this help message\r\n"
 				+ "			   [e]xit: exits the game");
 	}
+	private void execute(String[] words) {
+		
+		switch(words[0].toLowerCase()) {
+		
+		case "action":
+		case"a":
+				if(words.length<2) {	//Pq tiene que tener dos elementos action+lo que quieres hacer
+					view.showError(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+				}
+				else {
+					/*for(int i=1;i<words.length;i++) {
+						//Action action= Action.parse(words[i]);
+						if(action !=null){
+						game.addAction(action);
+						}
+						else {
+							view.showError(Messages.UNKNOWN_ACTION.formatted(words[i])); //Si la accion no es valida
+						}
+					}*/
+				}
+				this.game.update();
+				view.showGame();
+				break;
+		case"update":
+		case"u":
+		case"":
+			if(words.length!=1) {
+				view.showError(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+			}
+			else {
+				//this.game.update();
+				view.showGame();
+			}
+			break;
+		case"reset":
+		case"r":
+			if(words.length==2) {
+				this.game.reset(Integer.parseInt(words[1]));
+				view.showGame();
+			}
+			else {
+				if(words.length==1) {
+					this.game.reset(-1);	//Reinicia al nivel 1 pq no exite nivel -1
+					view.showGame();
+				}
+				else {
+					view.showError(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+				}
+			}
+			break;
+		case"help":
+		case"h":
+			if(words.length!=1) {
+				view.showError(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+			}
+			else {
+				view.showMessage(Messages.HELP);
+			}
+			break;
+		case"exit":
+		case"e":
+			if(words.length!=1) {
+				view.showError(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+			}
+			else {
+				this.game.exit();
+			}
+			break;
+		default: view.showError(Messages.UNKNOWN_COMMAND.formatted(words[0]));	//Si el commando no es valido
+		
+		}
+	}
 	
 }
+
+
+

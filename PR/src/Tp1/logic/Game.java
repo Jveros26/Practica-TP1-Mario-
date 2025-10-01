@@ -8,6 +8,8 @@ public class Game {
 	private int remainingTime;
 	private Mario mario;
     private GameObjectContainer gameObjects;
+    private int numLives=3;
+    private boolean exit;
 
 	//TODO fill your code
 	public Game(int nLevel) {	
@@ -35,11 +37,24 @@ public class Game {
 		return false;
 	}
 	public boolean playerLoses() {
-		// TODO Auto-generated method stub
+		if(numLives<=0) {
+			return true;
+		}
 		return false;
 	}
-
-
+	public void exit(){
+		this.exit=true;
+	}
+	public void reset(int nLevel) {
+		switch(nLevel) {
+		case 0:	initLevel0();
+			break;
+		case 1: initLevel1();
+			break;
+		default: initLevel1();
+		}
+	}
+	
 	public int remainingTime() {
 		// TODO Auto-generated method stub
 		return 100;
@@ -51,14 +66,23 @@ public class Game {
 	}
 
 	public int numLives() {
-		// TODO Auto-generated method stub
-		return 3;
+		return this.numLives;
+	}
+	public void update(){
+		this.remainingTime--;
+		gameObjects.update();
 	}
 
 	@Override
 	public String toString() {
 		// TODO returns a textual representation of the object
 		return "TODO: Hola soy el game";
+	}
+	public boolean isFinished() {
+		if(this.playerLoses() || this.playerWins()||this.exit) {
+			return true;
+		}
+		return false;
 	}
 	
 	private void initLevel0() {  

@@ -35,14 +35,6 @@ public class Controller {
 		}
 		view.showEndMessage();	//Muestra el final
 	}
-	public void show_commands() {
-		System.out.println("Available commands:");
-		System.out.println("	   [a]ction [[R]IGHT | [L]EFT | [U]P | [D]OWN | [S]TOP]+: user performs actions");
-		System.out.println("	   [u]pdate | \"\": user does not perform any action\r\n"
-				+ "			   [r]eset [numLevel]: reset the game to initial configuration if not numLevel else load the numLevel map\r\n"
-				+ "			   [h]elp: print this help message\r\n"
-				+ "			   [e]xit: exits the game");
-	}
 	private void execute(String[] words) {
 		
 		switch(words[0].toLowerCase()) {

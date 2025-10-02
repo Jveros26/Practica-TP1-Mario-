@@ -30,7 +30,7 @@ public class Controller {
 		view.showGame();	
 		while(!game.isFinished()) {
 			String [] words=view.getPrompt();
-			//execute(words);
+			execute(words);
 			
 		}
 		view.showEndMessage();	//Muestra el final
@@ -41,21 +41,21 @@ public class Controller {
 		
 		case "action":
 		case"a":
-				if(words.length<2) {	//Pq tiene que tener dos elementos action+lo que quieres hacer
+				/*if(words.length<2) {	//Pq tiene que tener dos elementos action+lo que quieres hacer
 					view.showError(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 				}
 				else {
-					/*for(int i=1;i<words.length;i++) {
-						//Action action= Action.parse(words[i]);
+					for(int i=1;i<words.length;i++) {
+						Action action= Action.parse(words[i]);
 						if(action !=null){
 						game.addAction(action);
 						}
 						else {
 							view.showError(Messages.UNKNOWN_ACTION.formatted(words[i])); //Si la accion no es valida
 						}
-					}*/
+					}
 				}
-				this.game.update();
+				this.game.update();*/
 				view.showGame();
 				break;
 		case"update":
@@ -65,7 +65,7 @@ public class Controller {
 				view.showError(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 			}
 			else {
-				//this.game.update();
+				this.game.update();
 				view.showGame();
 			}
 			break;
@@ -107,7 +107,6 @@ public class Controller {
 		
 		}
 	}
-	
 }
 
 

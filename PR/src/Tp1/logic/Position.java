@@ -27,6 +27,18 @@ public class Position {
 	public void setCol(int col) {
 		this.col=col;
 	}
+	public void up() {
+		this.col++;
+	}
+	public void down() {
+		this.col--;
+	}
+	public void left() {
+		this.row--;
+	}
+	public void right() {
+		this.row++;
+	}
 	public boolean equals(Object pos) {
 		if(this==pos) return true;
 		
@@ -35,5 +47,45 @@ public class Position {
 		
 		Position a=(Position) pos;
 		return this.row==a.row && this.col==a.col;
+	}
+	public Position move(Action accion) {
+		Position p=this;
+		switch(accion) {
+		case DOWN:
+			p.down();
+			break;
+			
+		case UP:
+			p.up();
+			break;
+			
+		case LEFT:
+			p.left();
+			break;
+			
+		case RIGHT:
+			p.right();;
+			break;
+		}
+		return p;
+	}
+	public void commute(Action accion) {
+		switch(accion) {
+		case DOWN:
+			this.down();
+			break;
+			
+		case UP:
+			this.up();
+			break;
+			
+		case LEFT:
+			this.left();
+			break;
+			
+		case RIGHT:
+			this.right();;
+			break;
+		}
 	}
 }

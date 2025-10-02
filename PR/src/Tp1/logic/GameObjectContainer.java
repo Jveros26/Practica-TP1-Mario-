@@ -5,6 +5,7 @@ import Tp1.logic.gameobjects.Land;
 import Tp1.logic.gameobjects.Goombas;
 import Tp1.logic.gameobjects.ExitDoor;
 import Tp1.logic.gameobjects.Mario;
+import Tp1.logic.gameobjects.Goombas;
 import java.util.ArrayList;
 
 public class GameObjectContainer {
@@ -50,30 +51,49 @@ public class GameObjectContainer {
 		return buffer.toString();
 	}
 	public void update() {
-		mario.update();
-		//checkMarioinExit();
-		for(Goombas goomba:goombas) {
-			//goomba.update();
+		mario.update();	//actualiza mario--->aqui como avisa que mario muere
+		for(Goombas goomba:goombas) {	//Actualiza goombas
+			goomba.update();
 		}
-		//doInteractionsFrom(mario);
-		
-		//clean();	
+		clear();	//limpia goombas muertos
 	}
-	/*public boolean checkMarioinExit() {
-		boolean yes=false;
-		if(mario.posicion().equals(exitdoor.posicion())) {
-			yes=true;
-			
-		}
-		return yes;
-	}*/
-	/*private void clear() {
-		for(int i=Goombas.size()-1;i>=0;i--) {
-			Goombas goomba goombaList.get(i);
-			if(!goomba.isAlive()) {
-				Goombas.remove(i);
+	public String whatIs(Position pos) {
+		
+		String es="";
+		for(Land land:lands) {
+			if(land.equals(pos)){
+				es="land";
+				break;
 			}
 		}
-	}*/
+		if(es!="land") {
+			for(Goombas goomba:goombas) {
+				if(goombas.equals(pos)){
+					es="goomba";
+					break;
+				}
+			}
+		}
+		if(es!="land"&&es!="goomba") {
+			if(mario.equals(pos)){
+				es="mario";
+			}
+		}
+		if(es!="land" && es!="goomba" && es!="mario") {
+			if(exitdoor.equals(pos)){
+				es="exitdoor";
+			}
+		}
+		
+		return es;
+	}
+	private void clear() {
+		for(int i=goombas.size()-1;i>=0;i--) {
+			Goombas goomba=goombas.get(i);
+			if(!goomba.Alive()) {
+				goombas.remove(i);
+			}
+		}
+	}
 }
 

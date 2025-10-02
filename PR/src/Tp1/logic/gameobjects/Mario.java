@@ -2,6 +2,7 @@ package Tp1.logic.gameobjects;
 
 import Tp1.logic.Position;
 import Tp1.view.Messages;
+import Tp1.logic.Action;
 import Tp1.logic.Game;
 
 
@@ -42,7 +43,45 @@ public class Mario {
 	public Position posicion() {
 		return this.pos;
 	}
-	public void update() {
+public void update() {	//
 		
+	if(game.isSolid(pos.move(Action.DOWN))) {
+			step();
+		}
+		else {
+			fall();
+		}
+		
+		if(!game.positionIsIn(pos)) {
+			game.liveMinus();	
+			game.fullTime();
+			int nivel=game.level();
+			game.reset(nivel);
+		}
+	
+	
+		
+	}
+	public void step() {
+		if(game.isSolid(pos.move(Action.LEFT))){
+			pos.move(Action.RIGHT);
+			right=true;
+			left=false;
+		}
+		else {
+			if(game.isSolid(pos.move(Action.RIGHT))){
+				pos.move(Action.LEFT);
+				right=false;
+				left=true;
+			}
+			else {
+				//Si no cambia el movimiento como sabemos a donde se mueve?
+				//Idea de poner Action como atributo de la clase
+			}
+		}
+		
+	}
+	public void fall() {
+		pos.move(Action.DOWN);
 	}
 }

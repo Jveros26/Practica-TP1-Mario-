@@ -14,7 +14,6 @@ public enum Action {
 		this.x=x;
 		this.y=y;
 	}
-	
 	public int getX() {
 		return x;
 	}
@@ -22,7 +21,37 @@ public enum Action {
 	public int getY() {
 		return y;
 	}
-	
+	public static Action parse(String o) {
+		Action a;
+		switch(o.toLowerCase()) {
+		case"left:":
+		case"l":
+			a=LEFT;
+			
+			break;
+		case"right":
+		case"r":
+			a=RIGHT;
+			break;
+		case"down":
+		case"d":
+			a=DOWN;
+			
+			break;
+		case "up":
+		case"u":
+			a=UP;
+			break;
+		case "stop":
+		case"s":
+			a=STOP;
+			break;
+			
+		default:a=null;
+		}
+		
+		return a;
+	}
 	
 	
 }

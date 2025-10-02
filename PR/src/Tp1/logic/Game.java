@@ -4,9 +4,9 @@ public class Game {
 
 	public static final int DIM_X = 30;
 	public static final int DIM_Y = 15;
-	private int nLevel;
-	private int remainingTime;
+	private int remainingTime=100;
 	private Mario mario;
+	int nLevel;
     private GameObjectContainer gameObjects;
     private int numLives=3;
     private boolean exit;
@@ -14,7 +14,6 @@ public class Game {
 	//TODO fill your code
 	public Game(int nLevel) {	
 		
-		this.gameObjects= new GameObjectContainer();	//Inicializa el contenedor de objetos a vacio
 		if(nLevel==0) {
 			initLevel0();
 		}
@@ -22,6 +21,12 @@ public class Game {
 		initLevel1();
 		}
 	}
+	
+	
+	public void liveMinus() {
+		numLives--;
+	}
+	
 	
 	public String positionToString(int col, int row) {
 			
@@ -36,15 +41,21 @@ public class Game {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 	public boolean playerLoses() {
 		if(numLives<=0) {
 			return true;
 		}
 		return false;
 	}
+	
+	
 	public void exit(){
 		this.exit=true;
 	}
+	
+	
 	public void reset(int nLevel) {
 		switch(nLevel) {
 		case 0:	initLevel0();
@@ -54,10 +65,15 @@ public class Game {
 		default: initLevel1();
 		}
 	}
+
 	
 	public int remainingTime() {
-		// TODO Auto-generated method stub
-		return 100;
+		return remainingTime;
+	}
+	
+	
+	public void fullTime() {
+		remainingTime=100;
 	}
 
 	public int points() {
@@ -65,14 +81,20 @@ public class Game {
 		return 0;
 	}
 
+	
 	public int numLives() {
 		return this.numLives;
+	}
+	
+	public int level() {
+		return nLevel;
 	}
 	public void update(){
 		this.remainingTime--;
 		gameObjects.update();
 	}
 
+	
 	@Override
 	public String toString() {
 		// TODO returns a textual representation of the object
@@ -88,6 +110,7 @@ public class Game {
 	private void initLevel0() {  
 		this.nLevel = 0;
 		this.remainingTime = 100;
+		this.gameObjects= new GameObjectContainer();
 		
 		// 1. Mapa
 		for(int col = 0; col < 15; col++) {
@@ -131,6 +154,7 @@ public class Game {
 private void initLevel1() {  
 	this.nLevel = 1;
 	this.remainingTime = 100;
+	this.gameObjects= new GameObjectContainer();
 	
 	// 1. Mapa
 	for(int col = 0; col < 15; col++) {
@@ -175,5 +199,20 @@ private void initLevel1() {
 	gameObjects.add(new Goombas(this,new Position(12,11)));
 	gameObjects.add(new Goombas(this,new Position(12, 14)));
 }
+	public boolean isSolid(Position pos) {
+	
+		String es=gameObjects.whatIs(pos);
+		if(es=="lands" || es=="goomba") {
+			return true;
+		}
+		return false;
+	}	
 
+	public boolean positionIsIn(Position pos) {
+		boolean ok=true;
+		if(pos.getCol()<0 ||pos.getCol()>DIM_Y || pos.getRow()<0 || pos.getRow()>DIM_X ) {
+			ok=false;
+		}
+		return ok;
+	}
 }

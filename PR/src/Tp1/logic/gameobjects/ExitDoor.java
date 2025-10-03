@@ -5,18 +5,28 @@ import Tp1.view.Messages;
 
 public class ExitDoor {
 	private Position pos;
+//--------------------------------------------------
+
 	public ExitDoor(Position pos) {
 		this.pos=pos;
 	}
+//--------------------------------------------------
+
 	public String getIcon() {
 		return Messages.EXIT_DOOR;
 	}
+//--------------------------------------------------
+
 	public int getRow() {
 		return pos.getRow();
 	}
+//--------------------------------------------------
+
 	public int getCol() {
 		return pos.getCol();
 	}
+//--------------------------------------------------
+
 	public boolean isInPosition(Position pos) {
 		
 

@@ -5,7 +5,7 @@ public class Game {
 
 	public static final int DIM_X = 30;
 	public static final int DIM_Y = 15;
-	private int remainingTime=100;
+	private int remainingTime;
 	private Mario mario;
 	int nLevel;
 	private ActionList actList;
@@ -20,7 +20,8 @@ public class Game {
 		reset(nLevel);
 	}
 	
-	
+//--------------------------------------------------
+
 	public String positionToString(int col, int row) {
 			
 		Position pos= new Position (row,col);
@@ -28,26 +29,30 @@ public class Game {
 		 return gameObjects.positionToString(pos);	//Le pasa posicion al array de objetos que va a la clase y devuelve
 		 //El objecto que haya en la posicion en forma de string
 	}
-	
+//--------------------------------------------------
+
 
 	public boolean playerWins() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 	
-	
+//--------------------------------------------------
+
 	public boolean playerLoses() {
-		if(numLives<=0) {
+		if(numLives<=0||remainingTime==0) {
 			return true;
 		}
 		return false;
 	}
-	
+//--------------------------------------------------
+
 	
 	public void exit(){
 		this.exit=true;
 	}
-	
+//--------------------------------------------------
+
 	public void reset(int nLevel) {
 		switch(nLevel) {
 		case 0:	initLevel0();
@@ -58,52 +63,58 @@ public class Game {
 		}
 	}
 
-	
+//--------------------------------------------------
+
 	public int remainingTime() {
 		return remainingTime;
 	}
-	
-	
-	public void fullTime() {
-		remainingTime=100;
-	}
+//--------------------------------------------------
 
 	public int points() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	
+//--------------------------------------------------
+
 	public int numLives() {
 		return this.numLives;
 	}
-	
+//--------------------------------------------------
+
 	public int level() {
 		return nLevel;
 	}
+//--------------------------------------------------
+
 	public void update(){
 		this.remainingTime--;
 		gameObjects.update();
 	}
+//--------------------------------------------------
 
 	public void clearList() {
 		for(int i=actList.lenght()-1;i>=0;i--) {
 			actList.remove(i);
 		}
 	}
-	
+//--------------------------------------------------
+
 	@Override
 	public String toString() {
 		// TODO returns a textual representation of the object
 		return "TODO: Hola soy el game";
 	}
+//--------------------------------------------------
+
 	public boolean isFinished() {
 		if(this.playerLoses() || this.playerWins()||this.exit) {
 			return true;
 		}
 		return false;
 	}
-	
+//--------------------------------------------------
+
 	private void initLevel0() {  
 		this.nLevel = 0;
 		this.remainingTime = 100;
@@ -147,6 +158,7 @@ public class Game {
 		gameObjects.add(new Goombas(this,new Position(0, 19)));
 	}
 	
+//--------------------------------------------------
 
 private void initLevel1() {  
 	this.nLevel = 1;
@@ -196,6 +208,7 @@ private void initLevel1() {
 	gameObjects.add(new Goombas(this,new Position(12,10)));
 	gameObjects.add(new Goombas(this,new Position(12, 14)));
 }
+//--------------------------------------------------
 	public boolean isSolid(Position pos) {
 	
 		String es=gameObjects.whatIs(pos);
@@ -204,7 +217,7 @@ private void initLevel1() {
 		}
 		return false;
 	}	
-
+//--------------------------------------------------
 	public boolean positionIsIn(Position pos) {
 		boolean ok=true;
 		if((pos.getCol())<0 ||(pos.getCol())>DIM_X || (pos.getRow())<0 || (pos.getRow())>DIM_Y ) {
@@ -212,6 +225,8 @@ private void initLevel1() {
 		}
 		return ok;
 	}
+//--------------------------------------------------
+
 	public boolean isGoomba(Position pos) {
 		String es=gameObjects.whatIs(pos);
 		if(es=="goomba") {
@@ -219,12 +234,21 @@ private void initLevel1() {
 		}
 		return false;
 	}
+//--------------------------------------------------
+
+	public boolean isMario(Position pos) {
+		String es=gameObjects.whatIs(pos);
+		if(es=="mario") {
+			return true;
+		}
+		return false;
+	}
+//--------------------------------------------------
 	public void addAction(Action action) {
 		actList.add(action);
 	}
 	public void marioDead() {
 		numLives--;
-		this.fullTime();
 		if(this.numLives>0) {
 			reset(this.level());
 		}

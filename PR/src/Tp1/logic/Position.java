@@ -43,6 +43,8 @@ public class Position {
 	public void right() {
 		this.col++;
 	}
+//--------------------------------------------------
+
 	public boolean equals(Object pos) {
 		if(this==pos) return true;
 		
@@ -52,6 +54,8 @@ public class Position {
 		Position a=(Position) pos;
 		return this.row==a.row && this.col==a.col;
 	}
+//--------------------------------------------------
+
 	public Position move(Action accion) {
 		Position p=new Position(this);
 		switch(accion) {
@@ -73,6 +77,7 @@ public class Position {
 		}
 		return p;
 	}
+//--------------------------------------------------
 	public void commute(Action accion) {
 		switch(accion) {
 		case DOWN:

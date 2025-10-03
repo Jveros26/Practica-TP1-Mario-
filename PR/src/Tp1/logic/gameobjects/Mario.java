@@ -6,6 +6,8 @@ import Tp1.logic.Action;
 import Tp1.logic.Game;
 import Tp1.logic.gameobjects.Goombas;
 import Tp1.logic.ActionList;
+import Tp1.view.Messages;
+
 
 
 public class Mario {
@@ -18,6 +20,8 @@ public class Mario {
 	private boolean alive;
 	private boolean isFalling;
 	private boolean isAscending;
+//--------------------------------------------------
+
 	public Mario(Game game,Position pos,ActionList actL) {
 		this.pos=pos;
 		this.game=game;
@@ -27,6 +31,8 @@ public class Mario {
 		isAscending=false;
 		action=Action.RIGHT;
 	}
+//--------------------------------------------------
+
 	public String getIcon() {	//Va hacia la izq? Si-> devuelve imagen mario izq : No-> mario recto
 		String pose=Messages.MARIO_STOP;
 		if(action==Action.LEFT) {
@@ -39,27 +45,36 @@ public class Mario {
 		}
 		return pose;
 	}
+//--------------------------------------------------
+
 	public int getRow() {
 		return pos.getRow();
 	}
+//--------------------------------------------------
+
 	public int getCol() {
 		return pos.getCol();
 	}
+//--------------------------------------------------
+
 	public boolean isInPosition(Position pos) {
 		
 		return alive && (this.pos.equals(pos) || 
 				this.isBig && pos.equals(this.pos.move(Action.UP)));
 	}
+//--------------------------------------------------
+
 	public Position posicion() {
 		return this.pos;
 	}
 	
-	
+//--------------------------------------------------
+
 	public void update() {	
-	if(actList.lenght()!=0) {	
-		if(game.isSolid(pos.move(Action.DOWN))) {	//Aqui falta que muera y resetee
-			if((game.isGoomba(pos.move(Action.LEFT))&&(action==Action.LEFT))) {
-				dead();	//falta añadir en la funcion dead de game que reinicie
+	//if(actList.lenght()!=0) {	
+		if(game.isSolid(pos.move(Action.DOWN))) {	
+			/*if((game.isGoomba(pos.move(Action.LEFT))&&(action==Action.LEFT))) {
+				dead();	
 			}
 			else {
 				if((game.isGoomba(pos.move(Action.RIGHT))&&(action==Action.RIGHT))) {
@@ -68,23 +83,23 @@ public class Mario {
 				else {
 					step();	
 				}
-			}
+			}*/
+			step();
 		}
 		else {
 		
 			fall();
 		}
-	}
-	else {
+	//}
+	//else {
 		//runActions();	//Tiene qu ehacer asi pero la funcion es booleana
-	}
+	//}
 	if(!game.positionIsIn(pos)) {
 		dead();
 	}	
-}
-	
-	
-	
+}	
+//--------------------------------------------------
+
 	
 	public void step() {
 		if(game.isSolid(pos.move(Action.LEFT))){
@@ -120,14 +135,19 @@ public class Mario {
 		}
 		
 	}
+//--------------------------------------------------
+
 	public void fall() {
 		pos.commute(Action.DOWN);
 	}
+//--------------------------------------------------
+
 	public void dead() {
 		this.alive=false;
 		game.marioDead();
 	}
-	
+//--------------------------------------------------
+
 	/*private boolean runActions() {
 		Position posIni=this.pos;
 		for(int i=0;i<(actList.lenght());i++) {
@@ -135,6 +155,8 @@ public class Mario {
 			//runAction(action);
 		}
 	}*/
+//--------------------------------------------------
+
 	
 	/*private void runAction(String action) {
 		
@@ -146,9 +168,7 @@ public class Mario {
 		
 		}
 	}*/
-	
-	
-	
+//--------------------------------------------------
 	
 	/*public boolean Interactwith(Goombas other) {
 		boolean canInteract=other.isInPosition(this.pos) ||

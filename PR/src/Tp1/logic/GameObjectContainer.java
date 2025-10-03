@@ -36,6 +36,8 @@ public class GameObjectContainer {
 	public ExitDoor getExitDoor() {
 		return this.exitdoor;
 	}
+//--------------------------------------------------
+
 	public String positionToString(Position pos) { 
 		StringBuilder buffer=new StringBuilder();
 		for(Land land:lands) {
@@ -50,13 +52,19 @@ public class GameObjectContainer {
 		
 		return buffer.toString();
 	}
+//--------------------------------------------------
+
 	public void update() {
+		
 		mario.update();	//actualiza mario--->aqui como avisa que mario muere
 		for(Goombas goomba:goombas) {	//Actualiza goombas
 			goomba.update();
 		}
+		
 		clear();	//limpia goombas muertos
 	}
+//--------------------------------------------------
+
 	public String whatIs(Position pos) {
 		
 		String es="";
@@ -87,6 +95,8 @@ public class GameObjectContainer {
 		
 		return es;
 	}
+//--------------------------------------------------
+
 	private void clear() {
 		for(int i=goombas.size()-1;i>=0;i--) {
 			Goombas goomba=goombas.get(i);

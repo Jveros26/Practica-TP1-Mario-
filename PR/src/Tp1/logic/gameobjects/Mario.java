@@ -10,7 +10,9 @@ import Tp1.logic.Game;
 public class Mario {
 	private Position pos;
 	private Game game;
+	private boolean isBig;
 	private boolean left,right;
+	//private Action action;
 	public Mario(Game game,Position pos) {
 		this.pos=pos;
 		this.game=game;
@@ -53,10 +55,7 @@ public void update() {	//
 		}
 		
 		if(!game.positionIsIn(pos)) {
-			game.liveMinus();	
-			game.fullTime();
-			int nivel=game.level();
-			game.reset(nivel);
+			//Muere, resetea nivel,baja una vida y resetea el tiempo---> llama a game notificando de bajar una vida
 		}
 	
 	

@@ -61,26 +61,26 @@ public class GameObjectContainer {
 		
 		String es="";
 		for(Land land:lands) {
-			if(land.equals(pos)){
+			if(land.isInPosition(pos)){
 				es="land";
 				break;
 			}
 		}
 		if(es!="land") {
 			for(Goombas goomba:goombas) {
-				if(goombas.equals(pos)){
+				if(goomba.isInPosition(pos)){
 					es="goomba";
 					break;
 				}
 			}
 		}
 		if(es!="land"&&es!="goomba") {
-			if(mario.equals(pos)){
+			if(mario.isInPosition(pos)){
 				es="mario";
 			}
 		}
 		if(es!="land" && es!="goomba" && es!="mario") {
-			if(exitdoor.equals(pos)){
+			if(exitdoor.isInPosition(pos)){
 				es="exitdoor";
 			}
 		}

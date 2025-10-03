@@ -9,11 +9,13 @@ public class Goombas {
 	private Position pos;
 	private Game game;
 	private boolean Alive;
-	//private Action action;
+	private Action action;
+	private boolean isFalling;
 	public Goombas(Game game,Position pos) {
 		this.pos=pos;
 		this.game=game;
 		this.Alive=true;
+		action=Action.LEFT;
 	}
 	public String getIcon() {
 		return Messages.GOOMBA;
@@ -26,8 +28,6 @@ public class Goombas {
 	}
 
 	public boolean isInPosition(Position pos) {
-		
-
 		if(this.pos.equals(pos)) {
 			return true;
 		}
@@ -36,9 +36,12 @@ public class Goombas {
 	public void update() {
 		
 		if(game.isSolid(pos.move(Action.DOWN))) {
+			this.isFalling=false;
 			step();
 		}
 		else {
+			this.isFalling=true;
+
 			fall();
 		}
 		
@@ -55,20 +58,35 @@ public class Goombas {
 	}
 	public void step() {
 		if(game.isSolid(pos.move(Action.LEFT))){
-			pos.move(Action.RIGHT);
+			pos.commute(Action.RIGHT);
+			this.action=Action.RIGHT;
+
 		}
 		else {
 			if(game.isSolid(pos.move(Action.RIGHT))){
-				pos.move(Action.LEFT);
+				pos.commute(Action.LEFT);
+				this.action=Action.LEFT;
+
 			}
 			else {
-				//Si no cambia el movimiento como sabemos a donde se mueve?
-				//Idea de poner Action como atributo de la clase
+				if(this.action==Action.LEFT) {
+					pos.commute(Action.LEFT);
+					this.action=Action.LEFT;
+
+				}
+				else {
+					pos.commute(Action.RIGHT);
+					this.action=Action.RIGHT;
+
+				}
 			}
 		}
 		
 	}
 	public void fall() {
-		pos.move(Action.DOWN);
+		pos.commute(Action.DOWN);
+	}
+	public Action accionG() {
+		return this.action;
 	}
 }

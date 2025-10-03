@@ -1,0 +1,27 @@
+package Tp1.logic;
+
+import java.util.ArrayList;
+
+import Tp1.logic.gameobjects.Land;
+
+public class ActionList {
+
+	private ArrayList<Action> actionList;
+	
+	public ActionList() {
+		actionList=new ArrayList<Action>();
+	}
+	public int lenght() {
+		return actionList.size();
+	}
+	public Action get(int i) {
+		return actionList.get(i);
+	}
+	public void add(Action acc) {
+		actionList.add(acc);
+	}
+	public void remove(int i) {
+		actionList.remove(i);
+	}
+	
+}

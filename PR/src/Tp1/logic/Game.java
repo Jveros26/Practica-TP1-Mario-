@@ -1,5 +1,6 @@
 package Tp1.logic;
 import Tp1.logic.gameobjects.*;
+
 public class Game {
 
 	public static final int DIM_X = 30;
@@ -7,24 +8,16 @@ public class Game {
 	private int remainingTime=100;
 	private Mario mario;
 	int nLevel;
+	private ActionList actList;
     private GameObjectContainer gameObjects;
-    private int numLives=3;
+    private int numLives;
     private boolean exit;
+    
 
 	//TODO fill your code
 	public Game(int nLevel) {	
-		
-		if(nLevel==0) {
-			initLevel0();
-		}
-		else {
-		initLevel1();
-		}
-	}
-	
-	
-	public void liveMinus() {
-		numLives--;
+		this.numLives=3;
+		reset(nLevel);
 	}
 	
 	
@@ -54,7 +47,6 @@ public class Game {
 	public void exit(){
 		this.exit=true;
 	}
-	
 	
 	public void reset(int nLevel) {
 		switch(nLevel) {
@@ -94,6 +86,11 @@ public class Game {
 		gameObjects.update();
 	}
 
+	public void clearList() {
+		for(int i=actList.lenght()-1;i>=0;i--) {
+			actList.remove(i);
+		}
+	}
 	
 	@Override
 	public String toString() {
@@ -144,7 +141,7 @@ public class Game {
 		gameObjects.add(new ExitDoor(new Position(Game.DIM_Y-3, Game.DIM_X-1)));
 
 		// 3. Personajes
-		this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0));	//222666
+		this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0),this.actList);	//222666
 		gameObjects.add(this.mario);
 
 		gameObjects.add(new Goombas(this,new Position(0, 19)));
@@ -188,7 +185,7 @@ private void initLevel1() {
 	gameObjects.add(new ExitDoor(new Position(Game.DIM_Y-3, Game.DIM_X-1)));
 
 	// 3. Personajes
-	this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0));	//222666
+	this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0),this.actList);	//222666
 	gameObjects.add(this.mario);
 
 	gameObjects.add(new Goombas(this,new Position(0, 19)));
@@ -196,13 +193,13 @@ private void initLevel1() {
 	gameObjects.add(new Goombas(this,new Position(12,6)));
 	gameObjects.add(new Goombas(this,new Position(12,8)));
 	gameObjects.add(new Goombas(this,new Position(10,10)));
-	gameObjects.add(new Goombas(this,new Position(12,11)));
+	gameObjects.add(new Goombas(this,new Position(12,10)));
 	gameObjects.add(new Goombas(this,new Position(12, 14)));
 }
 	public boolean isSolid(Position pos) {
 	
 		String es=gameObjects.whatIs(pos);
-		if(es=="lands" || es=="goomba") {
+		if(es=="land" || es=="goomba") {
 			return true;
 		}
 		return false;
@@ -210,9 +207,26 @@ private void initLevel1() {
 
 	public boolean positionIsIn(Position pos) {
 		boolean ok=true;
-		if(pos.getCol()<0 ||pos.getCol()>DIM_Y || pos.getRow()<0 || pos.getRow()>DIM_X ) {
+		if((pos.getCol())<0 ||(pos.getCol())>DIM_X || (pos.getRow())<0 || (pos.getRow())>DIM_Y ) {
 			ok=false;
 		}
 		return ok;
+	}
+	public boolean isGoomba(Position pos) {
+		String es=gameObjects.whatIs(pos);
+		if(es=="goomba") {
+			return true;
+		}
+		return false;
+	}
+	public void addAction(Action action) {
+		actList.add(action);
+	}
+	public void marioDead() {
+		numLives--;
+		this.fullTime();
+		if(this.numLives>0) {
+			reset(this.level());
+		}
 	}
 }

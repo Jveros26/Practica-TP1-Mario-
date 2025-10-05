@@ -8,7 +8,6 @@ public class Game {
 	private int remainingTime;
 	private Mario mario;
 	int nLevel;
-	private ActionList actList;
     private GameObjectContainer gameObjects;
     private int numLives;
     private boolean exit;
@@ -94,9 +93,7 @@ public class Game {
 //--------------------------------------------------
 
 	public void clearList() {
-		for(int i=actList.lenght()-1;i>=0;i--) {
-			actList.remove(i);
-		}
+		mario.clearList();
 	}
 //--------------------------------------------------
 
@@ -152,7 +149,7 @@ public class Game {
 		gameObjects.add(new ExitDoor(new Position(Game.DIM_Y-3, Game.DIM_X-1)));
 
 		// 3. Personajes
-		this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0),this.actList);	//222666
+		this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0));
 		gameObjects.add(this.mario);
 
 		gameObjects.add(new Goombas(this,new Position(0, 19)));
@@ -197,7 +194,7 @@ private void initLevel1() {
 	gameObjects.add(new ExitDoor(new Position(Game.DIM_Y-3, Game.DIM_X-1)));
 
 	// 3. Personajes
-	this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0),this.actList);	//222666
+	this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0));	
 	gameObjects.add(this.mario);
 
 	gameObjects.add(new Goombas(this,new Position(0, 19)));
@@ -245,7 +242,7 @@ private void initLevel1() {
 	}
 //--------------------------------------------------
 	public void addAction(Action action) {
-		actList.add(action);
+		mario.addAction(action);
 	}
 	public void marioDead() {
 		numLives--;

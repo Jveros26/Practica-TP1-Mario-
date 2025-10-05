@@ -9,18 +9,24 @@ public enum Action {
 	
 	private int x;
 	private int y;
-	
+//--------------------------------------------------
+
 	private Action(int x, int y) {
 		this.x=x;
 		this.y=y;
 	}
+//--------------------------------------------------
+
 	public int getX() {
 		return x;
 	}
+//--------------------------------------------------
 
 	public int getY() {
 		return y;
 	}
+//--------------------------------------------------
+
 	public static Action parse(String o) {
 		Action a;
 		switch(o.toLowerCase()) {
@@ -51,7 +57,55 @@ public enum Action {
 		}
 		
 		return a;
+	}	
+//--------------------------------------------------
+
+	public String toString() {
+		String p;
+		switch(this) {
+		case LEFT:
+			p="left";
+			
+			break;
+		case RIGHT:
+			p="right";
+			break;
+		case DOWN:
+			p="down";
+			
+			break;
+		case UP:
+			p="up";
+			break;
+		default:
+			p="stop";
+			break;
+		}
+		return p;
 	}
-	
+//--------------------------------------------------
+
+	public boolean isOpposite(Action a) {
+		boolean itIs=false;
+		if(this==LEFT && a==RIGHT) {
+			itIs=true;
+		}
+		else {
+			if(this==RIGHT && a==LEFT) {
+				itIs=true;
+			}
+			else {
+				if(this==DOWN && a==UP) {
+					itIs=true;
+				}
+				else {
+					if(this==UP && a==DOWN) {
+						itIs=true;
+					}
+				}
+			}
+		}
+		return itIs;
+	}
 	
 }

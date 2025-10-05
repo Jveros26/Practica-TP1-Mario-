@@ -43,7 +43,7 @@ public class Controller {
 		
 		case "action":
 		case"a":
-				/*if(words.length<2) {	//Pq tiene que tener dos elementos action+lo que quieres hacer
+				if(words.length<2) {	//Pq tiene que tener dos elementos action+lo que quieres hacer
 					view.showError(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 				}
 				else {
@@ -60,7 +60,7 @@ public class Controller {
 				this.game.update();
 				this.game.clearList();
 				view.showGame();
-				break;*/
+				break;
 		case"update":
 		case"u":
 		case"":

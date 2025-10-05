@@ -9,7 +9,7 @@ public class ActionList {
 	private ArrayList<Action> actionList;
 	
 	public ActionList() {
-		actionList=new ArrayList<Action>();
+		this.actionList=new ArrayList<Action>();
 	}
 	public int lenght() {
 		return actionList.size();

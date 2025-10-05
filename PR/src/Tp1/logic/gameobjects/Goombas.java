@@ -63,7 +63,6 @@ public class Goombas {
 		}
 		else {
 			this.isFalling=true;
-
 			fall();
 		}
 		

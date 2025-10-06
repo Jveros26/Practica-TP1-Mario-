@@ -18,21 +18,33 @@ public class GameObjectContainer {
 		lands=new ArrayList<Land>();			//Inicializar el array de los objetos
 		goombas=new ArrayList<Goombas>();
 	}
+//--------------------------------------------------
+
 	public void add(Land land) {	//Añade en el arraylist lands el argumento land
 		lands.add(land);
 	}
+//--------------------------------------------------
+
 	public void add(Goombas goomba) {
 		goombas.add(goomba);
 	}
+//--------------------------------------------------
+
 	public void add(ExitDoor exitdoor) {
 		this.exitdoor=exitdoor;
 	}
+//--------------------------------------------------
+
 	public void add(Mario mario) {
 		this.mario=mario;
 	}
+//--------------------------------------------------
+
 	public Mario getMario() {
 		return this.mario;
 	}
+//--------------------------------------------------
+
 	public ExitDoor getExitDoor() {
 		return this.exitdoor;
 	}

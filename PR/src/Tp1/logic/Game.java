@@ -250,4 +250,13 @@ private void initLevel1() {
 			reset(this.level());
 		}
 	}
+//--------------------------------------------------
+
+	public boolean isLand(Position pos) {
+		String es=gameObjects.whatIs(pos);
+		if(es=="land") {
+			return true;
+		}
+		return false;
+	}
 }

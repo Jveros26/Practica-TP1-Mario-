@@ -22,6 +22,7 @@ public class Mario {
 	private boolean left,right;
 	private boolean alive;
 	private boolean isFalling;
+	private boolean onAir;
 	private boolean isAscending;
 	private int r,l,d,u;
 //--------------------------------------------------
@@ -77,6 +78,7 @@ public class Mario {
 	public void update() {	
 
 	if(game.isSolid(pos.move(Action.DOWN))) {	
+		this.onAir=false;
 		if(actList.lenght()==0) {
 			step();	
 		}
@@ -85,8 +87,20 @@ public class Mario {
 		}
 	}
 	else {
-		this.action=Action.STOP;
-		fall();
+		this.onAir=true;
+		if(actList.lenght()>0) {
+			runActions();
+		}
+		else {
+			if(this.action==Action.RIGHT) {
+				pos.commute(Action.RIGHT);
+				fall();
+			}
+			else {
+				this.action=Action.STOP;
+				fall();
+			}
+		}
 	}		
 	if(!game.positionIsIn(pos)) {
 		
@@ -105,6 +119,7 @@ public class Mario {
 			if(game.isSolid(pos.move(Action.RIGHT))){
 				pos.commute(Action.LEFT);
 				this.action=Action.LEFT;
+				
 			}
 			else {
 				
@@ -161,30 +176,36 @@ public class Mario {
 		this.d=0;
 		this.r=0;
 		this.l=0;
-		
 		for(int i=0;i<(actList.lenght());i++) {	//Recorremos la lista de acciones
 			Action acc= actList.get(i);
 			if(i>0) {	//Si ya se puede mirar la posicion anterior
 				Action acc0= actList.get(i-1);	//Cogemos la anterior
 				if(!acc0.isOpposite(acc)) {	//Comprobamos si la anterior es la opuesta a la de ahora
-					String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
-					counter(a);	//Suma el contador de acciones con el que corresponda
-					if(itCan(a)) {	//Si puede hacer el movimeinto lo hace sino lo ignora
-					runAction(a);
-					}
-					else {
-						actList.remove(i);
+					if(canMove(acc)) {	//Si no se choca con una pared deja moverse
+						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
+						counter(a);	//Suma el contador de acciones con el que corresponda
+							if(itCan(a)) {	//Si puede hacer el movimeinto lo hace sino lo ignora
+								runAction(a);
+							}
+							else {
+								actList.remove(i);
+								i--;	//En caso de que borre lo que hago es retroceder un turno y asi no llega al contador
+							}
 					}
 				}
 				else {	//Si es opuesta solo la borramos del array
 					actList.remove(i);
+					i--; //En caso de que borre lo que hago es retroceder un turno y asi no llega al contador
 				}
 			}
 			else {
+				if(canMove(acc)) {	//Si no se choca con una pared deja moverse
 				String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
 				counter(a);	
 				runAction(a);
+				}
 			}
+		
 		}
 	}
 //--------------------------------------------------
@@ -207,14 +228,18 @@ public class Mario {
 			break;
 			
 		case"up":
+			if(!this.onAir) {
 			pos.commute(Action.UP);
-			this.action=Action.STOP;
+			this.isAscending=true;
+			//this.action=Action.STOP;
+			}
 
 			break;
 		
 		case"down":
 			pos.commute(Action.DOWN);
 			this.action=Action.STOP;
+			this.isFalling=false;
 
 			break;
 		}
@@ -240,7 +265,8 @@ public class Mario {
 			break;
 		}
 	}
-	
+//--------------------------------------------------
+
 	public boolean itCan(String a) {
 		boolean ok=true;
 		if(a=="left" && this.l>4) {
@@ -262,6 +288,36 @@ public class Mario {
 			}
 		}
 		return ok;
+	}
+//--------------------------------------------------
+
+	public boolean canMove(Action acc) {
+		boolean yes=true;
+		switch(acc) {
+		case LEFT:
+			if(game.isLand(pos.move(Action.LEFT))) {
+				yes=false;
+			}
+			break;
+		case RIGHT:
+			if(game.isLand(pos.move(Action.RIGHT))) {
+				yes=false;
+			}
+			break;
+		case DOWN:
+			if(game.isLand(pos.move(Action.DOWN))) {
+				yes=false;
+			}
+			
+			break;
+		case UP:
+			if(game.isLand(pos.move(Action.UP))) {
+				yes=false;
+			}
+
+			break;
+		}
+		return yes;
 	}
 		
 }
@@ -285,4 +341,18 @@ public class Mario {
 			
 		}
 	}*/
+
+/*if(this.action==Action.RIGHT) {
+if(actList.lenght()>0) {
+	runActions();
+}
+else {
+pos.commute(Action.RIGHT);
+fall();
+}
+}
+else {
+this.action=Action.STOP;
+fall();
+}*/
 

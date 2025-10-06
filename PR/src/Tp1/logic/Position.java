@@ -93,7 +93,7 @@ public class Position {
 			break;
 			
 		case RIGHT:
-			this.right();;
+			this.right();
 			break;
 		}
 	}

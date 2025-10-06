@@ -202,7 +202,7 @@ private void initLevel1() {
 	gameObjects.add(new Goombas(this,new Position(12,6)));
 	gameObjects.add(new Goombas(this,new Position(12,8)));
 	gameObjects.add(new Goombas(this,new Position(10,10)));
-	gameObjects.add(new Goombas(this,new Position(12,10)));
+	gameObjects.add(new Goombas(this,new Position(12,11)));
 	gameObjects.add(new Goombas(this,new Position(12, 14)));
 }
 //--------------------------------------------------

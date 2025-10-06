@@ -30,10 +30,9 @@ public enum Action {
 	public static Action parse(String o) {
 		Action a;
 		switch(o.toLowerCase()) {
-		case"left:":
+		case"left":
 		case"l":
 			a=LEFT;
-			
 			break;
 		case"right":
 		case"r":

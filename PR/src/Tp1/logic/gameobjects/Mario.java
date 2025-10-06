@@ -182,6 +182,7 @@ public class Mario {
 			}
 			else {
 				String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
+				counter(a);	
 				runAction(a);
 			}
 		}
@@ -195,18 +196,26 @@ public class Mario {
 		
 		case "left":
 			pos.commute(Action.LEFT);
+			this.action=Action.LEFT;
+
 			break;
 			
 		case "right":
 			pos.commute(Action.RIGHT);
+			this.action=Action.RIGHT;
+
 			break;
 			
 		case"up":
 			pos.commute(Action.UP);
+			this.action=Action.STOP;
+
 			break;
 		
 		case"down":
 			pos.commute(Action.DOWN);
+			this.action=Action.STOP;
+
 			break;
 		}
 	}
@@ -234,19 +243,19 @@ public class Mario {
 	
 	public boolean itCan(String a) {
 		boolean ok=true;
-		if(a=="left" && this.l==4) {
+		if(a=="left" && this.l>4) {
 			ok=false;
 		}
 		else {
-			if(a=="right" && this.r==4) {
+			if(a=="right" && this.r>4) {
 				ok=false;
 			}
 			else {
-				if(a=="up" && this.u==4) {
+				if(a=="up" && this.u>4) {
 					ok=false;
 				}
 				else {
-					if(a=="down" && this.d==4) {
+					if(a=="down" && this.d>4) {
 						ok=false;
 					}
 				}

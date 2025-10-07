@@ -11,6 +11,7 @@ public class Game {
     private GameObjectContainer gameObjects;
     private int numLives;
     private boolean exit;
+    private boolean marioExited;
     private int points;
     
 
@@ -18,6 +19,8 @@ public class Game {
 	public Game(int nLevel) {	
 		this.numLives=3;
 		this.points=0;
+		marioExited=false;
+		exit=false;
 		reset(nLevel);
 	}
 	
@@ -34,7 +37,7 @@ public class Game {
 
 
 	public boolean playerWins() {
-		return mario.interactWith(gameObjects.getExitDoor());
+		return marioExited;
 	}
 	
 //--------------------------------------------------
@@ -47,9 +50,13 @@ public class Game {
 	}
 //--------------------------------------------------
 
-	
 	public void exit(){
 		this.exit=true;
+	}
+//--------------------------------------------------
+
+	public void addPoints(int points){
+		this.points=points;
 	}
 //--------------------------------------------------
 
@@ -262,7 +269,8 @@ private void initLevel1() {
 //--------------------------------------------------
 
 	public void marioExited() {
-		this.points=(remainingTime*10);		
+		addPoints(remainingTime*10);
+		marioExited=true;
 	}
 
 }

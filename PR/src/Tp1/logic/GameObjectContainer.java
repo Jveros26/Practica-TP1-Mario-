@@ -73,6 +73,7 @@ public class GameObjectContainer {
 			for(Goombas goomba:goombas) {	//Actualiza goombas
 				goomba.update();
 			}
+			//doInteractionsFrom(mario);
 		
 			clear();	//limpia goombas muertos
 		}

@@ -88,16 +88,11 @@ public class Mario {
 			runActions();
 		}
 		else {
-			if(this.action==Action.RIGHT) {
-				pos.commute(Action.RIGHT);
-				fall();
-			}
-			else {
 				this.action=Action.STOP;
 				fall();
 			}
 		}
-	}		
+			
 	if(!game.positionIsIn(pos)) {
 		dead();
 	}	

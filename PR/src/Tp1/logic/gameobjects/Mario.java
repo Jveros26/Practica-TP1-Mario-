@@ -33,7 +33,7 @@ public class Mario {
 		alive=true;
 		isFalling=false;
 		isAscending=false;
-		action=Action.RIGHT;	
+		action=Action.STOP;	
 		actList=new ActionList();
 	}
 //--------------------------------------------------

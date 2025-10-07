@@ -7,15 +7,17 @@ public class Game {
 	public static final int DIM_Y = 15;
 	private int remainingTime;
 	private Mario mario;
-	int nLevel;
+	public int nLevel;
     private GameObjectContainer gameObjects;
     private int numLives;
     private boolean exit;
+    private int points;
     
 
 	//TODO fill your code
 	public Game(int nLevel) {	
 		this.numLives=3;
+		this.points=0;
 		reset(nLevel);
 	}
 	
@@ -32,8 +34,7 @@ public class Game {
 
 
 	public boolean playerWins() {
-		// TODO Auto-generated method stub
-		return false;
+		return mario.interactWith(gameObjects.getExitDoor());
 	}
 	
 //--------------------------------------------------
@@ -70,8 +71,7 @@ public class Game {
 //--------------------------------------------------
 
 	public int points() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.points;
 	}
 
 //--------------------------------------------------
@@ -259,4 +259,10 @@ private void initLevel1() {
 		}
 		return false;
 	}
+//--------------------------------------------------
+
+	public void marioExited() {
+		this.points=(remainingTime*10);		
+	}
+
 }

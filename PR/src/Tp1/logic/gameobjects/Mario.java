@@ -52,13 +52,8 @@ public class Mario {
 	}
 //--------------------------------------------------
 
-	public int getRow() {
-		return pos.getRow();
-	}
-//--------------------------------------------------
-
-	public int getCol() {
-		return pos.getCol();
+	public Position marioPos() {
+		return this.pos;
 	}
 //--------------------------------------------------
 
@@ -89,6 +84,7 @@ public class Mario {
 	else {
 		this.onAir=true;
 		if(actList.lenght()>0) {
+			fall();
 			runActions();
 		}
 		else {
@@ -103,7 +99,6 @@ public class Mario {
 		}
 	}		
 	if(!game.positionIsIn(pos)) {
-		
 		dead();
 	}	
 }	
@@ -111,12 +106,12 @@ public class Mario {
 
 	
 	public void step() {
-		if(game.isSolid(pos.move(Action.LEFT))){
+		if(game.isLand(pos.move(Action.LEFT))){
 			pos.commute(Action.RIGHT);
 			this.action=Action.RIGHT;
 		}
 		else {
-			if(game.isSolid(pos.move(Action.RIGHT))){
+			if(game.isLand(pos.move(Action.RIGHT))){
 				pos.commute(Action.LEFT);
 				this.action=Action.LEFT;
 				
@@ -128,7 +123,7 @@ public class Mario {
 					this.action=Action.RIGHT;
 				}
 				else {
-					if(this.action==Action.LEFT) {
+					if(this.action==Action.LEFT && !(game.isGoomba(pos.move(Action.LEFT)))) {
 						pos.commute(Action.LEFT);
 						//cada vez que hagamos commute
 						//this.game.doInteractionsFrom(this);
@@ -136,8 +131,10 @@ public class Mario {
 
 					}
 					else {
+						if(!(game.isGoomba(pos.move(Action.RIGHT)))) {
 						pos.commute(Action.RIGHT);
 						this.action=Action.RIGHT;
+						}
 
 					}	
 				}
@@ -319,19 +316,24 @@ public class Mario {
 		}
 		return yes;
 	}
+//--------------------------------------------------
+	public boolean interactWith(ExitDoor other) {
+		Position posit=other.exitDoorPos();
+		
+		boolean isInDoor=false;
+		if(this.pos.equals(posit)) {	//Comprueba si la posicion de la exitdoor y la de mario es la misma 
+			isInDoor=true;	//si lo es devuelve true sino false
+			game.marioExited();
+		}
+		return isInDoor;
+	}
 		
 }
 
 
 	
 	
-	/*public void remove(int i) {
-		for(int a=actList.lenght()-1;a>=0;a--) {
-			if(a==i) {
-				actList.remove(i);
-			}
-		}
-	}*/
+
 //--------------------------------------------------
 	
 	/*public boolean Interactwith(Goombas other) {
@@ -341,6 +343,8 @@ public class Mario {
 			
 		}
 	}*/
+
+
 
 /*if(this.action==Action.RIGHT) {
 if(actList.lenght()>0) {

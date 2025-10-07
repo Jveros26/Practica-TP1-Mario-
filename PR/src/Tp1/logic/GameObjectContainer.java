@@ -69,11 +69,13 @@ public class GameObjectContainer {
 	public void update() {
 		
 		mario.update();	//actualiza mario--->aqui como avisa que mario muere
-		for(Goombas goomba:goombas) {	//Actualiza goombas
-			goomba.update();
-		}
+		if(!checkMarioInExit()) {	//Si mario esta en la puerta pasa de actualizar esto
+			for(Goombas goomba:goombas) {	//Actualiza goombas
+				goomba.update();
+			}
 		
-		clear();	//limpia goombas muertos
+			clear();	//limpia goombas muertos
+		}
 	}
 //--------------------------------------------------
 
@@ -116,6 +118,10 @@ public class GameObjectContainer {
 				goombas.remove(i);
 			}
 		}
+	}
+	
+	private boolean checkMarioInExit() {
+		return mario.interactWith(exitdoor);
 	}
 }
 

@@ -1,5 +1,6 @@
 package Tp1.logic.gameobjects;
 
+import Tp1.logic.Game;
 import Tp1.logic.Position;
 import Tp1.view.Messages;
 
@@ -17,13 +18,8 @@ public class ExitDoor {
 	}
 //--------------------------------------------------
 
-	public int getRow() {
-		return pos.getRow();
-	}
-//--------------------------------------------------
-
-	public int getCol() {
-		return pos.getCol();
+	public Position exitDoorPos() {
+		return this.pos;
 	}
 //--------------------------------------------------
 

@@ -73,7 +73,7 @@ public class GameObjectContainer {
 			for(Goombas goomba:goombas) {	//Actualiza goombas
 				goomba.update();
 			}
-			//doInteractionsFrom(mario);
+			doInteractionsFrom(mario);
 		
 			clear();	//limpia goombas muertos
 		}
@@ -123,6 +123,12 @@ public class GameObjectContainer {
 	
 	private boolean checkMarioInExit() {
 		return mario.interactWith(exitdoor);
+	}
+	
+	private void doInteractionsFrom(Mario mario) {
+		for(Goombas goomba:goombas) {
+			mario.Interactwith(goomba);
+		}
 	}
 }
 

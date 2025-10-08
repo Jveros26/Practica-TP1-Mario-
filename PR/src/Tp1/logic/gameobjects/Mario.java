@@ -29,6 +29,9 @@ public class Mario {
 
 	public Mario(Game game,Position pos) {
 		this.pos=pos;
+		if(isBig) {
+			//poner la posicion de arriba
+		}
 		this.game=game;
 		alive=true;
 		isFalling=false;
@@ -74,6 +77,8 @@ public class Mario {
 
 	if(game.isSolid(pos.move(Action.DOWN))) {	
 		this.onAir=false;
+		this.isAscending=false;
+		this.isFalling=false;
 		if(actList.lenght()==0) {
 			step();	
 		}
@@ -83,6 +88,7 @@ public class Mario {
 	}
 	else {
 		this.onAir=true;
+		this.isFalling=true;
 		if(actList.lenght()>0) {
 			fall();
 			runActions();
@@ -172,7 +178,7 @@ public class Mario {
 			Action acc= actList.get(i);
 			if(i>0) {	//Si ya se puede mirar la posicion anterior
 				Action acc0= actList.get(i-1);	//Cogemos la anterior
-				if(!acc0.isOpposite(acc)) {	//Comprobamos si la anterior es la opuesta a la de ahora
+				if(!acc0.isOpposite(acc)/*aqui hacer busequeda de anteriores*/) {	//Comprobamos si la anterior es la opuesta a la de ahora
 					if(canMove(acc)) {	//Si no se choca con una pared deja moverse
 						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
 						counter(a);	//Suma el contador de acciones con el que corresponda
@@ -223,15 +229,25 @@ public class Mario {
 			if(!this.onAir) {
 			pos.commute(Action.UP);
 			this.isAscending=true;
-			//this.action=Action.STOP;
+			this.isFalling=false;
+			}
+			else {
+				this.isAscending=false;
+				this.isFalling=true;
 			}
 
 			break;
 		
 		case"down":
+			if(!game.isLand(pos.move(Action.DOWN))){
 			pos.commute(Action.DOWN);
 			this.action=Action.STOP;
-			this.isFalling=false;
+			this.isFalling=true;
+			}
+			else {
+				this.isFalling=false;
+			}
+			
 
 			break;
 		}
@@ -322,22 +338,49 @@ public class Mario {
 		}
 		return isInDoor;
 	}
-		
+//--------------------------------------------------
+
+public void Interactwith(Goombas other) {
+	boolean canInteract=other.isInPosition(this.pos); //||
+			//this.isBig && other.isInPosition(this.pos.move(Action.UP));
+	if(canInteract && !this.isFalling) {
+		this.crash(other);	//Si no cae mario se choca y o muere o mata al goomba y deja de ser grande
+	}
+	else {
+		if(canInteract && this.isFalling) {
+			other.receiveInteraction(this);	//Gomba muere
+			game.addPoints(100);
+		}
+	}
+	
+}
+
+private void crash(Goombas other) {
+	
+	if(this.isBig) {
+		other.receiveInteraction(this);	//El goomba muere
+		this.isBig=false;	//Deja de ser grande
+		game.addPoints(100);
+	}
+	else {
+		this.game.addPoints(100);	//Se suman puntos
+		other.receiveInteraction(this);
+	}
+}
+
+public boolean isBIG() {
+	return this.isBig;
+}
+public boolean isFalling() {
+	return this.isFalling;
+}
+
 }
 
 
 	
-	
 
 //--------------------------------------------------
-	
-	/*public boolean Interactwith(Goombas other) {
-		boolean canInteract=other.isInPosition(this.pos) ||
-				this.isBig && other.isInPosition(this.pos.move(Action.UP));
-		if(canInteract && !this.isFalling) {
-			
-		}
-	}*/
 
 
 

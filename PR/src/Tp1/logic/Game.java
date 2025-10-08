@@ -56,7 +56,7 @@ public class Game {
 //--------------------------------------------------
 
 	public void addPoints(int points){
-		this.points=points;
+		this.points+=points;
 	}
 //--------------------------------------------------
 
@@ -216,7 +216,7 @@ private void initLevel1() {
 	public boolean isSolid(Position pos) {
 	
 		String es=gameObjects.whatIs(pos);
-		if(es=="land" || es=="goomba") {
+		if(es=="land") {
 			return true;
 		}
 		return false;
@@ -272,5 +272,9 @@ private void initLevel1() {
 		addPoints(remainingTime*10);
 		marioExited=true;
 	}
+//--------------------------------------------------
+/*public void doInteractionsFrom(Mario mario) {
+	this.gameObjects.doInteractionsFrom(Mario mario);
+}*/
 
 }

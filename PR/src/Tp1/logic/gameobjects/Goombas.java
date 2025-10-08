@@ -47,25 +47,14 @@ public class Goombas {
 
 	public void update() {
 		
-		if(game.isSolid(pos.move(Action.DOWN))) {
+		if(game.isSolid(pos.move(Action.DOWN)) || game.isGoomba(pos.move(Action.DOWN))){
 			this.isFalling=false;
-			if((game.isMario(pos.move(Action.LEFT))&&(action==Action.LEFT))) {
-				game.marioDead();	
-			}
-			else {
-				if((game.isMario(pos.move(Action.RIGHT))&&(action==Action.RIGHT))) {
-					game.marioDead();
-				}
-				else {
-					step();	
-				}
-			}
+			step();	
 		}
-		else {
+		else{
 			this.isFalling=true;
 			fall();
 		}
-		
 		if(!game.positionIsIn(pos)) {
 			dead();
 		}
@@ -84,13 +73,13 @@ public class Goombas {
 //--------------------------------------------------
 
 	public void step() {
-		if(game.isSolid(pos.move(Action.LEFT))){
+		if(game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT))){
 			pos.commute(Action.RIGHT);
 			this.action=Action.RIGHT;
 
 		}
 		else {
-			if(game.isSolid(pos.move(Action.RIGHT))){
+			if(game.isSolid(pos.move(Action.RIGHT))||game.isGoomba(pos.move(Action.RIGHT))){
 				pos.commute(Action.LEFT);
 				this.action=Action.LEFT;
 
@@ -120,4 +109,21 @@ public class Goombas {
 	public Action accionG() {
 		return this.action;
 	}
+//--------------------------------------------------
+
+	public void receiveInteraction(Mario other) {
+		if(other.isFalling()) {	//Si mario esta en la posicion del goomba y resulta que estaba cayendo el goomba muere
+			dead();
+		}
+		else {
+			if(other.isBIG()) {	//Si mario no estaba cayendo pero se encuentra al goomba este muere
+				dead();
+			}
+			else {
+				this.game.addPoints(100);	//Se suman puntos
+				game.marioDead();		//Mario muere y se reinicia todo
+			}
+		}
+	}
+
 }

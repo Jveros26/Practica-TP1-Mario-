@@ -208,7 +208,7 @@ public class Mario {
 		
 		case "left":
 			if(isBig) {
-				if(!game.isSolid(p.move(Action.LEFT))) {
+				if(!game.isSolid(p.move(Action.LEFT)) && !game.isSolid(this.pos.move(Action.LEFT))) {
 					pos.commute(Action.LEFT);
 					this.action=Action.LEFT;
 				}
@@ -226,7 +226,7 @@ public class Mario {
 		case "right":
 			
 			if(isBig) {
-				if(!game.isSolid(p.move(Action.RIGHT))) {
+				if(!game.isSolid(p.move(Action.RIGHT)) && !game.isSolid(this.pos.move(Action.RIGHT))) {
 					pos.commute(Action.RIGHT);
 					this.action=Action.RIGHT;
 				}

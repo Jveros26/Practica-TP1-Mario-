@@ -75,11 +75,15 @@ public class Controller {
 		case"reset":
 		case"r":
 			if(words.length==2) {
+				this.game.resetLives();
+				this.game.resetPoints();
 				this.game.reset(Integer.parseInt(words[1]));
 				view.showGame();
 			}
 			else {
 				if(words.length==1) {
+					this.game.resetLives();
+					this.game.resetPoints();
 					this.game.reset(-1);	//Reinicia al nivel 1 pq no exite nivel -1
 					view.showGame();
 				}

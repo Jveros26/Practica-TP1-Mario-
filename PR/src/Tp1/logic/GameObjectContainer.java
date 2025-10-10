@@ -70,6 +70,7 @@ public class GameObjectContainer {
 		
 		mario.update();	//actualiza mario--->aqui como avisa que mario muere
 		if(!checkMarioInExit()) {	//Si mario esta en la puerta pasa de actualizar esto
+			doInteractionsFrom(mario);
 			for(Goombas goomba:goombas) {	//Actualiza goombas
 				goomba.update();
 			}

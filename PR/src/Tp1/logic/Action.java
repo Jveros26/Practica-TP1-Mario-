@@ -82,29 +82,5 @@ public enum Action {
 		}
 		return p;
 	}
-//--------------------------------------------------
 
-	public boolean isOpposite(Action a) {
-		boolean itIs=false;
-		if(this==LEFT && a==RIGHT) {
-			itIs=true;
-		}
-		else {
-			if(this==RIGHT && a==LEFT) {
-				itIs=true;
-			}
-			else {
-				if(this==DOWN && a==UP) {
-					itIs=true;
-				}
-				else {
-					if(this==UP && a==DOWN) {
-						itIs=true;
-					}
-				}
-			}
-		}
-		return itIs;
-	}
-	
 }

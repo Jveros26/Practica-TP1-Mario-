@@ -80,11 +80,20 @@ public class Game {
 	public int points() {
 		return this.points;
 	}
+//--------------------------------------------------
 
+	public void resetPoints() {
+		this.points=0;
+	}
 //--------------------------------------------------
 
 	public int numLives() {
 		return this.numLives;
+	}
+//--------------------------------------------------
+
+	public void resetLives() {
+		this.numLives=3;
 	}
 //--------------------------------------------------
 
@@ -209,7 +218,7 @@ private void initLevel1() {
 	gameObjects.add(new Goombas(this,new Position(12,6)));
 	gameObjects.add(new Goombas(this,new Position(12,8)));
 	gameObjects.add(new Goombas(this,new Position(10,10)));
-	gameObjects.add(new Goombas(this,new Position(12,11)));
+	gameObjects.add(new Goombas(this,new Position(12,10)));
 	gameObjects.add(new Goombas(this,new Position(12, 14)));
 }
 //--------------------------------------------------

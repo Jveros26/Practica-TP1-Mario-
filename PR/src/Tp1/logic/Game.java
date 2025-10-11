@@ -212,7 +212,7 @@ private void initLevel1() {
 	// 3. Personajes
 	this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0));	
 	gameObjects.add(this.mario);
-
+	
 	gameObjects.add(new Goombas(this,new Position(0, 19)));
 	gameObjects.add(new Goombas(this,new Position(4,6)));
 	gameObjects.add(new Goombas(this,new Position(12,6)));

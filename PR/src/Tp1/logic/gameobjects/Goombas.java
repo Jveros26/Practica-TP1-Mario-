@@ -73,6 +73,8 @@ public class Goombas {
 //--------------------------------------------------
 
 	public void step() {
+		
+	if(!((game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT))) && (game.isSolid(pos.move(Action.RIGHT))||game.isGoomba(pos.move(Action.RIGHT))))) {
 		if(game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT))){
 			pos.commute(Action.RIGHT);
 			this.action=Action.RIGHT;
@@ -97,6 +99,7 @@ public class Goombas {
 				}
 			}
 		}
+	}
 		
 	}
 //--------------------------------------------------

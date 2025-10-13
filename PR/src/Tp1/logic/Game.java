@@ -1,3 +1,4 @@
+//Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
 package Tp1.logic;
 import Tp1.logic.gameobjects.*;
 
@@ -15,7 +16,6 @@ public class Game {
     private int points;
     
 
-	//TODO fill your code
 	public Game(int nLevel) {	
 		this.numLives=3;
 		this.points=0;
@@ -66,7 +66,7 @@ public class Game {
 			break;
 		case 1: initLevel1();
 			break;
-		default: initLevel1();
+		default: reset(this.nLevel);
 		}
 	}
 
@@ -115,7 +115,6 @@ public class Game {
 
 	@Override
 	public String toString() {
-		// TODO returns a textual representation of the object
 		return "TODO: Hola soy el game";
 	}
 //--------------------------------------------------
@@ -233,7 +232,7 @@ private void initLevel1() {
 //--------------------------------------------------
 	public boolean positionIsIn(Position pos) {
 		boolean ok=true;
-		if((pos.getCol())<0 ||(pos.getCol())>DIM_X || (pos.getRow())<0 || (pos.getRow())>DIM_Y ) {
+		if((pos.getCol())>DIM_X || (pos.getRow())<0 || (pos.getRow())<0 || (pos.getRow())>DIM_Y ) {
 			ok=false;
 		}
 		return ok;

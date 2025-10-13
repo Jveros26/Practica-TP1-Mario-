@@ -1,3 +1,4 @@
+//Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
 package Tp1.logic.gameobjects;
 
 import Tp1.logic.Position;
@@ -75,7 +76,9 @@ public class Goombas {
 	public void step() {
 		
 	if(!((game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT))) && (game.isSolid(pos.move(Action.RIGHT))||game.isGoomba(pos.move(Action.RIGHT))))) {
-		if(game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT))){
+		Position pa=pos.move(Action.LEFT);
+		int cal=pa.getCol();
+		if(game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT)) || cal<0){
 			pos.commute(Action.RIGHT);
 			this.action=Action.RIGHT;
 

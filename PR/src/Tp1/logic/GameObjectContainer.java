@@ -1,3 +1,4 @@
+//Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
 package Tp1.logic;
 
 import Tp1.logic.Position;
@@ -66,11 +67,13 @@ public class GameObjectContainer {
 	}
 //--------------------------------------------------
 
-	public void update() {
+	public void update() {	//Hacemos doble clear e interactWith para que mario interaccione si es grande y asciende con los goombas que cae
+							//Asi cuando el goomba cae en el mario grande ya se limpia del juego y desaparece
 		
 		mario.update();	//actualiza mario--->aqui como avisa que mario muere
 		if(!checkMarioInExit()) {	//Si mario esta en la puerta pasa de actualizar esto
 			doInteractionsFrom(mario);
+			clear();
 			for(Goombas goomba:goombas) {	//Actualiza goombas
 				goomba.update();
 			}

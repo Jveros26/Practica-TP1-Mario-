@@ -1,3 +1,4 @@
+//Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
 package Tp1.logic.gameobjects;
 
 import Tp1.logic.Position;
@@ -162,13 +163,15 @@ public class Mario {
 	
 //--------------------------------------------------
 
-	private void /*boolean*/ runActions() {
+	private void runActions() {
 		//Position posIni=this.pos;
 		this.u=0;
 		this.d=0;
 		this.r=0;
 		this.l=0;
 		for(int i=0;i<(actList.lenght());i++) {	//Recorremos la lista de acciones
+			Position pa=pos.move(Action.LEFT);
+			int cal=pa.getCol();
 			Action acc= actList.get(i);	//Obtengo la accion que toca ahora
 			if(i>0) {	//Si ya se puede mirar la posicion anterior
 				if(!isOpposite(acc,i)) {	//Comprobamos si no hay ninguna accion anterior que sea opuesta
@@ -176,7 +179,9 @@ public class Mario {
 						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
 						counter(a);	//Suma el contador de acciones con el que corresponda
 							if(itCan(a)) {	//Si puede hacer el movimeinto lo hace sino lo ignora
-								runAction(a);
+								if(!((acc==Action.LEFT) && cal<0)) {	//Mientras se vaya a mover a la izquierda y la posicion de la izquierda este fuera del tablero no se realiza la acion
+									runAction(a);
+								}
 							}
 							else {
 								actList.remove(i);
@@ -191,9 +196,11 @@ public class Mario {
 			}
 			else {
 				if(canMove(acc)) {	//Si no se choca con una pared deja moverse
-				String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
-				counter(a);	
-				runAction(a);
+					if(!((acc==Action.LEFT)  && cal<0)) {
+						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
+						counter(a);	
+						runAction(a);
+					}
 				}
 			}
 		
@@ -271,13 +278,18 @@ public class Mario {
 			break;
 		
 		case"down":
-			if(!game.isSolid(pos.move(Action.DOWN))){
-			pos.commute(Action.DOWN);
-			this.action=Action.STOP;
-			this.isFalling=true;
-			}
-			else {
-				this.isFalling=false;
+	
+			boolean isDead=false;
+			while(!game.isSolid(pos.move(Action.DOWN)) && !isDead) {
+				if(!game.positionIsIn(pos)) {
+					dead();
+					isDead=true;
+				}
+				else {
+				pos.commute(Action.DOWN);
+				this.action=Action.STOP;
+				this.isFalling=true;
+				}
 			}
 			
 

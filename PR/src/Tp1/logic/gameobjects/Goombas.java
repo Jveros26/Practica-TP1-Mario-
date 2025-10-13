@@ -27,16 +27,6 @@ public class Goombas {
 	}
 //--------------------------------------------------
 
-	public int getRow() {
-		return pos.getRow();
-	}
-//--------------------------------------------------
-
-	public int getCol() {
-		return pos.getCol();
-	}
-//--------------------------------------------------
-
 
 	public boolean isInPosition(Position pos) {
 		if(this.pos.equals(pos)) {
@@ -77,26 +67,25 @@ public class Goombas {
 		
 	if(!((game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT))) && (game.isSolid(pos.move(Action.RIGHT))||game.isGoomba(pos.move(Action.RIGHT))))) {
 		Position pa=pos.move(Action.LEFT);
-		int cal=pa.getCol();
-		if(game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT)) || cal<0){
-			pos.commute(Action.RIGHT);
+		if(game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT)) || !game.positionIsIn(pa)){ 
+			this.pos=pos.move(Action.RIGHT);
 			this.action=Action.RIGHT;
 
 		}
 		else {
 			if(game.isSolid(pos.move(Action.RIGHT))||game.isGoomba(pos.move(Action.RIGHT))){
-				pos.commute(Action.LEFT);
+				this.pos=pos.move(Action.LEFT);
 				this.action=Action.LEFT;
 
 			}
 			else {
 				if(this.action==Action.LEFT) {
-					pos.commute(Action.LEFT);
+					this.pos=pos.move(Action.LEFT);
 					this.action=Action.LEFT;
 
 				}
 				else {
-					pos.commute(Action.RIGHT);
+					this.pos=pos.move(Action.RIGHT);
 					this.action=Action.RIGHT;
 
 				}
@@ -108,7 +97,7 @@ public class Goombas {
 //--------------------------------------------------
 
 	public void fall() {
-		pos.commute(Action.DOWN);
+		this.pos=pos.move(Action.DOWN);
 	}
 //--------------------------------------------------
 

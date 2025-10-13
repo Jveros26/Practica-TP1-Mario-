@@ -230,12 +230,9 @@ private void initLevel1() {
 		return false;
 	}	
 //--------------------------------------------------
+
 	public boolean positionIsIn(Position pos) {
-		boolean ok=true;
-		if((pos.getCol())>DIM_X || (pos.getRow())<0 || (pos.getRow())<0 || (pos.getRow())>DIM_Y ) {
-			ok=false;
-		}
-		return ok;
+	    return pos.isInside(DIM_Y, DIM_X);
 	}
 //--------------------------------------------------
 

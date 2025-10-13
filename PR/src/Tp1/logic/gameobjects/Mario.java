@@ -108,29 +108,30 @@ public class Mario {
 	public void step() {
 		Position p=pos.move(Action.UP);	//Posicion de arriba de mario si este es grande
 		if(game.isSolid(pos.move(Action.LEFT)) || this.isBig && game.isSolid(p.move(Action.LEFT))){	//Si es peque y se choca a la izq o si es grande y la posicion de arriba la izq es land
-			pos.commute(Action.RIGHT);
+			//pos.commute(Action.RIGHT);
+			this.pos=pos.move(Action.RIGHT);
 			this.action=Action.RIGHT;
 		}
 		else {
 			if(game.isLand(pos.move(Action.RIGHT))|| this.isBig &&game.isSolid(p.move(Action.RIGHT))){
-				pos.commute(Action.LEFT);
+				this.pos=pos.move(Action.LEFT);
 				this.action=Action.LEFT;
 				
 			}
 			else {
-				
-				if((pos.move(Action.LEFT).getCol())<0) {	//Si se va a salir del tablero mario vuelve a girar
-					pos.commute(Action.RIGHT);
+				Position pa=pos.move(Action.LEFT);
+				if(!game.positionIsIn(pa)) {	//Si se va a salir del tablero mario vuelve a girar
+					this.pos=pos.move(Action.RIGHT);
 					this.action=Action.RIGHT;
 				}
 				else {
 					if(this.action==Action.LEFT) {
-						pos.commute(Action.LEFT);
+						this.pos=pos.move(Action.LEFT);
 						this.action=Action.LEFT;
 
 					}
 					else {
-						pos.commute(Action.RIGHT);
+						this.pos=pos.move(Action.RIGHT);
 						this.action=Action.RIGHT;
 					}	
 				}
@@ -141,7 +142,7 @@ public class Mario {
 //--------------------------------------------------
 
 	public void fall() {
-		pos.commute(Action.DOWN);
+		this.pos=pos.move(Action.DOWN);
 	}
 //--------------------------------------------------
 
@@ -171,7 +172,6 @@ public class Mario {
 		this.l=0;
 		for(int i=0;i<(actList.lenght());i++) {	//Recorremos la lista de acciones
 			Position pa=pos.move(Action.LEFT);
-			int cal=pa.getCol();
 			Action acc= actList.get(i);	//Obtengo la accion que toca ahora
 			if(i>0) {	//Si ya se puede mirar la posicion anterior
 				if(!isOpposite(acc,i)) {	//Comprobamos si no hay ninguna accion anterior que sea opuesta
@@ -179,7 +179,7 @@ public class Mario {
 						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
 						counter(a);	//Suma el contador de acciones con el que corresponda
 							if(itCan(a)) {	//Si puede hacer el movimeinto lo hace sino lo ignora
-								if(!((acc==Action.LEFT) && cal<0)) {	//Mientras se vaya a mover a la izquierda y la posicion de la izquierda este fuera del tablero no se realiza la acion
+								if(!((acc==Action.LEFT) && !game.positionIsIn(pa))) {	//Mientras se vaya a mover a la izquierda y la posicion de la izquierda este fuera del tablero no se realiza la acion
 									runAction(a);
 								}
 							}
@@ -196,7 +196,7 @@ public class Mario {
 			}
 			else {
 				if(canMove(acc)) {	//Si no se choca con una pared deja moverse
-					if(!((acc==Action.LEFT)  && cal<0)) {
+					if(!((acc==Action.LEFT)  && !game.positionIsIn(pa))) {
 						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
 						counter(a);	
 						runAction(a);
@@ -216,14 +216,14 @@ public class Mario {
 		case "left":
 			if(isBig) {
 				if(!game.isSolid(p.move(Action.LEFT)) && !game.isSolid(this.pos.move(Action.LEFT))) {
-					pos.commute(Action.LEFT);
+					this.pos=pos.move(Action.LEFT);
 					this.action=Action.LEFT;
 				}
 				
 			}
 			else {
 				if(!game.isSolid(pos.move(Action.LEFT))) {
-					pos.commute(Action.LEFT);
+					this.pos=pos.move(Action.LEFT);
 					this.action=Action.LEFT;
 				}
 				
@@ -234,14 +234,14 @@ public class Mario {
 			
 			if(isBig) {
 				if(!game.isSolid(p.move(Action.RIGHT)) && !game.isSolid(this.pos.move(Action.RIGHT))) {
-					pos.commute(Action.RIGHT);
+					this.pos=pos.move(Action.RIGHT);
 					this.action=Action.RIGHT;
 				}
 				
 			}
 			else {
 				if(!game.isSolid(pos.move(Action.RIGHT))) {
-					pos.commute(Action.RIGHT);
+					this.pos=pos.move(Action.RIGHT);
 					this.action=Action.RIGHT;
 				}
 				
@@ -254,7 +254,7 @@ public class Mario {
 				
 				if(isBig) {
 					if(!game.isSolid(p.move(Action.UP))) {
-						pos.commute(Action.UP);
+						this.pos=pos.move(Action.UP);
 						this.isAscending=true;
 						this.isFalling=false;
 					}
@@ -262,7 +262,7 @@ public class Mario {
 				}
 				else {
 					if(!game.isSolid(pos.move(Action.UP))) {
-						pos.commute(Action.UP);
+						this.pos=pos.move(Action.UP);
 						this.isAscending=true;
 						this.isFalling=false;
 					}
@@ -286,7 +286,7 @@ public class Mario {
 					isDead=true;
 				}
 				else {
-				pos.commute(Action.DOWN);
+					this.pos=pos.move(Action.DOWN);
 				this.action=Action.STOP;
 				this.isFalling=true;
 				}

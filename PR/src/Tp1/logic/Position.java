@@ -46,46 +46,23 @@ public class Position {
 		return this.row==a.row && this.col==a.col;
 	}
 //--------------------------------------------------
-
-	public Position move(Action accion) {
-		Position p=new Position(this);
-		switch(accion) {
-		case DOWN:
-			p.down();
-			break;
-			
-		case UP:
-			p.up();
-			break;
-			
-		case LEFT:
-			p.left();
-			break;
-			
-		case RIGHT:
-			p.right();;
-			break;
-		}
-		return p;
+	public Position move(Action action) {
+	    switch (action) {
+	        case UP:
+	            return new Position(row - 1, col);
+	        case DOWN:
+	            return new Position(row + 1, col);
+	        case LEFT:
+	            return new Position(row, col - 1);
+	        case RIGHT:
+	            return new Position(row, col + 1);
+	        default:
+	            return this;
+	    }
 	}
 //--------------------------------------------------
-	public void commute(Action accion) {
-		switch(accion) {
-		case DOWN:
-			this.down();
-			break;
-			
-		case UP:
-			this.up();
-			break;
-			
-		case LEFT:
-			this.left();
-			break;
-			
-		case RIGHT:
-			this.right();
-			break;
-		}
+
+public boolean isInside(int maxRows, int maxCols) {
+	    return row >= 0 && row < maxRows && col >= 0 && col < maxCols;
 	}
 }

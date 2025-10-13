@@ -15,25 +15,6 @@ public class Position {
 		this.col=pos.col;
 		this.row=pos.row;
 	}
-	
-	public int getCol() {
-		return this.col;
-	}
-	public int getRow() {
-		return this.row;
-	}
-	public void up() {
-		this.row--;
-	}
-	public void down() {
-		this.row++;
-	}
-	public void left() {
-		this.col--;
-	}
-	public void right() {
-		this.col++;
-	}
 //--------------------------------------------------
 
 	public boolean equals(Object pos) {

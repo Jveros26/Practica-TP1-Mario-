@@ -21,17 +21,22 @@ public class Controller {
 		this.view = view;
 	}
 
-
-	/**
-	 * Runs the game logic, coordinate Model(game) and View(view)
-	 * 
-	 */
 	public void run() {
 		view.showWelcome();	
 		view.showGame();	
 		while(!game.isFinished()) {
 			String [] words=view.getPrompt();
 			execute(words);
+	/*while (!game.isFinished()) {
+
+    		String[] userWords = view.getPrompt();
+    		Command command = CommandGenerator.parse(userWords);
+
+    			if (command != null) 
+					command.execute(game, view);
+    			else 
+        			view.showError(Messages.UNKNOWN_COMMAND.formatted(String.join(" ", words)));
+				} */
 			
 		}
 		view.showEndMessage();	//Muestra el final

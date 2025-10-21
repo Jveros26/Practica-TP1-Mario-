@@ -8,8 +8,9 @@ public abstract class NoParamsCommand extends AbstractCommand {
 
 	@Override
 	public Command parse(String[] commandWords) {
-		//Commandos que hay que utilizar son: exit, update y help
-
+		if(commandWords.length==1 && matchCommandName(commandWords[0])) {
+			return this;
+		}
 		return null;
 	}
 }

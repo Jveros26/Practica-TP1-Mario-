@@ -30,7 +30,8 @@ public class Position {
 	public Position move(Action action) {
 	    switch (action) {
 	        case UP:
-	            return new Position(row - 1, col);
+	           return new Position(row-1, col);
+	           //return new Position(row+action.gety(),col+action.getx());-->Se puede hacer getters de action?
 	        case DOWN:
 	            return new Position(row + 1, col);
 	        case LEFT:

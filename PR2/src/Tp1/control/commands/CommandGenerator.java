@@ -16,9 +16,12 @@ public class CommandGenerator {
 	   );
 	public static Command parse(String[] commandWords) {		
 		for (Command c: AVAILABLE_COMMANDS) {
-			//TODO fill with your code
+			Command comando=c.parse(commandWords);
+			if(comando!=null) {	//Si ha obtenido una instancia lo devuelve directamente
+				return comando;
+			}
 		}	
-		return null;
+		return null;	//Si no obtubo ninguna instancia devolvemos null
 	}
 		
 	public static String commandHelp() {
@@ -26,9 +29,9 @@ public class CommandGenerator {
 		
 		commands.append(Messages.HELP_AVAILABLE_COMMANDS).append(Messages.LINE_SEPARATOR);
 		
-		for (Command c:AVAILABLE_COMMANDS) {
-			//TODO fill with your code
-		}
+		/*for (Command c:AVAILABLE_COMMANDS) {
+			commands.append(c.helpText());
+		}*/
 		
 		return commands.toString();
 	}

@@ -81,6 +81,16 @@ public class Messages {
 	public static final String COMMAND_EXIT_SHORTCUT = "e";
 	public static final String COMMAND_EXIT_DETAILS = "[e]xit";
 	public static final String COMMAND_EXIT_HELP = "exits the game";
+// Reset
+	public static final String COMMAND_RESET_NAME = "reset";
+	public static final String COMMAND_RESET_SHORTCUT = "r";
+	public static final String COMMAND_RESET_DETAILS = "[r]eset [numLevel]: reset the game to initial configuration if not numLevel else load the numLevel map";
+	public static final String COMMAND_RESET_HELP = "resets the game";
+// Action
+	public static final String COMMAND_ACTION_NAME = "action";
+	public static final String COMMAND_ACTION_SHORTCUT = "a";
+	public static final String COMMAND_ACTION_DETAILS = "[a]ction";
+	public static final String COMMAND_ACTION_HELP = "[[R]IGHT | [L]EFT | [U]P | [D]OWN | [S]TOP]+: user performs actions";
 		
 // HELP
 	public static final String COMMAND_HELP_NAME = "help";

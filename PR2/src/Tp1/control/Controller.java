@@ -4,7 +4,9 @@ package Tp1.control;
 import Tp1.logic.Game;
 import Tp1.view.GameView;
 import Tp1.view.Messages;
+import Tp1.control.commands.CommandGenerator;
 import Tp1.logic.Action;
+import Tp1.control.commands.Command;
 
 import java.util.Scanner;
 
@@ -25,19 +27,15 @@ public class Controller {
 		view.showWelcome();	
 		view.showGame();	
 		while(!game.isFinished()) {
-			String [] words=view.getPrompt();
-			execute(words);
-	/*while (!game.isFinished()) {
-
-    		String[] userWords = view.getPrompt();
-    		Command command = CommandGenerator.parse(userWords);
-
-    			if (command != null) 
-					command.execute(game, view);
-    			else 
-        			view.showError(Messages.UNKNOWN_COMMAND.formatted(String.join(" ", words)));
-				} */
+			String [] userWords=view.getPrompt();
+			Command command=CommandGenerator.parse(userWords);
 			
+			if(command!=null) {
+				command.execute(game, view);
+			}
+			else {
+				view.showError(Messages.UNKNOWN_COMMAND.formatted(String.join("", userWords)));
+			}
 		}
 		view.showEndMessage();	//Muestra el final
 	}

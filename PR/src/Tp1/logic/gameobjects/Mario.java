@@ -35,7 +35,7 @@ public class Mario {
 		alive=true;
 		isFalling=false;
 		isAscending=false;
-		action=Action.STOP;	
+		action=Action.RIGHT;	
 		actList=new ActionList();
 	}
 //--------------------------------------------------
@@ -278,7 +278,7 @@ public class Mario {
 			break;
 		
 		case"down":
-	
+			this.action=Action.STOP;
 			boolean isDead=false;
 			while(!game.isSolid(pos.move(Action.DOWN)) && !isDead) {
 				if(!game.positionIsIn(pos)) {
@@ -286,8 +286,7 @@ public class Mario {
 					isDead=true;
 				}
 				else {
-					this.pos=pos.move(Action.DOWN);
-				this.action=Action.STOP;
+				this.pos=pos.move(Action.DOWN);
 				this.isFalling=true;
 				}
 			}

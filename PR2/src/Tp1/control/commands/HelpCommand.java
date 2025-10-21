@@ -14,11 +14,9 @@ public class HelpCommand extends NoParamsCommand {
     public HelpCommand() {
 		super(NAME, SHORTCUT, DETAILS, HELP);
 	}
-	
 	@Override
 	public void execute(Game game, GameView view) {
 		
 		view.showMessage(CommandGenerator.commandHelp());
 	}
-
 }

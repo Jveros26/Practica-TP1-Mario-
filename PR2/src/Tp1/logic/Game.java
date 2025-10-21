@@ -235,24 +235,6 @@ private void initLevel1() {
 	    return pos.isInside(DIM_Y, DIM_X);
 	}
 //--------------------------------------------------
-
-	public boolean isGoomba(Position pos) {
-		String es=gameObjects.whatIs(pos);
-		if(es=="goomba") {
-			return true;
-		}
-		return false;
-	}
-//--------------------------------------------------
-
-	public boolean isMario(Position pos) {
-		String es=gameObjects.whatIs(pos);
-		if(es=="mario") {
-			return true;
-		}
-		return false;
-	}
-//--------------------------------------------------
 	public void addAction(Action action) {
 		mario.addAction(action);
 	}

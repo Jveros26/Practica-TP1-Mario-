@@ -20,5 +20,4 @@ public class ExitCommand extends NoParamsCommand{
 	public void execute(Game game, GameView view){
 	    game.exit(); 	
 	}
-
 }

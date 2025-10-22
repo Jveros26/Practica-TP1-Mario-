@@ -19,22 +19,23 @@ public class ActionList {
 //--------------------------------------------------
 
 	public void clearList() {
-		for(int i=0;i<actionList.size();i++) {
+		for(int i=0;i<actionList.size();i++) {	//Recorro la lista modificandola
 			Action accion=actionList.get(i);
-				if(isOpposite(accion,i)){
+				if(isOpposite(accion,i)){	//Si es opuesto a alguna anterior la borro
 					actionList.remove(i);
-					i--; 
+					i--; //Muevo posicion atras para no verme afectado
 				}
 				else {
-					if(!itCan(accion)) {
+					if(!itCan(accion)) {	//Si se pasa de 4 movimientos iguales lo mismo
 						actionList.remove(i);
 						i--;
 					}
 					else {
-						counter(accion);
+						counter(accion);	//Si puede realizar la accion no se borra solo se aumenta el contador
 				}
 			}
 		}
+		resetNum();	//Una vez limpiamos la lista reiniciamos valores
 	}
 //--------------------------------------------------
 	private void counter(Action a) {

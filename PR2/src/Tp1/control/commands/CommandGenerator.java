@@ -29,9 +29,9 @@ public class CommandGenerator {
 		
 		commands.append(Messages.HELP_AVAILABLE_COMMANDS).append(Messages.LINE_SEPARATOR);
 		
-		/*for (Command c:AVAILABLE_COMMANDS) {
+		for (Command c:AVAILABLE_COMMANDS) {
 			commands.append(c.helpText());
-		}*/
+		}
 		
 		return commands.toString();
 	}

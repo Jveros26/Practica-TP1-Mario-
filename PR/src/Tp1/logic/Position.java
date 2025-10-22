@@ -1,5 +1,5 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
-package Tp1.logic;
+package tp1.logic;
 
 
 public class Position {

@@ -1,9 +1,9 @@
-package Tp1.view;
+package tp1.view;
 
-import static Tp1.utils.MyStringUtils.repeat;
+import static tp1.utils.MyStringUtils.repeat;
 
-import Tp1.logic.Game;
-import Tp1.utils.MyStringUtils;
+import tp1.logic.Game;
+import tp1.utils.MyStringUtils;
 
 public class ConsoleColorsView extends ConsoleView {
 	

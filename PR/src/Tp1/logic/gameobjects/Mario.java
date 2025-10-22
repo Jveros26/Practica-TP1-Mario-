@@ -1,16 +1,16 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
-package Tp1.logic.gameobjects;
+package tp1.logic.gameobjects;
 
-import Tp1.logic.Position;
-import Tp1.view.Messages;
+import tp1.logic.Position;
+import tp1.view.Messages;
 
 import java.util.ArrayList;
 
-import Tp1.logic.Action;
-import Tp1.logic.Game;
-import Tp1.logic.gameobjects.Goombas;
-import Tp1.logic.ActionList;
-import Tp1.view.Messages;
+import tp1.logic.Action;
+import tp1.logic.Game;
+import tp1.logic.gameobjects.Goombas;
+import tp1.logic.ActionList;
+import tp1.view.Messages;
 
 
 
@@ -166,7 +166,32 @@ public class Mario {
 
 	private void runActions() {
 		//Position posIni=this.pos;
-		this.u=0;
+		actList.clearList();	//Limpio la lista de movimientos que no se pueden hacer o contrarios
+		
+		for(int i=0;i<(actList.lenght());i++) {	//Recorremos la lista de acciones
+			Position pa=pos.move(Action.LEFT);
+			Action acc= actList.get(i);	//Obtengo la accion que toca ahora
+			if(i>0) {	//Si ya se puede mirar la posicion anterior
+				if(canMove(acc)) {	//Si no se choca con una pared deja moverse
+						if(!((acc==Action.LEFT) && !game.positionIsIn(pa))) {	//Mientras se vaya a mover a la izquierda y la posicion de la izquierda este fuera del tablero no se realiza la accion
+							runAction(acc);
+						}
+				}
+				else {
+					actList.remove(i);
+					i--;	//En caso de que borre lo que hago es retroceder un turno y asi no llega al contador
+				}
+			}
+			else {
+				if(canMove(acc)) {	//Si no se choca con una pared deja moverse
+					if(!((acc==Action.LEFT)  && !game.positionIsIn(pa))) {	
+						runAction(acc);
+					}
+				}
+			}
+		
+		}
+		/*this.u=0;
 		this.d=0;
 		this.r=0;
 		this.l=0;
@@ -204,16 +229,16 @@ public class Mario {
 				}
 			}
 		
-		}
+		}*/
 	}
 //--------------------------------------------------
 
 	
-	private void runAction(String action) {
+	private void runAction(Action action) {
 		Position p=this.pos.move(Action.UP);	//Posicion de arriba de mario si este es grande
 		switch(action) {
 		
-		case "left":
+		case Action.LEFT:
 			if(isBig) {
 				if(!game.isSolid(p.move(Action.LEFT)) && !game.isSolid(this.pos.move(Action.LEFT))) {
 					this.pos=pos.move(Action.LEFT);
@@ -230,7 +255,7 @@ public class Mario {
 			}
 			break;
 			
-		case "right":
+		case Action.RIGHT:
 			
 			if(isBig) {
 				if(!game.isSolid(p.move(Action.RIGHT)) && !game.isSolid(this.pos.move(Action.RIGHT))) {
@@ -249,7 +274,7 @@ public class Mario {
 			
 			break;
 			
-		case"up":
+		case Action.UP:
 			if(!this.onAir) {
 				
 				if(isBig) {
@@ -277,8 +302,7 @@ public class Mario {
 
 			break;
 		
-		case"down":
-			this.action=Action.STOP;
+		case Action.DOWN:
 			boolean isDead=false;
 			while(!game.isSolid(pos.move(Action.DOWN)) && !isDead) {
 				if(!game.positionIsIn(pos)) {
@@ -290,6 +314,7 @@ public class Mario {
 				this.isFalling=true;
 				}
 			}
+			this.action=Action.STOP;
 			
 
 			break;
@@ -346,23 +371,24 @@ public class Mario {
 		boolean yes=true;
 		switch(acc) {
 		case LEFT:
-			if(game.isLand(pos.move(Action.LEFT))) {
+			if(game.isSolid(pos.move(Action.LEFT))) {
 				yes=false;
 			}
 			break;
 		case RIGHT:
-			if(game.isLand(pos.move(Action.RIGHT))) {
+			if(game.isSolid(pos.move(Action.RIGHT))) {
 				yes=false;
 			}
 			break;
 		case DOWN:
-			if(game.isLand(pos.move(Action.DOWN))) {
+			if(game.isSolid(pos.move(Action.DOWN))) {
+				this.action=Action.STOP;
 				yes=false;
 			}
 			
 			break;
 		case UP:
-			if(game.isLand(pos.move(Action.UP))) {
+			if(game.isSolid(pos.move(Action.UP))) {
 				yes=false;
 			}
 

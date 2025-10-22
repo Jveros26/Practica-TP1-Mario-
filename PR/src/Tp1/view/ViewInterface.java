@@ -1,4 +1,4 @@
-package Tp1.view;
+package tp1.view;
 
 public interface ViewInterface {
 	// show methods

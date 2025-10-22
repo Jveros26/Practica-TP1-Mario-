@@ -1,12 +1,12 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
-package Tp1.logic;
+package tp1.logic;
 
-import Tp1.logic.Position;
-import Tp1.logic.gameobjects.Land;
-import Tp1.logic.gameobjects.Goombas;
-import Tp1.logic.gameobjects.ExitDoor;
-import Tp1.logic.gameobjects.Mario;
-import Tp1.logic.gameobjects.Goombas;
+import tp1.logic.Position;
+import tp1.logic.gameobjects.Land;
+import tp1.logic.gameobjects.Goombas;
+import tp1.logic.gameobjects.ExitDoor;
+import tp1.logic.gameobjects.Mario;
+import tp1.logic.gameobjects.Goombas;
 import java.util.ArrayList;
 
 public class GameObjectContainer {

@@ -14,39 +14,33 @@ import Tp1.view.Messages;
 
 
 
-public class Mario {
-	private Action action;
+public class Mario extends MovingObject{
 	private ActionList actList;
 	private Position pos;
 	private Game game;
 	private boolean isBig;
 	private boolean left,right;
-	private boolean alive;
-	private boolean isFalling;
 	private boolean onAir;
 	private boolean isAscending;
 	private int r,l,d,u;
 //--------------------------------------------------
 
 	public Mario(Game game,Position pos) {
-		this.pos=pos;
+		super(game,pos,Action.STOP,false);	
 		isBig=true;
-		this.game=game;
-		alive=true;
-		isFalling=false;
 		isAscending=false;
-		action=Action.STOP;	
 		actList=new ActionList();
 	}
+
 //--------------------------------------------------
 
 	public String getIcon() {	//Va hacia la izq? Si-> devuelve imagen mario izq : No-> mario recto
 		String pose=Messages.MARIO_STOP;
-		if(action==Action.LEFT) {
+		if(direction==Action.LEFT) {
 			pose=Messages.MARIO_LEFT;
 		}
 		else {
-			if(action==Action.RIGHT) {
+			if(direction==Action.RIGHT) {
 				pose=Messages.MARIO_RIGHT;
 			}
 		}

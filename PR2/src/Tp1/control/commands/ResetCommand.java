@@ -46,6 +46,7 @@ public class ResetCommand extends AbstractCommand {
 		game.resetLives();
 		game.resetPoints();
 		game.reset(level);
+		view.showGame();
 	}
 
 	

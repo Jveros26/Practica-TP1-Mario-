@@ -6,19 +6,13 @@ import Tp1.view.Messages;
 import Tp1.logic.Game;
 import Tp1.logic.Action;
 
-public class Goombas {
-	private Position pos;
-	private Game game;
+public class Goombas extends MovingObject {
 	private boolean Alive;
-	private Action action;
 	private boolean isFalling;
 //--------------------------------------------------
 
 	public Goombas(Game game,Position pos) {
-		this.pos=pos;
-		this.game=game;
-		this.Alive=true;
-		action=Action.LEFT;
+		super(game,pos,Action.RIGHT,false);
 	}
 //--------------------------------------------------
 
@@ -38,7 +32,7 @@ public class Goombas {
 
 	public void update() {
 		
-		if(game.isSolid(pos.move(Action.DOWN)) || game.isGoomba(pos.move(Action.DOWN))){
+		if(game.isSolid(pos.move(Action.DOWN))){
 			this.isFalling=false;
 			step();	
 		}
@@ -65,7 +59,7 @@ public class Goombas {
 
 	public void step() {
 		
-	if(!((game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT))) && (game.isSolid(pos.move(Action.RIGHT))||game.isGoomba(pos.move(Action.RIGHT))))) {
+	if(!((game.isSolid(pos.move(Action.LEFT)) && (game.isSolid(pos.move(Action.RIGHT)))))) {
 		Position pa=pos.move(Action.LEFT);
 		if(game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT)) || !game.positionIsIn(pa)){ 
 			this.pos=pos.move(Action.RIGHT);

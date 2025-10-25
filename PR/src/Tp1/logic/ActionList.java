@@ -19,6 +19,10 @@ public class ActionList {
 //--------------------------------------------------
 
 	public void clearList() {
+		this.u=0;
+		this.d=0;
+		this.r=0;
+		this.l=0;
 		for(int i=0;i<actionList.size();i++) {	//Recorro la lista modificandola
 			Action accion=actionList.get(i);
 				if(isOpposite(accion,i)){	//Si es opuesto a alguna anterior la borro
@@ -35,7 +39,7 @@ public class ActionList {
 				}
 			}
 		}
-		resetNum();	//Una vez limpiamos la lista reiniciamos valores
+		//resetNum();	//Una vez limpiamos la lista reiniciamos valores
 	}
 //--------------------------------------------------
 	private void counter(Action a) {

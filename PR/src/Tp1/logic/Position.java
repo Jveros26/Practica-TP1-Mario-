@@ -27,20 +27,8 @@ public class Position {
 		return this.row==a.row && this.col==a.col;
 	}
 //--------------------------------------------------
-	public Position move(Action action) {
-	    switch (action) {
-	        case UP:
-	           return new Position(row-1, col);
-	           //return new Position(row+action.gety(),col+action.getx());-->Se puede hacer getters de action?
-	        case DOWN:
-	            return new Position(row + 1, col);
-	        case LEFT:
-	            return new Position(row, col - 1);
-	        case RIGHT:
-	            return new Position(row, col + 1);
-	        default:
-	            return this;
-	    }
+	public Position move(Action action) {	//Coge x e y de action y dependiendo de la accion (enumerado) modifica la posicion
+		return new Position(row+action.getY(),col+action.getX());
 	}
 //--------------------------------------------------
 

@@ -5,12 +5,10 @@ import Tp1.logic.Game;
 import Tp1.logic.Position;
 import Tp1.view.Messages;
 
-public class ExitDoor {
-	private Position pos;
-//--------------------------------------------------
+public class ExitDoor extends GameObject {
 
-	public ExitDoor(Position pos) {
-		this.pos=pos;
+	public ExitDoor(Game game,Position pos) {
+		super(game,pos);
 	}
 //--------------------------------------------------
 

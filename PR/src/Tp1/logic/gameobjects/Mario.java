@@ -52,11 +52,7 @@ public class Mario {
 		}
 		return pose;
 	}
-//--------------------------------------------------
 
-	public Position marioPos() {
-		return this.pos;
-	}
 //--------------------------------------------------
 
 	public boolean isInPosition(Position pos) {
@@ -64,12 +60,7 @@ public class Mario {
 		return alive && (this.pos.equals(pos) || 
 				this.isBig && pos.equals(this.pos.move(Action.UP)));
 	}
-//--------------------------------------------------
 
-	public Position posicion() {
-		return this.pos;
-	}
-	
 //--------------------------------------------------
 
 	public void update() {	
@@ -78,18 +69,17 @@ public class Mario {
 		this.onAir=false;
 		this.isAscending=false;
 		this.isFalling=false;
-		if(actList.lenght()==0) {
+		if(actList.lenght()==0) {	//Movimiento automatico
 			step();	
 		}
 		else {
-			runActions();
+			runActions();	//eejecuta acciones actList
 		}
 	}
 	else {
 		this.onAir=true;
 		this.isFalling=true;
 		if(actList.lenght()>0) {
-			fall();
 			runActions();
 		}
 		else {
@@ -105,7 +95,7 @@ public class Mario {
 //--------------------------------------------------
 
 	
-	public void step() {
+	private void step() {
 		Position p=pos.move(Action.UP);	//Posicion de arriba de mario si este es grande
 		if(game.isSolid(pos.move(Action.LEFT)) || this.isBig && game.isSolid(p.move(Action.LEFT))){	//Si es peque y se choca a la izq o si es grande y la posicion de arriba la izq es land
 			//pos.commute(Action.RIGHT);
@@ -113,7 +103,7 @@ public class Mario {
 			this.action=Action.RIGHT;
 		}
 		else {
-			if(game.isLand(pos.move(Action.RIGHT))|| this.isBig &&game.isSolid(p.move(Action.RIGHT))){
+			if(game.isSolid(pos.move(Action.RIGHT))|| this.isBig &&game.isSolid(p.move(Action.RIGHT))){
 				this.pos=pos.move(Action.LEFT);
 				this.action=Action.LEFT;
 				
@@ -137,16 +127,16 @@ public class Mario {
 				}
 			}
 		}
-		
+	  
 	}
 //--------------------------------------------------
 
-	public void fall() {
+	private void fall() {
 		this.pos=pos.move(Action.DOWN);
 	}
 //--------------------------------------------------
 
-	public void dead() {
+	private void dead() {
 		this.alive=false;
 		game.marioDead();
 	}
@@ -156,7 +146,7 @@ public class Mario {
 		actList.add(action);
 	}
 //--------------------------------------------------
-	public void clearList() {
+	public void clearListM() {
 		for(int i=actList.lenght()-1;i>=0;i--) {
 			actList.remove(i);
 		}
@@ -189,8 +179,9 @@ public class Mario {
 					}
 				}
 			}
-		
 		}
+		
+}
 		/*this.u=0;
 		this.d=0;
 		this.r=0;
@@ -205,7 +196,7 @@ public class Mario {
 						counter(a);	//Suma el contador de acciones con el que corresponda
 							if(itCan(a)) {	//Si puede hacer el movimeinto lo hace sino lo ignora
 								if(!((acc==Action.LEFT) && !game.positionIsIn(pa))) {	//Mientras se vaya a mover a la izquierda y la posicion de la izquierda este fuera del tablero no se realiza la acion
-									runAction(a);
+									runAction(acc);
 								}
 							}
 							else {
@@ -224,13 +215,13 @@ public class Mario {
 					if(!((acc==Action.LEFT)  && !game.positionIsIn(pa))) {
 						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
 						counter(a);	
-						runAction(a);
+						runAction(acc);
 					}
 				}
 			}
 		
-		}*/
-	}
+		}
+	}*/
 //--------------------------------------------------
 
 	
@@ -322,7 +313,7 @@ public class Mario {
 	}
 //--------------------------------------------------
 
-	public void counter(String action) {
+	/*private void counter(String action) {------------>Este cuando funcione lo de ActList hay q borrarlo
 		switch(action) {
 		case "left":
 			this.l++;
@@ -340,10 +331,10 @@ public class Mario {
 			this.d++;
 			break;
 		}
-	}
+	}*/
 //--------------------------------------------------
 
-	public boolean itCan(String a) {
+	/*public boolean itCan(String a) {------------>Este cuando funcione lo de ActList hay q borrarlo
 		boolean ok=true;
 		if(a=="left" && this.l>4) {
 			ok=false;
@@ -364,7 +355,7 @@ public class Mario {
 			}
 		}
 		return ok;
-	}
+	}*/
 //--------------------------------------------------
 
 	public boolean canMove(Action acc) {

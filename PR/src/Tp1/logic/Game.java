@@ -109,7 +109,7 @@ public class Game {
 //--------------------------------------------------
 
 	public void clearList() {
-		mario.clearList();
+		mario.clearListM();
 	}
 //--------------------------------------------------
 
@@ -223,34 +223,12 @@ private void initLevel1() {
 //--------------------------------------------------
 	public boolean isSolid(Position pos) {
 	
-		String es=gameObjects.whatIs(pos);
-		if(es=="land") {
-			return true;
-		}
-		return false;
+		return gameObjects.isSolid(pos);	//Comprueba en objectContainer si la pos contiene un objeto solido (Land)
 	}	
 //--------------------------------------------------
 
 	public boolean positionIsIn(Position pos) {
 	    return pos.isInside(DIM_Y, DIM_X);
-	}
-//--------------------------------------------------
-
-	public boolean isGoomba(Position pos) {
-		String es=gameObjects.whatIs(pos);
-		if(es=="goomba") {
-			return true;
-		}
-		return false;
-	}
-//--------------------------------------------------
-
-	public boolean isMario(Position pos) {
-		String es=gameObjects.whatIs(pos);
-		if(es=="mario") {
-			return true;
-		}
-		return false;
 	}
 //--------------------------------------------------
 	public void addAction(Action action) {
@@ -262,15 +240,7 @@ private void initLevel1() {
 			reset(this.level());
 		}
 	}
-//--------------------------------------------------
 
-	public boolean isLand(Position pos) {
-		String es=gameObjects.whatIs(pos);
-		if(es=="land") {
-			return true;
-		}
-		return false;
-	}
 //--------------------------------------------------
 
 	public void marioExited() {

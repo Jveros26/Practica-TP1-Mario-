@@ -84,38 +84,6 @@ public class GameObjectContainer {
 	}
 //--------------------------------------------------
 
-	public String whatIs(Position pos) {
-		
-		String es="";
-		for(Land land:lands) {
-			if(land.isInPosition(pos)){
-				es="land";
-				break;
-			}
-		}
-		if(es!="land") {
-			for(Goombas goomba:goombas) {
-				if(goomba.isInPosition(pos)){
-					es="goomba";
-					break;
-				}
-			}
-		}
-		if(es!="land"&&es!="goomba") {
-			if(mario.isInPosition(pos)){
-				es="mario";
-			}
-		}
-		if(es!="land" && es!="goomba" && es!="mario") {
-			if(exitdoor.isInPosition(pos)){
-				es="exitdoor";
-			}
-		}
-		
-		return es;
-	}
-//--------------------------------------------------
-
 	private void clear() {
 		for(int i=goombas.size()-1;i>=0;i--) {
 			Goombas goomba=goombas.get(i);
@@ -124,15 +92,35 @@ public class GameObjectContainer {
 			}
 		}
 	}
+//--------------------------------------------------	
 	
 	private boolean checkMarioInExit() {
 		return mario.interactWith(exitdoor);
 	}
+//--------------------------------------------------
 	
 	private void doInteractionsFrom(Mario mario) {
 		for(Goombas goomba:goombas) {
 			mario.Interactwith(goomba);
 		}
+	}
+//--------------------------------------------------
+	public boolean isSolid(Position pos) {
+		boolean issolid=false;
+		for(Land land:lands) {	//Recorre todos los land comprueba posiciones
+			if(land.isInPosition(pos)){	//Si en la posicion hay un land devuelve true
+				issolid=true;
+				break;
+			}
+		}
+		for(Goombas goombas:goombas) {
+			if(goombas.isInPosition(pos)){	//Si en la posicion hay un goomba devuelve true
+				issolid=true;
+				break;
+			}
+		}
+		
+		return issolid;	//Devuelve si hay un goomba/land-->objetos solidos
 	}
 }
 

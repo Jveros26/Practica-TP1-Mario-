@@ -4,12 +4,10 @@ package Tp1.logic.gameobjects;
 import Tp1.logic.Position;
 import Tp1.view.Messages;
 
-public class Land {
-	private Position pos;
-//--------------------------------------------------
+public class Land extends GameObject{
 
-	public Land(Position pos) {
-		this.pos=pos;
+	public Land(Game game,Position pos) {
+		super(game,pos);
 	}
 //--------------------------------------------------
 

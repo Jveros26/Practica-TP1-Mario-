@@ -10,14 +10,11 @@ import Tp1.logic.gameobjects.Goombas;
 import java.util.ArrayList;
 
 public class GameObjectContainer {
-	private ArrayList<Land> lands;
-	private ArrayList<Goombas> goombas;
-	private ExitDoor exitdoor;
-	private Mario mario;
+	private List<GameObject> gameObjects;
+
 	
 	public GameObjectContainer() {
-		lands=new ArrayList<Land>();			//Inicializar el array de los objetos
-		goombas=new ArrayList<Goombas>();
+		gameObjects = new ArrayList<>();
 	}
 //--------------------------------------------------
 

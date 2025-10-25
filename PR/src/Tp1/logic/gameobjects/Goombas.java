@@ -37,8 +37,9 @@ public class Goombas {
 //--------------------------------------------------
 
 	public void update() {
-		
-		if(game.isSolid(pos.move(Action.DOWN)) || game.isGoomba(pos.move(Action.DOWN))){
+		//if(game.isSolid(pos.move(Action.DOWN)) || game.isGoomba(pos.move(Action.DOWN))){
+
+		if(game.isSolid(pos.move(Action.DOWN))){
 			this.isFalling=false;
 			step();	
 		}
@@ -64,16 +65,21 @@ public class Goombas {
 //--------------------------------------------------
 
 	public void step() {
+	//if(!((game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT))) && (game.isSolid(pos.move(Action.RIGHT))||game.isGoomba(pos.move(Action.RIGHT)))))
 		
-	if(!((game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT))) && (game.isSolid(pos.move(Action.RIGHT))||game.isGoomba(pos.move(Action.RIGHT))))) {
+	if(!((game.isSolid(pos.move(Action.LEFT)) && (game.isSolid(pos.move(Action.RIGHT)))))) {
 		Position pa=pos.move(Action.LEFT);
-		if(game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT)) || !game.positionIsIn(pa)){ 
+		//if(game.isSolid(pos.move(Action.LEFT))|| game.isGoomba(pos.move(Action.LEFT)) || !game.positionIsIn(pa))
+
+		if(game.isSolid(pos.move(Action.LEFT))|| !game.positionIsIn(pa)){ 
 			this.pos=pos.move(Action.RIGHT);
 			this.action=Action.RIGHT;
 
 		}
 		else {
-			if(game.isSolid(pos.move(Action.RIGHT))||game.isGoomba(pos.move(Action.RIGHT))){
+			//if(game.isSolid(pos.move(Action.RIGHT))||game.isGoomba(pos.move(Action.RIGHT))){
+
+			if(game.isSolid(pos.move(Action.RIGHT))){
 				this.pos=pos.move(Action.LEFT);
 				this.action=Action.LEFT;
 

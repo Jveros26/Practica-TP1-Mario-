@@ -83,5 +83,16 @@ public enum Action {
 		}
 		return p;
 	}
+	public Action opposite(Action dir) {
+		switch(dir) {
+		
+		case Action.RIGHT:
+			return Action.LEFT;	
+		case Action.LEFT:
+			return Action.RIGHT;
+		
+		}
+		return this;
+		}
 
 }

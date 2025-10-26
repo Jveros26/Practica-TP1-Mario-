@@ -3,6 +3,7 @@ package Tp1.logic.gameobjects;
 import Tp1.logic.Action;
 import Tp1.logic.Game;
 import Tp1.logic.Position;
+import Tp1.logic.GameItem;
 
 public abstract class GameObject implements GameItem{ 
 
@@ -16,9 +17,32 @@ public abstract class GameObject implements GameItem{
 		this.game = game;
 	}
 	
+	public GameObject parse(String strsObject[],GameWorld game ) {
+		GameObject obj=null;
+		
+		if(strsObject.length>=2 && matchParseName(strsObject[1])) {
+			Position pos=new Position(strsObject[0]);
+			
+			if(game.positionIsIn(pos)) {
+				obj=this.createInstance(pos,game);
+			}
+		}
+		return obj;
+	}
+	
+	protected abstract GameObject createInstance(Position pos,GameWorld game);
+	
+	
+	protected boolean matchParseName(String name) {
+		return getShortcut().equalsIsIgnoreCase(name) || 
+				getName().equalsIsIgnoreCase(name);
+	}
+	
+	public void update() {};
+	
 	public boolean isInPosition(Position p) {
 		// TODO fill your code here, it should depends on the status of the object
-		return false;
+		return isAlive && (this.pos.equals(p));
 	}
  	
 	public boolean isAlive() {
@@ -36,7 +60,7 @@ public abstract class GameObject implements GameItem{
 	public abstract String getIcon();
 
 	// Not mandatory but recommended
-	protected void move(Action dir) {
-		// TODO Auto-generated method stub
+	protected void move(Action dir) {	//Actualiza posicion en base a la direccion que quiera mover
+		this.pos=pos.move(dir);
 	}
 }

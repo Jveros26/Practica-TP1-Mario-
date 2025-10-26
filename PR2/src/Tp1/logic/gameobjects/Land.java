@@ -1,8 +1,10 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
 package Tp1.logic.gameobjects;
 
+import Tp1.logic.GameItem;
 import Tp1.logic.Position;
 import Tp1.view.Messages;
+
 
 public class Land extends GameObject{
 
@@ -23,4 +25,33 @@ public class Land extends GameObject{
 		}
 		return false;
 	}
+//--------------------------------------------------
+	protected Land createInstance(Position pos, GameWorld game) {
+		return new Land(game,pos);
+	}
+//--------------------------------------------------
+
+public  boolean isSolid() {return true;}
+	
+//--------------------------------------------------
+	public boolean interactWith(GameItem other) {
+		boolean canInteract=other.isInPosition(pos);
+		if(canInteract) {
+			other.recieveInteraction(this);
+		}
+		return canInteract;
+	}
+//--------------------------------------------------
+	public  void receiveInteraction(Land obj) {
+	}
+//--------------------------------------------------
+	public  void receiveInteraction(ExitDoor obj) {
+	}
+//--------------------------------------------------
+	public void  receiveInteraction(Mario obj) {
+	}
+//--------------------------------------------------
+	public  void receiveInteraction(Goombas obj) {	
+	}
+
 }

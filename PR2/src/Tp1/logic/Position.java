@@ -1,6 +1,8 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
 package Tp1.logic;
 
+import Tp1.logic.Action;
+import Tp1.logic.Position;
 
 public class Position {
 
@@ -27,23 +29,14 @@ public class Position {
 		return this.row==a.row && this.col==a.col;
 	}
 //--------------------------------------------------
-	public Position move(Action action) {
-	    switch (action) {
-	        case UP:
-	            return new Position(row - 1, col);
-	        case DOWN:
-	            return new Position(row + 1, col);
-	        case LEFT:
-	            return new Position(row, col - 1);
-	        case RIGHT:
-	            return new Position(row, col + 1);
-	        default:
-	            return this;
-	    }
+	public Position move(Action action) {	//Coge x e y de action y dependiendo de la accion (enumerado) modifica la posicion
+		return new Position(row+action.getY(),col+action.getX());
 	}
 //--------------------------------------------------
 
-public boolean isInside(int maxRows, int maxCols) {
+	public boolean isInside(int maxRows, int maxCols) {
 	    return row >= 0 && row < maxRows && col >= 0 && col < maxCols;
 	}
+
+	
 }

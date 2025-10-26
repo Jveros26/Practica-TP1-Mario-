@@ -11,6 +11,8 @@ import Tp1.logic.Game;
 import Tp1.logic.gameobjects.Goombas;
 import Tp1.logic.ActionList;
 import Tp1.view.Messages;
+import Tp1.logic.GameItem;
+
 
 
 
@@ -55,7 +57,7 @@ public class Mario extends MovingObject{
 
 	public boolean isInPosition(Position pos) {
 		
-		return alive && (this.pos.equals(pos) || 
+		return isAlive && (this.pos.equals(pos) || 
 				this.isBig && pos.equals(this.pos.move(Action.UP)));
 	}
 //--------------------------------------------------
@@ -98,41 +100,8 @@ public class Mario extends MovingObject{
 }	
 //--------------------------------------------------
 
-	
-	public void step() {
-		Position p=pos.move(Action.UP);	//Posicion de arriba de mario si este es grande
-		if(game.isSolid(pos.move(Action.LEFT)) || this.isBig && game.isSolid(p.move(Action.LEFT))){	//Si es peque y se choca a la izq o si es grande y la posicion de arriba la izq es land
-			//pos.commute(Action.RIGHT);
-			this.pos=pos.move(Action.RIGHT);
-			this.action=Action.RIGHT;
-		}
-		else {
-			if(game.isLand(pos.move(Action.RIGHT))|| this.isBig &&game.isSolid(p.move(Action.RIGHT))){
-				this.pos=pos.move(Action.LEFT);
-				this.action=Action.LEFT;
-				
-			}
-			else {
-				Position pa=pos.move(Action.LEFT);
-				if(!game.positionIsIn(pa)) {	//Si se va a salir del tablero mario vuelve a girar
-					this.pos=pos.move(Action.RIGHT);
-					this.action=Action.RIGHT;
-				}
-				else {
-					if(this.action==Action.LEFT) {
-						this.pos=pos.move(Action.LEFT);
-						this.action=Action.LEFT;
+	/*STEP() IMPLEMENTADA EN MOVING OBJECT*/
 
-					}
-					else {
-						this.pos=pos.move(Action.RIGHT);
-						this.action=Action.RIGHT;
-					}	
-				}
-			}
-		}
-		
-	}
 //--------------------------------------------------
 
 	public void fall() {
@@ -140,10 +109,10 @@ public class Mario extends MovingObject{
 	}
 //--------------------------------------------------
 
-	public void dead() {
+	/*public void dead() {
 		this.alive=false;
 		game.marioDead();
-	}
+	}*/
 //--------------------------------------------------
 	
 	public void addAction(Action action) {
@@ -446,6 +415,34 @@ public boolean isFalling() {
 		}
 		return itIs;
 	}
+//--------------------------------------------------
+
+	public  boolean isSolid() {return false;}
+//--------------------------------------------------
+	protected Mario createInstance(Position pos, GameWorld game) {
+		return new Mario(game,pos);
+	}
+//--------------------------------------------------
+	public boolean interactWith(GameItem other) {
+		boolean canInteract=other.isInPosition(pos);
+		if(canInteract) {
+			other.recieveInteraction(this);
+		}
+		return canInteract;
+	}
+	//--------------------------------------------------
+		public  void receiveInteraction(Land obj) {
+		}
+	//--------------------------------------------------
+		public  void receiveInteraction(ExitDoor obj) {
+		}
+	//--------------------------------------------------
+		public void  receiveInteraction(Mario obj) {
+		}
+	//--------------------------------------------------
+		public  void receiveInteraction(Goombas obj) {	
+		}
+
 	
 
 }

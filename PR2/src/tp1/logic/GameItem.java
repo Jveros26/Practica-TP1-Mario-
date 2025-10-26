@@ -7,8 +7,8 @@ public  interface GameItem {
 
 	public  boolean interactWith(GameItem item);
 
-	public  boolean receiveInteraction(Land obj);
-	public  boolean receiveInteraction(ExitDoor obj);
-	public  boolean receiveInteraction(Mario obj);
-	public  boolean receiveInteraction(Goomba obj);
+	public  void receiveInteraction(Land obj);
+	public  void receiveInteraction(ExitDoor obj);
+	public  void receiveInteraction(Mario obj);
+	public  void receiveInteraction(Goombas obj);
 }

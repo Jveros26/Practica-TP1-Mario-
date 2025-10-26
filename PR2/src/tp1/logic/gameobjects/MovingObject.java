@@ -15,7 +15,9 @@ public abstract class MovingObject extends GameObject{
 	}
 	public abstract String getIcon();
 
-	/*public void step() {--->Movimiento automatico basico para Mario y Goombas	
+	public boolean isFalling() {return isFalling;}
+	
+	public void step() {	
 			
 		if(!((game.isSolid(pos.move(Action.LEFT)) && (game.isSolid(pos.move(Action.RIGHT)))))) {
 			Position pa=pos.move(Action.LEFT);
@@ -45,6 +47,6 @@ public abstract class MovingObject extends GameObject{
 			}
 		}
 			
-		}*/
+		}
 	
 }

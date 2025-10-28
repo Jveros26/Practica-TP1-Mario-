@@ -58,7 +58,7 @@ public class Mario extends MovingObject{
 
 	public boolean isInPosition(Position pos) {
 		
-		return isAlive && (this.pos.equals(pos) || 
+		return isAlive() && (this.pos.equals(pos) || 
 				this.isBig && pos.equals(this.pos.move(Action.UP)));
 	}
 //--------------------------------------------------

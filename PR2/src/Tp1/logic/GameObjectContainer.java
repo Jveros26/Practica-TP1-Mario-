@@ -53,17 +53,14 @@ public class GameObjectContainer {
 //--------------------------------------------------
 
 	private void clear() {
-		for(int i=goombas.size()-1;i>=0;i--) {
-			Goombas goomba=goombas.get(i);
-			if(!goomba.Alive()) {
-				goombas.remove(i);
+		for(int i=gameObjects.size()-1;i>=0;i--) {
+			GameObject obj=gameObjects.get(i);
+			if(!(obj.isAlive())) {
+				gameObjects.remove(i);
 			}
 		}
 	}
-	
-	private boolean checkMarioInExit() {
-		return mario.interactWith(exitdoor);
-	}
+
 	
 	private void doInteractionsFrom(Mario mario) {
 		for(GameObject obj: gameObjects) {

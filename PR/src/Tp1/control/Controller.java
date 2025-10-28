@@ -46,6 +46,8 @@ public class Controller {
 		case"a":
 				if(words.length<2) {	//Pq tiene que tener dos elementos action+lo que quieres hacer
 					view.showError(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+					view.showGame();
+
 				}
 				else {
 					for(int i=1;i<words.length;i++) {

@@ -24,7 +24,6 @@ public class ActionList {
 		this.r=0;
 		this.l=0;
 		for(int i=0;i<actionList.size();i++) {
-			System.out.println(actionList.size());//Recorro la lista modificandola
 			Action accion=this.get(i);
 				if(isOpposite(accion,i)){	//Si es opuesto a alguna anterior la borro
 					actionList.remove(i);

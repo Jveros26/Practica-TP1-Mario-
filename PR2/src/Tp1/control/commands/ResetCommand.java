@@ -1,8 +1,8 @@
-package Tp1.control.commands;
+package tp1.control.commands;
 
-import Tp1.logic.Game;
-import Tp1.view.GameView;
-import Tp1.view.Messages;
+import tp1.logic.Game;
+import tp1.view.GameView;
+import tp1.view.Messages;
 
 public class ResetCommand extends AbstractCommand {
 	private static final String NAME = Messages.COMMAND_RESET_NAME;

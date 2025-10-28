@@ -1,12 +1,13 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
-package Tp1.logic;
+package tp1.logic;
 
-import Tp1.logic.Position;
-import Tp1.logic.gameobjects.Land;
-import Tp1.logic.gameobjects.Goombas;
-import Tp1.logic.gameobjects.ExitDoor;
-import Tp1.logic.gameobjects.Mario;
-import Tp1.logic.gameobjects.Goombas;
+import tp1.logic.Position;
+import tp1.logic.gameobjects.Land;
+import tp1.logic.gameobjects.Goombas;
+import tp1.logic.gameobjects.ExitDoor;
+import tp1.logic.gameobjects.GameObject;
+import tp1.logic.gameobjects.Mario;
+import tp1.logic.gameobjects.Goombas;
 import java.util.ArrayList;
 
 public class GameObjectContainer {
@@ -19,41 +20,30 @@ public class GameObjectContainer {
 //--------------------------------------------------
 
 	public String positionToString(Position pos) { 
-		StringBuilder buffer=new StringBuilder();
-		for(Land land:lands) {
-			if(land.isInPosition(pos)) buffer.append(land.getIcon());
-		}
-		for(Goombas goombas:goombas) {
-			if(goombas.isInPosition(pos)) buffer.append(goombas.getIcon());
-		}
-		if(mario.isInPosition(pos)) buffer.append(mario.getIcon());
-		if(exitdoor.isInPosition(pos)) buffer.append(exitdoor.getIcon());
+	StringBuilder buffer=new StringBuilder();
 		
-		
+		for(GameObject obj: gameObjects) {
+			if(obj.isInPosition(pos)) buffer.append(obj.getIcon());
+		}
 		return buffer.toString();
 	}
 //--------------------------------------------------
 
-	public void update() {	//Hacemos doble clear e interactWith para que mario interaccione si es grande y asciende con los goombas que cae
-							//Asi cuando el goomba cae en el mario grande ya se limpia del juego y desaparece
+	public void update() {	
 		
-		mario.update();	//actualiza mario--->aqui como avisa que mario muere
-		if(!checkMarioInExit()) {	//Si mario esta en la puerta pasa de actualizar esto
-			doInteractionsFrom(mario);
-			clear();
-			for(Goombas goomba:goombas) {	//Actualiza goombas
-				goomba.update();
-			}
-			doInteractionsFrom(mario);
-		
-			clear();	//limpia goombas muertos
+		for(GameObject obj: gameObjects) {
+			obj.update();
+			doInteractionsFrom(obj);
+			
 		}
+		clear();
+
 	}
 //--------------------------------------------------
 
 	public boolean isSolid(Position pos) {
 		boolean issolid=false;
-		for(List<GameObject> obj: gameObjects) {
+		for(GameObject obj: gameObjects) {
 			if(obj.isSolid()) {
 				return true;
 			}
@@ -76,13 +66,13 @@ public class GameObjectContainer {
 	}
 	
 	private void doInteractionsFrom(Mario mario) {
-		for(Goombas goomba:goombas) {
-			mario.Interactwith(goomba);
+		for(GameObject obj: gameObjects) {
+			mario.Interactwith(obj);
 		}
 	}
 	
 	public void doInteraction(GameItem other) {
-		for(gameObjects obj: gameObjects) {
+		for(GameObject obj: gameObjects) {
 			other.interactWith(this);
 			this.interactWith(other);
 		}

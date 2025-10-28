@@ -1,15 +1,15 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
-package Tp1;
+package tp1;
 
 import java.util.Locale;
 
 
-import Tp1.control.Controller;
-import Tp1.logic.Game;
-import Tp1.view.ConsoleColorsView;
-import Tp1.view.ConsoleView;
-import Tp1.view.GameView;
-import Tp1.view.Messages;
+import tp1.control.Controller;
+import tp1.logic.Game;
+import tp1.view.ConsoleColorsView;
+import tp1.view.ConsoleView;
+import tp1.view.GameView;
+import tp1.view.Messages;
 
 public class Main {
 

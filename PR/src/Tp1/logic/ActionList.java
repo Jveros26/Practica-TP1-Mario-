@@ -134,11 +134,6 @@ public class ActionList {
 	}
 //--------------------------------------------------
 
-//	public Action get(int i) {
-//		return actionList.get(i);
-//	}
-//--------------------------------------------------
-
 	public void add(Action acc) {
 		actionList.add(acc);
 	}

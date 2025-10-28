@@ -1,6 +1,6 @@
-package Tp1.view;
+package tp1.view;
 
-import Tp1.utils.MyStringUtils;
+import tp1.utils.MyStringUtils;
 
 public class Messages {
 	

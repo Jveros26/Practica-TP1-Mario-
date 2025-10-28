@@ -1,13 +1,13 @@
-package Tp1.control.commands;
+package tp1.control.commands;
 
 import java.util.ArrayList;
 
-import Tp1.logic.Action;
-import Tp1.logic.gameobjects.Land;
-import Tp1.view.GameView;
-import Tp1.view.Messages;
-import Tp1.logic.ActionList;
-import Tp1.logic.Game;
+import tp1.logic.Action;
+import tp1.logic.gameobjects.Land;
+import tp1.view.GameView;
+import tp1.view.Messages;
+import tp1.logic.ActionList;
+import tp1.logic.Game;
 
 public class ActionCommand extends AbstractCommand {
 	private static final String NAME = Messages.COMMAND_ACTION_NAME;

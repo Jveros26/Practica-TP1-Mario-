@@ -1,13 +1,13 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
-package Tp1.control;
+package tp1.control;
 
-import Tp1.logic.Game;
-import Tp1.view.GameView;
-import Tp1.view.Messages;
-import Tp1.control.commands.CommandGenerator;
-import Tp1.logic.Action;
-import Tp1.control.commands.Command;
-import Tp1.logic.GameModel;
+import tp1.logic.Game;
+import tp1.view.GameView;
+import tp1.view.Messages;
+import tp1.control.commands.CommandGenerator;
+import tp1.logic.Action;
+import tp1.control.commands.Command;
+import tp1.logic.GameModel;
 
 import java.util.Scanner;
 

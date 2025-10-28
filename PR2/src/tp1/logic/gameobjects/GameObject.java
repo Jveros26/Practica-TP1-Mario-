@@ -1,11 +1,11 @@
-package Tp1.logic.gameobjects;
+package tp1.logic.gameobjects;
 
-import Tp1.logic.Action;
-import Tp1.logic.Game;
-import Tp1.logic.Position;
-import Tp1.logic.GameItem;
-import Tp1.logic.GameWorld;
-import Tp1.view.Messages;
+import tp1.logic.Action;
+import tp1.logic.Game;
+import tp1.logic.Position;
+import tp1.logic.GameItem;
+import tp1.logic.GameWorld;
+import tp1.view.Messages;
 
 public abstract class GameObject implements GameItem,GameWorld{ 
 
@@ -18,13 +18,16 @@ public abstract class GameObject implements GameItem,GameWorld{
 	private String getShortcut() {return shortcut;}
 	private String getName() {return name;}
 	
-	public GameObject(Game game, Position pos) {
+	public GameObject(Game game, Position pos,String name,String shortcut) {
 		this.isAlive = true;
 		this.pos = pos;
 		this.game = game;
+		this.name=name;
+		this.shortcut=shortcut;
+		
 	}
 	
-	public GameObject parse(String strsObject[],GameWorld game ) {
+	public GameObject parse(String strsObject[],Game game ) {
 		GameObject obj=null;
 		
 		if(strsObject.length>=2 && matchParseName(strsObject[1])) {
@@ -45,10 +48,8 @@ public abstract class GameObject implements GameItem,GameWorld{
 				getName().equalsIgnoreCase(name);
 	}
 	
-	public void update() {};
 	
 	public boolean isInPosition(Position p) {
-		// TODO fill your code here, it should depends on the status of the object
 		return isAlive && (this.pos.equals(p));
 	}
  	
@@ -61,8 +62,14 @@ public abstract class GameObject implements GameItem,GameWorld{
 	}
 	
 	// TODO implement and decide, Which one is abstract?
-	// public boolean isSolid()
-	// public void update()
+	public abstract boolean isSolid();
+	
+	public void update() {
+		if(!isSolid()) {
+			
+		}
+		
+	}
 	
 	public abstract String getIcon();
 
@@ -70,4 +77,12 @@ public abstract class GameObject implements GameItem,GameWorld{
 	protected void move(Action dir) {	//Actualiza posicion en base a la direccion que quiera mover
 		this.pos=pos.move(dir);
 	}
+	
+	public boolean isSolid(Position pos) {
+		if(this.pos.equals(pos)) {
+			return isSolid();
+		}
+		return false;
+	}
+
 }

@@ -1,7 +1,7 @@
-package Tp1.view;
+package tp1.view;
 
-import Tp1.logic.Game;
-import Tp1.logic.GameStatus;
+import tp1.logic.Game;
+import tp1.logic.GameStatus;
 
 public abstract class GameView implements ViewInterface,GameStatus{
 

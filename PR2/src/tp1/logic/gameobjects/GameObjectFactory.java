@@ -1,4 +1,4 @@
-package Tp1.logic.gameobjects;
+package tp1.logic.gameobjects;
 
 
 import java.util.Arrays;

@@ -1,9 +1,9 @@
-package Tp1.control.commands;
+package tp1.control.commands;
 
 import java.util.Arrays;
 import java.util.List;
 
-import Tp1.view.Messages;
+import tp1.view.Messages;
 
 public class CommandGenerator {
 

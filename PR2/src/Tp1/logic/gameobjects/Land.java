@@ -1,15 +1,20 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
-package Tp1.logic.gameobjects;
+package tp1.logic.gameobjects;
 
-import Tp1.logic.GameItem;
-import Tp1.logic.Position;
-import Tp1.view.Messages;
+import tp1.logic.Game;
+import tp1.logic.GameItem;
+import tp1.logic.GameWorld;
+import tp1.logic.Position;
+import tp1.view.Messages;
 
 
 public class Land extends GameObject{
 
-	public Land(Game game,Position pos) {
-		super(game,pos);
+	private static final String name="LAND";
+	private static final String shortcut="LA";
+	
+	public Land(GameWorld game,Position pos) {
+		super(game,pos,name,shortcut);
 	}
 //--------------------------------------------------
 
@@ -42,7 +47,7 @@ public  boolean isSolid() {return true;}
 		return canInteract;
 	}
 //--------------------------------------------------
-	public  void receiveInteraction(Land obj) {
+	public void receiveInteraction(Land obj) {
 	}
 //--------------------------------------------------
 	public  void receiveInteraction(ExitDoor obj) {

@@ -1,5 +1,5 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
-package Tp1.logic;
+package tp1.logic;
 
 /**
  * Represents the allowed actions in the game

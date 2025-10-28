@@ -1,4 +1,4 @@
-package Tp1.logic;
+package tp1.logic;
 
 public interface GameStatus {
 

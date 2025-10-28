@@ -1,20 +1,18 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
-package Tp1.logic.gameobjects;
+package tp1.logic.gameobjects;
 
-import Tp1.logic.Position;
-import Tp1.view.Messages;
+import tp1.logic.Position;
+import tp1.view.Messages;
 
 import java.util.ArrayList;
 
-import Tp1.logic.Action;
-import Tp1.logic.Game;
-import Tp1.logic.gameobjects.Goombas;
-import Tp1.logic.ActionList;
-import Tp1.view.Messages;
-import Tp1.logic.GameItem;
-
-
-
+import tp1.logic.Action;
+import tp1.logic.Game;
+import tp1.logic.gameobjects.Goombas;
+import tp1.logic.ActionList;
+import tp1.view.Messages;
+import tp1.logic.GameItem;
+import tp1.logic.GameWorld;
 
 
 public class Mario extends MovingObject{
@@ -25,11 +23,13 @@ public class Mario extends MovingObject{
 	private boolean left,right;
 	private boolean onAir;
 	private boolean isAscending;
+	private static final String name="MARIO";
+	private static final String shortcut="MA";
 	private int r,l,d,u;
 //--------------------------------------------------
 
 	public Mario(Game game,Position pos) {
-		super(game,pos,Action.STOP,false);	
+		super(game,pos,Action.STOP,false,name,shortcut);	
 		isBig=true;
 		isAscending=false;
 		actList=new ActionList();
@@ -90,7 +90,7 @@ public class Mario extends MovingObject{
 			runActions();
 		}
 		else {
-				this.action=Action.STOP;
+				this.direction=Action.STOP;
 				fall();
 			}
 		}
@@ -345,15 +345,15 @@ public class Mario extends MovingObject{
 	}
 //--------------------------------------------------
 
-public void Interactwith(Goombas other) {
-	boolean canInteract=other.isInPosition(this.pos) ||	//si el gomba y mario estan en la misma pos o si mario es grande y el goomba esta en la posicion de abajo o arriba
-			this.isBig && other.isInPosition(this.pos.move(Action.UP));
+public void Interactwith(Goombas obj) {
+	boolean canInteract=obj.isInPosition(this.pos) ||	//si el gomba y mario estan en la misma pos o si mario es grande y el goomba esta en la posicion de abajo o arriba
+			this.isBig && obj.isInPosition(this.pos.move(Action.UP));
 	if(canInteract && !this.isFalling) {
-		this.crash(other);	//Si no cae mario se choca y o muere o mata al goomba y deja de ser grande
+		this.crash(obj);	//Si no cae mario se choca y o muere o mata al goomba y deja de ser grande
 	}
 	else {
 		if(canInteract && this.isFalling) {
-			other.receiveInteraction(this);	//Gomba muere
+			obj.receiveInteraction(this);	//Gomba muere
 			game.addPoints(100);
 		}
 	}
@@ -416,29 +416,45 @@ public boolean isFalling() {
 //--------------------------------------------------
 
 	public  boolean isSolid() {return false;}
+
 //--------------------------------------------------
-	protected Mario createInstance(Position pos, GameWorld game) {
-		return new Mario(game,pos);
-	}
-//--------------------------------------------------
-	public boolean interactWith(GameItem other) {
-		boolean canInteract=other.isInPosition(pos);
+	public boolean interactWith(GameItem item) {
+		boolean canInteract=item.isInPosition(pos);
 		if(canInteract) {
-			other.recieveInteraction(this);
+			item.recieveInteraction(this);
 		}
 		return canInteract;
 	}
-	//--------------------------------------------------
+//--------------------------------------------------
 		public  void receiveInteraction(Land obj) {
+			if(obj.isInPosition(pos)) {
+				this.direction=direction.opposite(direction);
+			}
 		}
-	//--------------------------------------------------
+//--------------------------------------------------
 		public  void receiveInteraction(ExitDoor obj) {
+			if(obj.isInPosition(pos)) {
+				game.marioExited();
+			}
 		}
-	//--------------------------------------------------
+//--------------------------------------------------
 		public void  receiveInteraction(Mario obj) {
 		}
-	//--------------------------------------------------
-		public  void receiveInteraction(Goombas obj) {	
+//--------------------------------------------------
+		public  void receiveInteraction(Goombas obj) {
+			
+		}
+
+		@Override
+		public void addPoints(int p) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		protected GameObject createInstance(Position pos, GameWorld game) {
+			return new Mario(game,pos);
+
 		}
 
 	

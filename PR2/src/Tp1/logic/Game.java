@@ -1,8 +1,9 @@
 //Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
 package Tp1.logic;
 import Tp1.logic.gameobjects.*;
+import Tp1.logic.Position;
 
-public class Game {
+public class Game implements GameModel, GameStatus, GameWorld {
 
 	public static final int DIM_X = 30;
 	public static final int DIM_Y = 15;
@@ -24,6 +25,9 @@ public class Game {
 		reset(nLevel);
 	}
 	
+	public void reset() {
+		this.exit=true;
+	}
 //--------------------------------------------------
 
 	public String positionToString(int col, int row) {
@@ -221,14 +225,10 @@ private void initLevel1() {
 	gameObjects.add(new Goombas(this,new Position(12, 14)));
 }
 //--------------------------------------------------
-	public boolean isSolid(Position pos) {
+public boolean isSolid(Position pos) {
 	
-		String es=gameObjects.whatIs(pos);
-		if(es=="land") {
-			return true;
-		}
-		return false;
-	}	
+	return gameObjects.isSolid(pos);	//Comprueba en objectContainer si la pos contiene un objeto solido (Land)
+}	
 //--------------------------------------------------
 
 	public boolean positionIsIn(Position pos) {
@@ -246,15 +246,6 @@ private void initLevel1() {
 	}
 //--------------------------------------------------
 
-	public boolean isLand(Position pos) {
-		String es=gameObjects.whatIs(pos);
-		if(es=="land") {
-			return true;
-		}
-		return false;
-	}
-//--------------------------------------------------
-
 	public void marioExited() {
 		addPoints(remainingTime*10);
 		marioExited=true;
@@ -263,5 +254,6 @@ private void initLevel1() {
 /*public void doInteractionsFrom(Mario mario) {
 	this.gameObjects.doInteractionsFrom(Mario mario);
 }*/
+	
 
 }

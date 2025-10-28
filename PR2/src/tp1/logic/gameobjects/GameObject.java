@@ -4,12 +4,19 @@ import Tp1.logic.Action;
 import Tp1.logic.Game;
 import Tp1.logic.Position;
 import Tp1.logic.GameItem;
+import Tp1.logic.GameWorld;
+import Tp1.view.Messages;
 
-public abstract class GameObject implements GameItem{ 
+public abstract class GameObject implements GameItem,GameWorld{ 
 
 	protected Position pos; // If you can, make it private.
 	private boolean isAlive;
 	protected Game game; 
+	private final String name;
+	private final String shortcut;
+	
+	private String getShortcut() {return shortcut;}
+	private String getName() {return name;}
 	
 	public GameObject(Game game, Position pos) {
 		this.isAlive = true;
@@ -34,8 +41,8 @@ public abstract class GameObject implements GameItem{
 	
 	
 	protected boolean matchParseName(String name) {
-		return getShortcut().equalsIsIgnoreCase(name) || 
-				getName().equalsIsIgnoreCase(name);
+		return getShortcut().equalsIgnoreCase(name) || 
+				getName().equalsIgnoreCase(name);
 	}
 	
 	public void update() {};

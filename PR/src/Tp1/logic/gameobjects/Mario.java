@@ -389,11 +389,11 @@ public class Mario {
 	}
 //--------------------------------------------------
 	public boolean interactWith(ExitDoor other) {
-		Position posit=other.exitDoorPos();
 		
 		boolean isInDoor=false;
-		if(this.pos.equals(posit)) {	//Comprueba si la posicion de la exitdoor y la de mario es la misma 
-			isInDoor=true;	//si lo es devuelve true sino false
+
+		if(other.isInPosition(this.pos)) {	//Si la puerta esta en la misma posicion que mario
+			isInDoor=true;	
 			game.marioExited();
 		}
 		return isInDoor;

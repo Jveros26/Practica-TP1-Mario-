@@ -16,6 +16,7 @@ import Tp1.logic.GameItem;
 
 
 
+
 public class Mario extends MovingObject{
 	private ActionList actList;
 	private Position pos;
@@ -310,23 +311,23 @@ public class Mario extends MovingObject{
 		boolean yes=true;
 		switch(acc) {
 		case LEFT:
-			if(game.isLand(pos.move(Action.LEFT))) {
+			if(game.isSolid(pos.move(Action.LEFT))) {
 				yes=false;
 			}
 			break;
 		case RIGHT:
-			if(game.isLand(pos.move(Action.RIGHT))) {
+			if(game.isSolid(pos.move(Action.RIGHT))) {
 				yes=false;
 			}
 			break;
 		case DOWN:
-			if(game.isLand(pos.move(Action.DOWN))) {
+			if(game.isSolid(pos.move(Action.DOWN))) {
 				yes=false;
 			}
 			
 			break;
 		case UP:
-			if(game.isLand(pos.move(Action.UP))) {
+			if(game.isSolid(pos.move(Action.UP))) {
 				yes=false;
 			}
 
@@ -336,14 +337,11 @@ public class Mario extends MovingObject{
 	}
 //--------------------------------------------------
 	public boolean interactWith(ExitDoor other) {
-		Position posit=other.exitDoorPos();
 		
-		boolean isInDoor=false;
-		if(this.pos.equals(posit)) {	//Comprueba si la posicion de la exitdoor y la de mario es la misma 
-			isInDoor=true;	//si lo es devuelve true sino false
-			game.marioExited();
+		if(other.isInPosition(this.pos)) {
+			return true;
 		}
-		return isInDoor;
+		return false;
 	}
 //--------------------------------------------------
 

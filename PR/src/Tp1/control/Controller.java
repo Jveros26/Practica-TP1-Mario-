@@ -52,14 +52,15 @@ public class Controller {
 						Action action= Action.parse(words[i]);
 						if(action !=null){
 						game.addAction(action);
-						this.game.update();
-						this.game.clearList();
-						view.showGame();
+
 						}
 						else {
 							view.showError(Messages.UNKNOWN_ACTION.formatted(words[i])); //Si la accion no es valida
 						}
 					}
+					this.game.update();
+					this.game.clearList();
+					view.showGame();
 				}
 				break;
 		case"update":

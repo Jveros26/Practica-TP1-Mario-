@@ -17,6 +17,13 @@ public class Position {
 		this.col=pos.col;
 		this.row=pos.row;
 	}
+	public Position(String pos) {
+		int p=Integer.parseInt(pos);
+		int a=p%10;
+		int k= (p-a)/10;
+		this.row=k;
+		this.col=a;
+	}
 //--------------------------------------------------
 
 	public boolean equals(Object pos) {

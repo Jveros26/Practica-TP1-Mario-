@@ -7,13 +7,14 @@ import Tp1.view.Messages;
 import Tp1.control.commands.CommandGenerator;
 import Tp1.logic.Action;
 import Tp1.control.commands.Command;
+import Tp1.logic.GameModel;
 
 import java.util.Scanner;
 
 /**
  *  Accepts user input and coordinates the game execution logic
  */
-public class Controller {
+public class Controller implements GameModel {
 
 	private Game game;
 	private GameView view;

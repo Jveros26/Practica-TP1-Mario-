@@ -23,8 +23,9 @@ public class ActionList {
 		this.d=0;
 		this.r=0;
 		this.l=0;
-		for(int i=0;i<actionList.size();i++) {	//Recorro la lista modificandola
-			Action accion=actionList.get(i);
+		for(int i=0;i<actionList.size();i++) {
+			System.out.println(actionList.size());//Recorro la lista modificandola
+			Action accion=this.get(i);
 				if(isOpposite(accion,i)){	//Si es opuesto a alguna anterior la borro
 					actionList.remove(i);
 					i--; //Muevo posicion atras para no verme afectado
@@ -38,8 +39,13 @@ public class ActionList {
 						counter(accion);	//Si puede realizar la accion no se borra solo se aumenta el contador
 				}
 			}
+			
 		}
 		//resetNum();	//Una vez limpiamos la lista reiniciamos valores
+	}
+	
+	public Action get(int i) {
+		return actionList.get(i);
 	}
 //--------------------------------------------------
 	private void counter(Action a) {
@@ -129,9 +135,9 @@ public class ActionList {
 	}
 //--------------------------------------------------
 
-	public Action get(int i) {
-		return actionList.get(i);
-	}
+//	public Action get(int i) {
+//		return actionList.get(i);
+//	}
 //--------------------------------------------------
 
 	public void add(Action acc) {

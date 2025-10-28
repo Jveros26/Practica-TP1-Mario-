@@ -10,7 +10,7 @@ import Tp1.logic.gameobjects.Goombas;
 import java.util.ArrayList;
 
 public class GameObjectContainer {
-	private List<GameObject> gameObjects;
+	private ArrayList<GameObject> gameObjects;
 
 	
 	public GameObjectContainer() {
@@ -53,7 +53,7 @@ public class GameObjectContainer {
 
 	public boolean isSolid(Position pos) {
 		boolean issolid=false;
-		for(gameObjects obj: gameObjects) {
+		for(List<GameObject> obj: gameObjects) {
 			if(obj.isSolid()) {
 				return true;
 			}

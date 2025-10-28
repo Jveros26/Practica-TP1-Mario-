@@ -113,12 +113,7 @@ public class GameObjectContainer {
 				break;
 			}
 		}
-		for(Goombas goombas:goombas) {
-			if(goombas.isInPosition(pos)){	//Si en la posicion hay un goomba devuelve true
-				issolid=true;
-				break;
-			}
-		}
+		//Aqui estaba el for de goombas 
 		
 		return issolid;	//Devuelve si hay un goomba/land-->objetos solidos
 	}

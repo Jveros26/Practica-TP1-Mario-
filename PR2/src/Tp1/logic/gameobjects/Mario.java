@@ -18,21 +18,24 @@ import tp1.logic.GameWorld;
 public class Mario extends MovingObject{
 	private ActionList actList;
 	private Position pos;
-	private Game game;
+	private GameWorld game;
 	private boolean isBig;
 	private boolean left,right;
 	private boolean onAir;
 	private boolean isAscending;
-	private static final String name="MARIO";
-	private static final String shortcut="MA";
+	private static final String NAME=Messages.MARIO_NAME;
 	private int r,l,d,u;
 //--------------------------------------------------
 
-	public Mario(Game game,Position pos) {
-		super(game,pos,Action.STOP,false,name,shortcut);	
+	public Mario(GameWorld game,Position pos) {
+		super(game,pos,Action.STOP,false,NAME);	
 		isBig=true;
 		isAscending=false;
 		actList=new ActionList();
+	}
+	
+	public Mario() {
+		super(Action.STOP,false,NAME);
 	}
 
 //--------------------------------------------------
@@ -181,14 +184,14 @@ public class Mario extends MovingObject{
 			if(isBig) {
 				if(!game.isSolid(p.move(Action.LEFT)) && !game.isSolid(this.pos.move(Action.LEFT))) {
 					this.pos=pos.move(Action.LEFT);
-					this.action=Action.LEFT;
+					this.direction=Action.LEFT;
 				}
 				
 			}
 			else {
 				if(!game.isSolid(pos.move(Action.LEFT))) {
 					this.pos=pos.move(Action.LEFT);
-					this.action=Action.LEFT;
+					this.direction=Action.LEFT;
 				}
 				
 			}
@@ -199,14 +202,14 @@ public class Mario extends MovingObject{
 			if(isBig) {
 				if(!game.isSolid(p.move(Action.RIGHT)) && !game.isSolid(this.pos.move(Action.RIGHT))) {
 					this.pos=pos.move(Action.RIGHT);
-					this.action=Action.RIGHT;
+					this.direction=Action.RIGHT;
 				}
 				
 			}
 			else {
 				if(!game.isSolid(pos.move(Action.RIGHT))) {
 					this.pos=pos.move(Action.RIGHT);
-					this.action=Action.RIGHT;
+					this.direction=Action.RIGHT;
 				}
 				
 			}
@@ -251,7 +254,7 @@ public class Mario extends MovingObject{
 				}
 				else {
 					this.pos=pos.move(Action.DOWN);
-				this.action=Action.STOP;
+				this.direction=Action.STOP;
 				this.isFalling=true;
 				}
 			}
@@ -336,29 +339,30 @@ public class Mario extends MovingObject{
 		return yes;
 	}
 //--------------------------------------------------
-	public boolean interactWith(ExitDoor other) {
-		
-		if(other.isInPosition(this.pos)) {
-			return true;
-		}
-		return false;
-	}
+//	public boolean interactWith(ExitDoor other) {
+//		
+//		if(other.isInPosition(this.pos)) {
+//			
+//			return true;
+//		}
+//		return false;
+//	}
 //--------------------------------------------------
 
-public void Interactwith(Goombas obj) {
-	boolean canInteract=obj.isInPosition(this.pos) ||	//si el gomba y mario estan en la misma pos o si mario es grande y el goomba esta en la posicion de abajo o arriba
-			this.isBig && obj.isInPosition(this.pos.move(Action.UP));
-	if(canInteract && !this.isFalling) {
-		this.crash(obj);	//Si no cae mario se choca y o muere o mata al goomba y deja de ser grande
-	}
-	else {
-		if(canInteract && this.isFalling) {
-			obj.receiveInteraction(this);	//Gomba muere
-			game.addPoints(100);
-		}
-	}
-	
-}
+//public void Interactwith(Goombas obj) {
+//	boolean canInteract=obj.isInPosition(this.pos) ||	//si el gomba y mario estan en la misma pos o si mario es grande y el goomba esta en la posicion de abajo o arriba
+//			this.isBig && obj.isInPosition(this.pos.move(Action.UP));
+//	if(canInteract && !this.isFalling) {
+//		this.crash(obj);	//Si no cae mario se choca y o muere o mata al goomba y deja de ser grande
+//	}
+//	else {
+//		if(canInteract && this.isFalling) {
+//			obj.receiveInteraction(this);	//Gomba muere
+//			game.addPoints(100);
+//		}
+//	}
+//	
+//}
 //--------------------------------------------------
 
 private void crash(Goombas other) {
@@ -420,20 +424,20 @@ public boolean isFalling() {
 //--------------------------------------------------
 	public boolean interactWith(GameItem item) {
 		boolean canInteract=item.isInPosition(pos);
-		if(canInteract) {
-			item.recieveInteraction(this);
+		if(canInteract && this.isAlive()) {
+			item.receiveInteraction(this);
 		}
 		return canInteract;
 	}
 //--------------------------------------------------
 		public  void receiveInteraction(Land obj) {
-			if(obj.isInPosition(pos)) {
+			if(obj.isInPosition(pos) && this.isAlive()) {
 				this.direction=direction.opposite(direction);
 			}
 		}
 //--------------------------------------------------
 		public  void receiveInteraction(ExitDoor obj) {
-			if(obj.isInPosition(pos)) {
+			if(obj.isInPosition(pos) && this.isAlive()) {
 				game.marioExited();
 			}
 		}
@@ -442,12 +446,6 @@ public boolean isFalling() {
 		}
 //--------------------------------------------------
 		public  void receiveInteraction(Goombas obj) {
-			
-		}
-
-		@Override
-		public void addPoints(int p) {
-			// TODO Auto-generated method stub
 			
 		}
 

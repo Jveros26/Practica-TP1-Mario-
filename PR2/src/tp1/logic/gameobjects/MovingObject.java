@@ -2,14 +2,20 @@ package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
 import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Position;
 
 public abstract class MovingObject extends GameObject{
 	public Action direction;
 	public boolean isFalling;
 	
-	public MovingObject(Game game, Position pos,Action dir,boolean isFalling,String name,String shortcut){
-		super(game,pos,name,shortcut);
+	public MovingObject(GameWorld game, Position pos,Action dir,boolean isFalling,String NAME){
+		super(game,pos,NAME);
+		this.direction=dir;
+		this.isFalling=isFalling;
+	}
+	public MovingObject(Action dir,boolean isFalling,String NAME) {
+		super(NAME);
 		this.direction=dir;
 		this.isFalling=isFalling;
 	}

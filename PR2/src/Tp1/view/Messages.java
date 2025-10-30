@@ -97,6 +97,11 @@ public class Messages {
 	public static final String COMMAND_HELP_SHORTCUT = "h";
 	public static final String COMMAND_HELP_DETAILS = "[h]elp";
 	public static final String COMMAND_HELP_HELP = "print this help message";
+//GAMEOBJECT
+	public static final String MARIO_NAME = "Mario";
+	public static final String GOOMBA_NAME = "Goomba";
+	public static final String EXITDOOR_NAME = "ExitDoor";
+	public static final String LAND_NAME = "Land";
 
 //Symbols
 	public static final String EMPTY = "";

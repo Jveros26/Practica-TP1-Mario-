@@ -39,11 +39,17 @@ public class GameObjectContainer {
 
 	public void update() {	
 		
-		for(GameObject obj: gameObjects) {
+		for(GameObject obj: gameObjects) {	//Recorre cada objeto haciendo su update correspondiente
 			obj.update();
-			//Hacer interacciones
 		}
-		clear();
+		doInteractions();	//Una vez updateado todo se ejecutan las interacciones
+		
+//		if (!buffer.isEmpty()) {
+//            gameObjects.addAll(buffer);
+//            buffer.clear();
+//        }
+		
+		clear();	//Se borran aquellos que esten muertos
 
 	}
 //--------------------------------------------------
@@ -71,14 +77,20 @@ public class GameObjectContainer {
 	
 	private void doInteractionsFrom(Mario mario) {
 		for(GameObject obj: gameObjects) {
-			mario.Interactwith(obj);
+			obj.receiveInteraction(mario);
 		}
 	}
 	
-	public void doInteraction(GameItem other) {
-		for(GameObject obj: gameObjects) {
-			other.interactWith(this);
-			this.interactWith(other);
+	public void doInteractions() {
+		for(int i=0;i<gameObjects.size();i++) {	//Recorre cada elemento de la lista
+			GameObject obj1=gameObjects.get(i);	//Coge el objeto que toque
+			for (int j = i + 1; j < gameObjects.size(); j++) {	//Y lo comprueba comprueba con el resto de elementos con los que no haya interactuado
+				GameObject obj2 = gameObjects.get(j);	//Coge cada uno de los objetos
+				
+		           obj1.interactWith(obj2);	//Interactua bidireccionalmente
+		           obj2.interactWith(obj1);
+			}
+			
 		}
 	}
 

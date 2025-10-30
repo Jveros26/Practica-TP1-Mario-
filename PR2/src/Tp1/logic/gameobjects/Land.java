@@ -10,11 +10,14 @@ import tp1.view.Messages;
 
 public class Land extends GameObject{
 
-	private static final String name="LAND";
-	private static final String shortcut="LA";
+	private static final String NAME=Messages.LAND_NAME;
+
 	
 	public Land(GameWorld game,Position pos) {
-		super(game,pos,name,shortcut);
+		super(game,pos,NAME);
+	}
+	public Land() {
+		super(NAME);
 	}
 //--------------------------------------------------
 
@@ -41,7 +44,7 @@ public  boolean isSolid() {return true;}
 //--------------------------------------------------
 	public boolean interactWith(GameItem other) {
 		boolean canInteract=other.isInPosition(pos);
-		if(canInteract) {
+		if(canInteract && this.isAlive()) {
 			other.receiveInteraction(this);
 		}
 		return canInteract;

@@ -12,22 +12,22 @@ public abstract class GameObject implements GameItem{
 	protected Position pos; // If you can, make it private.
 	private boolean isAlive;
 	protected GameWorld game; //Como los objetos solo perciben esa parte pequeña de game se le asigna GameWorld en vez de game
-	private final String name;
-	private final String shortcut;
+	private final String NAME;
 	
-	private String getShortcut() {return shortcut;}
-	private String getName() {return name;}
+	private String getNAME() {return this.NAME;}
 	
-	public GameObject(GameWorld game, Position pos,String name,String shortcut) {
+	public GameObject(GameWorld game, Position pos,String NAME) {
 		this.isAlive = true;
 		this.pos = pos;
 		this.game = game;
-		this.name=name;
-		this.shortcut=shortcut;
+		this.NAME=NAME;
 		
 	}
+	public GameObject(String NAME) {
+		this.NAME=NAME;
+	}
 	
-	public GameObject parse(String strsObject[],Game game ) {
+	public GameObject parse(String strsObject[],GameWorld game ) {
 		GameObject obj=null;
 		
 		if(strsObject.length>=2 && matchParseName(strsObject[1])) {
@@ -44,8 +44,7 @@ public abstract class GameObject implements GameItem{
 	
 	
 	protected boolean matchParseName(String name) {
-		return getShortcut().equalsIgnoreCase(name) || 
-				getName().equalsIgnoreCase(name);
+		return getNAME().equalsIgnoreCase(NAME);
 	}
 	
 	
@@ -61,15 +60,10 @@ public abstract class GameObject implements GameItem{
 		this.isAlive = false;
 	}
 	
-	// TODO implement and decide, Which one is abstract?
-	public abstract boolean isSolid();
+	public abstract boolean isSolid();	//Abtracta pq cada una implementa su isSolid pq depende directamente del tipo
 	
-	public void update() {
-		if(!isSolid()) {
-			
-		}
-		
-	}
+	public void update() {};	//Abtracta tambien pq cada clase tiene su propio update
+								//Aunque land y ExitDoor tmb tengan updates son vacios y no hace nada
 	
 	public abstract String getIcon();
 

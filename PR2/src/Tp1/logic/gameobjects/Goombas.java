@@ -6,17 +6,22 @@ import tp1.view.Messages;
 import tp1.logic.gameobjects.Mario;
 import tp1.logic.Game;
 import tp1.logic.GameItem;
+import tp1.logic.GameWorld;
 import tp1.logic.Action;
 
 public class Goombas extends MovingObject {
 	private boolean Alive;
 	private boolean isFalling;
-	private static final String name="GOOMBA";
-	private static final String shortcut="GOO";
+	private static final String NAME=Messages.GOOMBA_NAME;
+
 //--------------------------------------------------
 
-	public Goombas(Game game,Position pos) {
-		super(game,pos,Action.RIGHT,false,name,shortcut);
+	public Goombas(GameWorld game,Position pos) {
+		super(game,pos,Action.RIGHT,false,NAME);
+	}
+	
+	public Goombas() {
+		super(Action.STOP,false,NAME);
 	}
 	//--------------------------------------------------
 
@@ -85,29 +90,36 @@ public class Goombas extends MovingObject {
 
 		public boolean interactWith(GameItem other) {
 			boolean canInteract=other.isInPosition(pos);
-			if(canInteract) {
-				other.recieveInteraction(this);
+			if(canInteract && this.isAlive()) {
+				other.receiveInteraction(this);
 			}
 			return canInteract;
 		}
 	//--------------------------------------------------
 		public  void receiveInteraction(Land obj) {
-			if(obj.isInPosition(pos)) {
+			if(obj.isInPosition(pos)&& this.isAlive() ) {
 				this.direction=direction.opposite(direction);
 			}
 		}
 	//--------------------------------------------------
 		public  void receiveInteraction(ExitDoor obj) {
-			if(obj.isInPosition(pos)) {
+			if(obj.isInPosition(pos)&& this.isAlive()) {
 				this.direction=direction.opposite(direction);
 			}
 		}
 	//--------------------------------------------------
 		public  void receiveInteraction(Goombas obj) {	
-			if(obj.isInPosition(pos)) {
+			if(obj.isInPosition(pos)&& this.isAlive()) {
 				this.direction=direction.opposite(direction);
 			}
 		}
 	//--------------------------------------------------
 		public  boolean isSolid() {return false;}
+	//--------------------------------------------------
+	
+		@Override
+		protected GameObject createInstance(Position pos, GameWorld game) {
+			return new Goombas(game,pos);
+
+		}
 	}

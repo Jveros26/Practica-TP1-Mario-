@@ -12,13 +12,21 @@ import java.util.ArrayList;
 
 public class GameObjectContainer {
 	private ArrayList<GameObject> gameObjects;
-
+	private ArrayList<GameObject> buffer;
 	
 	public GameObjectContainer() {
 		gameObjects = new ArrayList<>();
+		buffer=new ArrayList<>();
 	}
 //--------------------------------------------------
 
+	public void add(GameObject object) {
+		this.gameObjects.add(object);
+	}
+	public void addDelayed(GameObject object) {
+		this.buffer.add(object);
+	}
+	
 	public String positionToString(Position pos) { 
 	StringBuilder buffer=new StringBuilder();
 		
@@ -33,8 +41,7 @@ public class GameObjectContainer {
 		
 		for(GameObject obj: gameObjects) {
 			obj.update();
-			doInteractionsFrom(obj);
-			
+			//Hacer interacciones
 		}
 		clear();
 
@@ -74,5 +81,6 @@ public class GameObjectContainer {
 			this.interactWith(other);
 		}
 	}
+
 }
 

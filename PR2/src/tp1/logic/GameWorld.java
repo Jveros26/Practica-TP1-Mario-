@@ -4,4 +4,6 @@ public interface GameWorld {
 
 	public boolean isSolid(Position pos);
 	public void addPoints(int p);
+	public void marioExited();
+	
 }

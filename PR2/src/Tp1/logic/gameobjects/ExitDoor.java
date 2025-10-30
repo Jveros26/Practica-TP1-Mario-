@@ -3,6 +3,7 @@ package tp1.logic.gameobjects;
 
 import tp1.logic.Game;
 import tp1.logic.GameItem;
+import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -10,21 +11,22 @@ public class ExitDoor extends GameObject {
 
 	private static final String name="EXITDOOR";
 	private static final String shortcut="EX";
+	
 	public ExitDoor(GameWorld game,Position pos) {
 		super(game,pos,name,shortcut);
 	}
 //--------------------------------------------------
-
+	@Override
 	public String getIcon() {
 		return Messages.EXIT_DOOR;
 	}
 	
-	
+	@Override
 	protected ExitDoor createInstance(Position pos, GameWorld game) {
 		return new ExitDoor(game,pos);
 	}
 //--------------------------------------------------
-
+	@Override
 	public boolean isInPosition(Position pos) {
 		
 
@@ -33,34 +35,37 @@ public class ExitDoor extends GameObject {
 		}
 		return false;
 	}
-//--------------------------------------------------	
-	public Position posicion() {
-		return this.pos;
-	}
+
 //--------------------------------------------------
+	@Override
 	public  boolean isSolid() {return false;}
 
-//--------------------------------------------------	
+//--------------------------------------------------
+	@Override
 	public boolean interactWith(GameItem other) {
 		boolean canInteract=other.isInPosition(pos);
 		if(canInteract) {
-			other.recieveInteraction(this);
+			other.receiveInteraction(this);
 		}
 		return canInteract;
 	}
 //--------------------------------------------------
+	@Override
 		public  void receiveInteraction(Land obj) {
 		}
 //--------------------------------------------------
+		@Override
 		public  void receiveInteraction(ExitDoor obj) {
 		}
 //--------------------------------------------------
+		@Override
 		public void  receiveInteraction(Mario obj) {
 			if(obj.isInPosition(pos)) {
-				game.marioExited();
+				game.marioExited();	//Si al estar hecho en gameWorld por nosotros puede llamar a la funcion del Game
 			}
 		}
 //--------------------------------------------------
+		@Override
 		public  void receiveInteraction(Goombas obj) {	
 		}
 

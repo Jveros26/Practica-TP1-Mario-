@@ -42,7 +42,7 @@ public  boolean isSolid() {return true;}
 	public boolean interactWith(GameItem other) {
 		boolean canInteract=other.isInPosition(pos);
 		if(canInteract) {
-			other.recieveInteraction(this);
+			other.receiveInteraction(this);
 		}
 		return canInteract;
 	}

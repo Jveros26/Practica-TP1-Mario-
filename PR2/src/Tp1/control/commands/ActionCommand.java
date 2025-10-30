@@ -8,6 +8,7 @@ import tp1.view.GameView;
 import tp1.view.Messages;
 import tp1.logic.ActionList;
 import tp1.logic.Game;
+import tp1.logic.GameModel;
 
 public class ActionCommand extends AbstractCommand {
 	private static final String NAME = Messages.COMMAND_ACTION_NAME;
@@ -40,9 +41,9 @@ public class ActionCommand extends AbstractCommand {
 			 }
 		 }
 	}
-	 public void execute(Game game, GameView view) {
+	 public void execute(GameModel game, GameView view) {
 		game.update();
-		game.clearList();
+		//game.clearList();
 		view.showGame();
 	 }
 			

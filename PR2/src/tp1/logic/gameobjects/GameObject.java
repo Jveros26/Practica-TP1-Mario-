@@ -7,18 +7,18 @@ import tp1.logic.GameItem;
 import tp1.logic.GameWorld;
 import tp1.view.Messages;
 
-public abstract class GameObject implements GameItem,GameWorld{ 
+public abstract class GameObject implements GameItem{ 
 
 	protected Position pos; // If you can, make it private.
 	private boolean isAlive;
-	protected Game game; 
+	protected GameWorld game; //Como los objetos solo perciben esa parte pequeña de game se le asigna GameWorld en vez de game
 	private final String name;
 	private final String shortcut;
 	
 	private String getShortcut() {return shortcut;}
 	private String getName() {return name;}
 	
-	public GameObject(Game game, Position pos,String name,String shortcut) {
+	public GameObject(GameWorld game, Position pos,String name,String shortcut) {
 		this.isAlive = true;
 		this.pos = pos;
 		this.game = game;
@@ -83,6 +83,9 @@ public abstract class GameObject implements GameItem,GameWorld{
 			return isSolid();
 		}
 		return false;
+	}
+	public void marioExited() {
+		game.marioExited();
 	}
 
 }

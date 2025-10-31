@@ -24,18 +24,19 @@ public class Mario extends MovingObject{
 	private boolean onAir;
 	private boolean isAscending;
 	private static final String NAME=Messages.MARIO_NAME;
-	private int r,l,d,u;
+	private static final String SHORTCUT=Messages.MARIO_SHORTCUT;
+
 //--------------------------------------------------
 
 	public Mario(GameWorld game,Position pos) {
-		super(game,pos,Action.STOP,false,NAME);	
+		super(game,pos,Action.STOP,false,NAME,SHORTCUT);	
 		isBig=true;
 		isAscending=false;
 		actList=new ActionList();
 	}
 	
 	public Mario() {
-		super(Action.STOP,false,NAME);
+		super(Action.STOP,false,NAME,SHORTCUT);
 	}
 
 //--------------------------------------------------
@@ -122,65 +123,45 @@ public class Mario extends MovingObject{
 	public void addAction(Action action) {
 		actList.add(action);
 	}
-//--------------------------------------------------
-	public void clearList() {
-		for(int i=actList.lenght()-1;i>=0;i--) {
-			actList.remove(i);
-		}
-	}
-	
+
 //--------------------------------------------------
 
+
 	private void runActions() {
-		//Position posIni=this.pos;
-		this.u=0;
-		this.d=0;
-		this.r=0;
-		this.l=0;
+		actList.clearList();	//Limpio la lista de movimientos que no se pueden hacer o contrarios
+		
 		for(int i=0;i<(actList.lenght());i++) {	//Recorremos la lista de acciones
 			Position pa=pos.move(Action.LEFT);
 			Action acc= actList.get(i);	//Obtengo la accion que toca ahora
 			if(i>0) {	//Si ya se puede mirar la posicion anterior
-				if(!isOpposite(acc,i)) {	//Comprobamos si no hay ninguna accion anterior que sea opuesta
-					if(canMove(acc)) {	//Si no se choca con una pared deja moverse
-						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
-						counter(a);	//Suma el contador de acciones con el que corresponda
-							if(itCan(a)) {	//Si puede hacer el movimeinto lo hace sino lo ignora
-								if(!((acc==Action.LEFT) && !game.positionIsIn(pa))) {	//Mientras se vaya a mover a la izquierda y la posicion de la izquierda este fuera del tablero no se realiza la acion
-									runAction(a);
-								}
-							}
-							else {
-								actList.remove(i);
-								i--;	//En caso de que borre lo que hago es retroceder un turno y asi no llega al contador
-							}
-					}
+				if(canMove(acc)) {	//Si no se choca con una pared deja moverse
+						if(!((acc==Action.LEFT) && !game.positionIsIn(pa))) {	//Mientras se vaya a mover a la izquierda y la posicion de la izquierda este fuera del tablero no se realiza la accion
+							runAction(acc);
+						}
 				}
-				else {	//Si es opuesta solo la borramos del array
+				else {
 					actList.remove(i);
-					i--; //En caso de que borre lo que hago es retroceder un turno y asi no llega al contador
+					i--;	//En caso de que borre lo que hago es retroceder un turno y asi no llega al contador
 				}
 			}
 			else {
 				if(canMove(acc)) {	//Si no se choca con una pared deja moverse
-					if(!((acc==Action.LEFT)  && !game.positionIsIn(pa))) {
-						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
-						counter(a);	
-						runAction(a);
+					if(!((acc==Action.LEFT)  && !game.positionIsIn(pa))) {	
+						runAction(acc);
 					}
 				}
 			}
-		
 		}
-	}
+		
+}
 //--------------------------------------------------
 
 	
-	private void runAction(String action) {
+	private void runAction(Action action) {
 		Position p=this.pos.move(Action.UP);	//Posicion de arriba de mario si este es grande
 		switch(action) {
 		
-		case "left":
+		case Action.LEFT:
 			if(isBig) {
 				if(!game.isSolid(p.move(Action.LEFT)) && !game.isSolid(this.pos.move(Action.LEFT))) {
 					this.pos=pos.move(Action.LEFT);
@@ -197,7 +178,7 @@ public class Mario extends MovingObject{
 			}
 			break;
 			
-		case "right":
+		case Action.RIGHT:
 			
 			if(isBig) {
 				if(!game.isSolid(p.move(Action.RIGHT)) && !game.isSolid(this.pos.move(Action.RIGHT))) {
@@ -216,36 +197,26 @@ public class Mario extends MovingObject{
 			
 			break;
 			
-		case"up":
-			if(!this.onAir) {
-				
-				if(isBig) {
-					if(!game.isSolid(p.move(Action.UP))) {
-						this.pos=pos.move(Action.UP);
-						this.isAscending=true;
-						this.isFalling=false;
-					}
-					
+		case Action.UP:				
+			if(isBig) {
+				if(!game.isSolid(p.move(Action.UP))) {
+					this.pos=pos.move(Action.UP);
+					this.isAscending=true;
+					this.isFalling=false;
 				}
-				else {
-					if(!game.isSolid(pos.move(Action.UP))) {
-						this.pos=pos.move(Action.UP);
-						this.isAscending=true;
-						this.isFalling=false;
-					}
 					
-				}
-
 			}
 			else {
-				this.isAscending=false;
-				this.isFalling=true;
+				if(!game.isSolid(pos.move(Action.UP))) {
+					this.pos=pos.move(Action.UP);
+					this.isAscending=true;
+					this.isFalling=false;
+				}
+					
 			}
-
 			break;
 		
-		case"down":
-	
+		case Action.DOWN:
 			boolean isDead=false;
 			while(!game.isSolid(pos.move(Action.DOWN)) && !isDead) {
 				if(!game.positionIsIn(pos)) {
@@ -253,60 +224,15 @@ public class Mario extends MovingObject{
 					isDead=true;
 				}
 				else {
-					this.pos=pos.move(Action.DOWN);
-				this.direction=Action.STOP;
+				this.pos=pos.move(Action.DOWN);
 				this.isFalling=true;
 				}
 			}
+			this.direction=Action.STOP;
 			
 
 			break;
 		}
-	}
-//--------------------------------------------------
-
-	public void counter(String action) {
-		switch(action) {
-		case "left":
-			this.l++;
-			break;
-			
-		case "right":
-			this.r++;
-			break;
-			
-		case"up":
-			this.u++;
-			break;
-		
-		case"down":
-			this.d++;
-			break;
-		}
-	}
-//--------------------------------------------------
-
-	public boolean itCan(String a) {
-		boolean ok=true;
-		if(a=="left" && this.l>4) {
-			ok=false;
-		}
-		else {
-			if(a=="right" && this.r>4) {
-				ok=false;
-			}
-			else {
-				if(a=="up" && this.u>4) {
-					ok=false;
-				}
-				else {
-					if(a=="down" && this.d>4) {
-						ok=false;
-					}
-				}
-			}
-		}
-		return ok;
 	}
 //--------------------------------------------------
 
@@ -338,6 +264,14 @@ public class Mario extends MovingObject{
 		}
 		return yes;
 	}
+//--------------------------------------------------
+
+	public void clearListM() {
+		for(int i=actList.lenght()-1;i>=0;i--) {
+			actList.remove(i);
+		}
+	}
+	
 //--------------------------------------------------
 //	public boolean interactWith(ExitDoor other) {
 //		
@@ -388,35 +322,7 @@ public boolean isBIG() {
 public boolean isFalling() {
 	return this.isFalling;
 }
-//--------------------------------------------------
 
-	public boolean isOpposite(Action a,int p) {
-		boolean itIs=false;
-		int i=p;
-		while(!itIs && i>=0) {
-			Action acc=actList.get(i);
-			if(a==Action.LEFT && acc==Action.RIGHT) {
-				itIs=true;
-			}
-			else {
-				if(a==Action.RIGHT && acc==Action.LEFT) {
-					itIs=true;
-				}
-				else {
-					if(a==Action.DOWN && acc==Action.UP) {
-						itIs=true;
-					}
-					else {
-						if(a==Action.UP && acc==Action.DOWN) {
-							itIs=true;
-						}
-					}
-				}
-			}
-			i--;
-		}
-		return itIs;
-	}
 //--------------------------------------------------
 
 	public  boolean isSolid() {return false;}
@@ -455,6 +361,24 @@ public boolean isFalling() {
 
 		}
 
-	
+		private boolean isBig(String p) {
+			p.toLowerCase();
+			if(p=="big") {
+				return true;
+			}
+			return false;
+		}
+@Override
+	public GameObject parse(String objWords[],GameWorld game) {
+		GameObject obj=null;
+		if(objWords.length>=2 && matchParseName(objWords[1]) && Action.isAction(objWords[2]) && isBig(objWords[3])) {
+			Position pos=new Position(objWords[0]);
+			
+			if(game.positionIsIn(pos)) {
+				obj=this.createInstance(pos,game);
+			}
+		}
+		return obj;
+	}
 
 }

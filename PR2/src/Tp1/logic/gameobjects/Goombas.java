@@ -13,15 +13,16 @@ public class Goombas extends MovingObject {
 	private boolean Alive;
 	private boolean isFalling;
 	private static final String NAME=Messages.GOOMBA_NAME;
+	private static final String SHORTCUT=Messages.GOOMBA_SHORTCUT;
 
 //--------------------------------------------------
 
 	public Goombas(GameWorld game,Position pos) {
-		super(game,pos,Action.RIGHT,false,NAME);
+		super(game,pos,Action.RIGHT,false,NAME,SHORTCUT);
 	}
 	
 	public Goombas() {
-		super(Action.STOP,false,NAME);
+		super(Action.STOP,false,NAME,SHORTCUT);
 	}
 	//--------------------------------------------------
 

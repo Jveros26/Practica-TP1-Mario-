@@ -11,13 +11,15 @@ import tp1.view.Messages;
 public class Land extends GameObject{
 
 	private static final String NAME=Messages.LAND_NAME;
+	private static final String SHORTCUT=Messages.LAND_SHORTCUT;
+
 
 	
 	public Land(GameWorld game,Position pos) {
-		super(game,pos,NAME);
+		super(game,pos,NAME,SHORTCUT);
 	}
 	public Land() {
-		super(NAME);
+		super(NAME,SHORTCUT);
 	}
 //--------------------------------------------------
 

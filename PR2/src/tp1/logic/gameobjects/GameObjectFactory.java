@@ -19,10 +19,10 @@ public class GameObjectFactory {
 	);
 			
 	
-	public static GameObject parse(String strsObject[],GameWorld game) {
+	public static GameObject parse(String objWords[],GameWorld game) {
 		
 		for(GameObject obj:aviableObjects) {
-			GameObject objeto=obj.parse(strsObject,game);
+			GameObject objeto=obj.parse(objWords,game);
 			if(objeto!=null) {
 				return objeto;
 			}

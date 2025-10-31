@@ -2,6 +2,9 @@
 package tp1.logic;
 import tp1.logic.gameobjects.*;
 import tp1.view.GameView;
+
+import java.util.ArrayList;
+
 import tp1.logic.Position;
 
 public class Game implements GameModel, GameStatus, GameWorld {
@@ -24,6 +27,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		marioExited=false;
 		exit=false;
 		reset(nLevel);
+		this.gameObjects= new GameObjectContainer();
 	}
 	
 	public void reset() {
@@ -114,7 +118,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 //--------------------------------------------------
 
 	public void clearList() {
-		mario.clearList();
+		mario.clearListM();
 	}
 //--------------------------------------------------
 
@@ -175,8 +179,8 @@ public class Game implements GameModel, GameStatus, GameWorld {
 //		gameObjects.add(new Goombas(this,new Position(0, 19)));
 //	}
 //	
-////--------------------------------------------------
-//
+//--------------------------------------------------
+
 //private void initLevel1() {  
 //	this.nLevel = 1;
 //	this.remainingTime = 100;
@@ -256,15 +260,15 @@ public boolean isSolid(Position pos) {
 	this.gameObjects.doInteractionsFrom(Mario mario);
 }*/
 //--------------------------------------------------
-	public void execute( GameModel game, GameView view) {
-		
-		if(game.addObject(strsObject)) {
-			view.showGame();
-		}
-		else {
-			//view.showError(Messages.INVALID_GAME_OBJECT.formatted(String.jo))
-		}
-	}
+//	public void execute( GameModel game, GameView view) {
+//		
+//		if(game.addObject(strsObject)) {
+//			view.showGame();
+//		}
+//		else {
+//			view.showError(Messages.INVALID_GAME_OBJECT.formatted(String.jo))
+//		}
+//	}
 	
 	public boolean addObject(String[] strsObject) {
 		

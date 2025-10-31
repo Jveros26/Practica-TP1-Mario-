@@ -99,9 +99,17 @@ public class Messages {
 	public static final String COMMAND_HELP_HELP = "print this help message";
 //GAMEOBJECT
 	public static final String MARIO_NAME = "Mario";
-	public static final String GOOMBA_NAME = "Goomba";
-	public static final String EXITDOOR_NAME = "ExitDoor";
-	public static final String LAND_NAME = "Land";
+	public static final String GOOMBA_NAME = "GOOMBA";
+	public static final String EXITDOOR_NAME = "EXITDOOR";
+	public static final String LAND_NAME = "LAND";
+	public static final String MARIO_SHORTCUT = "M";
+	public static final String GOOMBA_SHORTCUT = "G";
+	public static final String EXITDOOR_SHORTCUT = "ED";
+	public static final String LAND_SHORTCUT = "L";
+	public static final String BIG_NAME = "BIG";
+	public static final String BIG_SHORTCUT= "B";
+	public static final String SMALL_NAME = "SMALL";
+	public static final String SMALL_SHORTCUT = "S";
 
 //Symbols
 	public static final String EMPTY = "";

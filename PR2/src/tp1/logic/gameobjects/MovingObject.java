@@ -6,16 +6,16 @@ import tp1.logic.GameWorld;
 import tp1.logic.Position;
 
 public abstract class MovingObject extends GameObject{
-	public Action direction;
-	public boolean isFalling;
+	protected Action direction;
+	protected boolean isFalling;
 	
-	public MovingObject(GameWorld game, Position pos,Action dir,boolean isFalling,String NAME){
-		super(game,pos,NAME);
+	public MovingObject(GameWorld game, Position pos,Action dir,boolean isFalling,String NAME,String SHORTCUT){
+		super(game,pos,NAME,SHORTCUT);
 		this.direction=dir;
 		this.isFalling=isFalling;
 	}
-	public MovingObject(Action dir,boolean isFalling,String NAME) {
-		super(NAME);
+	public MovingObject(Action dir,boolean isFalling,String NAME,String SHORTCUT) {
+		super(NAME,SHORTCUT);
 		this.direction=dir;
 		this.isFalling=isFalling;
 	}
@@ -23,7 +23,7 @@ public abstract class MovingObject extends GameObject{
 
 	public boolean isFalling() {return isFalling;}
 	
-	public void step() {	
+	public void step() {	//Aqui como controlar a mario grande	
 			
 		if(!((game.isSolid(pos.move(Action.LEFT)) && (game.isSolid(pos.move(Action.RIGHT)))))) {
 			Position pa=pos.move(Action.LEFT);

@@ -13,18 +13,22 @@ public abstract class GameObject implements GameItem{
 	private boolean isAlive;
 	protected GameWorld game; //Como los objetos solo perciben esa parte pequeña de game se le asigna GameWorld en vez de game
 	private final String NAME;
+	private final String SHORTCUT;
 	
 	private String getNAME() {return this.NAME;}
+	private String getSHORCUT() {return this.SHORTCUT;}
 	
-	public GameObject(GameWorld game, Position pos,String NAME) {
+	public GameObject(GameWorld game, Position pos,String NAME,String SHORTCUT) {
 		this.isAlive = true;
 		this.pos = pos;
 		this.game = game;
 		this.NAME=NAME;
+		this.SHORTCUT=SHORTCUT;
 		
 	}
-	public GameObject(String NAME) {
+	public GameObject(String NAME,String SHORTCUT) {
 		this.NAME=NAME;
+		this.SHORTCUT=SHORTCUT;
 	}
 	
 	public GameObject parse(String strsObject[],GameWorld game ) {
@@ -32,7 +36,8 @@ public abstract class GameObject implements GameItem{
 		
 		if(strsObject.length>=2 && matchParseName(strsObject[1])) {
 			Position pos=new Position(strsObject[0]);
-			
+			//Compruebo que strsObject[2]!=null-->tiene algo
+			//llamo al parse de moving object (donde compeuba si el elemento es una accion)
 			if(game.positionIsIn(pos)) {
 				obj=this.createInstance(pos,game);
 			}
@@ -44,7 +49,8 @@ public abstract class GameObject implements GameItem{
 	
 	
 	protected boolean matchParseName(String name) {
-		return getNAME().equalsIgnoreCase(NAME);
+		return getNAME().equalsIgnoreCase(name) 
+				/*&&getSHORCUT().equalsIgnoreCase(SHORTCUT);*/;
 	}
 	
 	

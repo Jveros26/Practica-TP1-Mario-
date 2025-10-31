@@ -9,4 +9,5 @@ public interface GameModel {
 	public void resetLives();
 	public void resetPoints();
 	public void reset(int nLevel);
+	public void clearList();
 }

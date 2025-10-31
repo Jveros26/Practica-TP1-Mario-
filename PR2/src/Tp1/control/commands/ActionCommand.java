@@ -43,7 +43,7 @@ public class ActionCommand extends AbstractCommand {
 	}
 	 public void execute(GameModel game, GameView view) {
 		game.update();
-		//game.clearList();
+		game.clearList();
 		view.showGame();
 	 }
 			

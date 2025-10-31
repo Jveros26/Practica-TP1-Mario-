@@ -58,6 +58,30 @@ public enum Action {
 		
 		return a;
 	}	
+	
+	public static boolean isAction(String o) {
+		Action a;
+		switch(o.toLowerCase()) {
+		case"left":
+		case"l":
+
+			return true;
+		case"right":
+		case"r":
+			return true;
+		case"down":
+		case"d":
+			return true;
+		case "up":
+		case"u":
+			return true;
+		case "stop":
+		case"s":
+			return true;
+			
+		default:return false;
+		}
+	}
 //--------------------------------------------------
 
 	public String toString() {

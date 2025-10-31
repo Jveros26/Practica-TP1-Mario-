@@ -10,13 +10,15 @@ import tp1.view.Messages;
 public class ExitDoor extends GameObject {
 
 	private static final String NAME=Messages.EXITDOOR_NAME;
+	private static final String SHORTCUT=Messages.EXITDOOR_SHORTCUT;
+
 
 	
 	public ExitDoor(GameWorld game,Position pos) {
-		super(game,pos,NAME);
+		super(game,pos,NAME,SHORTCUT);
 	}
 	public ExitDoor() {
-		super(NAME);
+		super(NAME,SHORTCUT);
 	}
 //--------------------------------------------------
 	@Override
@@ -65,7 +67,7 @@ public class ExitDoor extends GameObject {
 		public void  receiveInteraction(Mario obj) {
 			if(obj.isInPosition(pos)&& this.isAlive()) {
 				game.marioExited();	//Si al estar hecho en gameWorld por nosotros puede llamar a la funcion del Game
-			}
+			}	
 		}
 //--------------------------------------------------
 		@Override

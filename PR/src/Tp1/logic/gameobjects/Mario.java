@@ -145,17 +145,10 @@ public class Mario {
 	public void addAction(Action action) {
 		actList.add(action);
 	}
-//--------------------------------------------------
-	public void clearListM() {
-		for(int i=actList.lenght()-1;i>=0;i--) {
-			actList.remove(i);
-		}
-	}
-	
+
 //--------------------------------------------------
 
 	private void runActions() {
-		//Position posIni=this.pos;
 		actList.clearList();	//Limpio la lista de movimientos que no se pueden hacer o contrarios
 		
 		for(int i=0;i<(actList.lenght());i++) {	//Recorremos la lista de acciones
@@ -182,46 +175,6 @@ public class Mario {
 		}
 		
 }
-		/*this.u=0;
-		this.d=0;
-		this.r=0;
-		this.l=0;
-		for(int i=0;i<(actList.lenght());i++) {	//Recorremos la lista de acciones
-			Position pa=pos.move(Action.LEFT);
-			Action acc= actList.get(i);	//Obtengo la accion que toca ahora
-			if(i>0) {	//Si ya se puede mirar la posicion anterior
-				if(!isOpposite(acc,i)) {	//Comprobamos si no hay ninguna accion anterior que sea opuesta
-					if(canMove(acc)) {	//Si no se choca con una pared deja moverse
-						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
-						counter(a);	//Suma el contador de acciones con el que corresponda
-							if(itCan(a)) {	//Si puede hacer el movimeinto lo hace sino lo ignora
-								if(!((acc==Action.LEFT) && !game.positionIsIn(pa))) {	//Mientras se vaya a mover a la izquierda y la posicion de la izquierda este fuera del tablero no se realiza la acion
-									runAction(acc);
-								}
-							}
-							else {
-								actList.remove(i);
-								i--;	//En caso de que borre lo que hago es retroceder un turno y asi no llega al contador
-							}
-					}
-				}
-				else {	//Si es opuesta solo la borramos del array
-					actList.remove(i);
-					i--; //En caso de que borre lo que hago es retroceder un turno y asi no llega al contador
-				}
-			}
-			else {
-				if(canMove(acc)) {	//Si no se choca con una pared deja moverse
-					if(!((acc==Action.LEFT)  && !game.positionIsIn(pa))) {
-						String a=acc.toString();	//Si no lo es ejecutamos la accion de ahora
-						counter(a);	
-						runAction(acc);
-					}
-				}
-			}
-		
-		}
-	}*/
 //--------------------------------------------------
 
 	
@@ -265,32 +218,23 @@ public class Mario {
 			
 			break;
 			
-		case Action.UP:
-			if(!this.onAir) {
-				
-				if(isBig) {
-					if(!game.isSolid(p.move(Action.UP))) {
-						this.pos=pos.move(Action.UP);
-						this.isAscending=true;
-						this.isFalling=false;
-					}
-					
+		case Action.UP:				
+			if(isBig) {
+				if(!game.isSolid(p.move(Action.UP))) {
+					this.pos=pos.move(Action.UP);
+					this.isAscending=true;
+					this.isFalling=false;
 				}
-				else {
-					if(!game.isSolid(pos.move(Action.UP))) {
-						this.pos=pos.move(Action.UP);
-						this.isAscending=true;
-						this.isFalling=false;
-					}
 					
-				}
-
 			}
 			else {
-				this.isAscending=false;
-				this.isFalling=true;
+				if(!game.isSolid(pos.move(Action.UP))) {
+					this.pos=pos.move(Action.UP);
+					this.isAscending=true;
+					this.isFalling=false;
+				}
+					
 			}
-
 			break;
 		
 		case Action.DOWN:
@@ -312,52 +256,6 @@ public class Mario {
 		}
 	}
 //--------------------------------------------------
-
-	/*private void counter(String action) {------------>Este cuando funcione lo de ActList hay q borrarlo
-		switch(action) {
-		case "left":
-			this.l++;
-			break;
-			
-		case "right":
-			this.r++;
-			break;
-			
-		case"up":
-			this.u++;
-			break;
-		
-		case"down":
-			this.d++;
-			break;
-		}
-	}*/
-//--------------------------------------------------
-
-	/*public boolean itCan(String a) {------------>Este cuando funcione lo de ActList hay q borrarlo
-		boolean ok=true;
-		if(a=="left" && this.l>4) {
-			ok=false;
-		}
-		else {
-			if(a=="right" && this.r>4) {
-				ok=false;
-			}
-			else {
-				if(a=="up" && this.u>4) {
-					ok=false;
-				}
-				else {
-					if(a=="down" && this.d>4) {
-						ok=false;
-					}
-				}
-			}
-		}
-		return ok;
-	}*/
-//--------------------------------------------------
-
 	public boolean canMove(Action acc) {
 		boolean yes=true;
 		switch(acc) {
@@ -441,33 +339,11 @@ public boolean isFalling() {
 }
 //--------------------------------------------------
 
-	public boolean isOpposite(Action a,int p) {
-		boolean itIs=false;
-		int i=p;
-		while(!itIs && i>=0) {
-			Action acc=actList.get(i);
-			if(a==Action.LEFT && acc==Action.RIGHT) {
-				itIs=true;
-			}
-			else {
-				if(a==Action.RIGHT && acc==Action.LEFT) {
-					itIs=true;
-				}
-				else {
-					if(a==Action.DOWN && acc==Action.UP) {
-						itIs=true;
-					}
-					else {
-						if(a==Action.UP && acc==Action.DOWN) {
-							itIs=true;
-						}
-					}
-				}
-			}
-			i--;
-		}
-		return itIs;
+public void clearListM() {
+	for(int i=actList.lenght()-1;i>=0;i--) {
+		actList.remove(i);
 	}
-	
+}
+
 
 }

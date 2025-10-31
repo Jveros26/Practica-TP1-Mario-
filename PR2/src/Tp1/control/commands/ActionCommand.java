@@ -24,6 +24,7 @@ public class ActionCommand extends AbstractCommand {
 	 public ActionCommand() {
 	 super(NAME,SHORTCUT,DETAILS,HELP);
 	 }
+	 @Override
 	 public Command parse(String[] commandWords) {
 		 if(commandWords.length<2) {
 			 return null;
@@ -41,6 +42,7 @@ public class ActionCommand extends AbstractCommand {
 			 }
 		 }
 	}
+	 @Override
 	 public void execute(GameModel game, GameView view) {
 		game.update();
 		game.clearList();

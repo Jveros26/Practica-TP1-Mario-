@@ -26,10 +26,13 @@ public abstract class GameObject implements GameItem{
 		this.SHORTCUT=SHORTCUT;
 		
 	}
+//--------------------------------------------------
+
 	public GameObject(String NAME,String SHORTCUT) {
 		this.NAME=NAME;
 		this.SHORTCUT=SHORTCUT;
 	}
+//--------------------------------------------------
 	
 	public GameObject parse(String strsObject[],GameWorld game ) {
 		GameObject obj=null;
@@ -45,38 +48,47 @@ public abstract class GameObject implements GameItem{
 		return obj;
 	}
 	
+//--------------------------------------------------
+
 	protected abstract GameObject createInstance(Position pos,GameWorld game);
 	
+//--------------------------------------------------
 	
 	protected boolean matchParseName(String name) {
 		return getNAME().equalsIgnoreCase(name) 
 				/*&&getSHORCUT().equalsIgnoreCase(SHORTCUT);*/;
 	}
-	
-	
+//--------------------------------------------------
+	@Override
 	public boolean isInPosition(Position p) {
 		return isAlive && (this.pos.equals(p));
 	}
- 	
+//--------------------------------------------------
+	@Override
 	public boolean isAlive() {
 		return isAlive;
 	}
-	
+//--------------------------------------------------
+
 	public void dead(){
 		this.isAlive = false;
 	}
-	
+//--------------------------------------------------
+	@Override
 	public abstract boolean isSolid();	//Abtracta pq cada una implementa su isSolid pq depende directamente del tipo
+//--------------------------------------------------
 	
 	public void update() {};	//Abtracta tambien pq cada clase tiene su propio update
 								//Aunque land y ExitDoor tmb tengan updates son vacios y no hace nada
-	
-	public abstract String getIcon();
+//--------------------------------------------------
 
-	// Not mandatory but recommended
+	public abstract String getIcon();
+//--------------------------------------------------
+
 	protected void move(Action dir) {	//Actualiza posicion en base a la direccion que quiera mover
 		this.pos=pos.move(dir);
 	}
+//--------------------------------------------------
 	
 	public boolean isSolid(Position pos) {
 		if(this.pos.equals(pos)) {
@@ -84,6 +96,8 @@ public abstract class GameObject implements GameItem{
 		}
 		return false;
 	}
+//--------------------------------------------------
+
 	public void marioExited() {
 		game.marioExited();
 	}

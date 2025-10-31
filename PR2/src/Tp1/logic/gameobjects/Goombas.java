@@ -25,13 +25,13 @@ public class Goombas extends MovingObject {
 		super(Action.STOP,false,NAME,SHORTCUT);
 	}
 	//--------------------------------------------------
-
+	@Override
 		public String getIcon() {
 			return Messages.GOOMBA;
 		}
 	//--------------------------------------------------
 
-
+		@Override
 		public boolean isInPosition(Position pos) {
 			if(this.pos.equals(pos)) {
 				return true;
@@ -39,7 +39,7 @@ public class Goombas extends MovingObject {
 			return false;
 		}
 	//--------------------------------------------------
-
+		@Override
 		public void update() {
 			//if(game.isSolid(pos.move(Action.DOWN)) || game.isGoomba(pos.move(Action.DOWN))){
 
@@ -68,7 +68,7 @@ public class Goombas extends MovingObject {
 		}
 
 	//--------------------------------------------------
-
+		@Override
 		public void receiveInteraction(Mario obj) {
 			if(obj.isFalling()) {	//Si mario esta en la posicion del goomba y resulta que estaba cayendo el goomba muere
 				dead();
@@ -83,12 +83,9 @@ public class Goombas extends MovingObject {
 				}
 			}
 		}
-	//--------------------------------------------------
-		protected Goombas createInstance(Position pos, Game game) {
-			return new Goombas(game,pos);
-		}
-	//--------------------------------------------------
 
+	//--------------------------------------------------
+		@Override
 		public boolean interactWith(GameItem other) {
 			boolean canInteract=other.isInPosition(pos);
 			if(canInteract && this.isAlive()) {
@@ -97,24 +94,28 @@ public class Goombas extends MovingObject {
 			return canInteract;
 		}
 	//--------------------------------------------------
+		@Override
 		public  void receiveInteraction(Land obj) {
 			if(obj.isInPosition(pos)&& this.isAlive() ) {
 				this.direction=direction.opposite(direction);
 			}
 		}
 	//--------------------------------------------------
+		@Override
 		public  void receiveInteraction(ExitDoor obj) {
 			if(obj.isInPosition(pos)&& this.isAlive()) {
 				this.direction=direction.opposite(direction);
 			}
 		}
 	//--------------------------------------------------
+		@Override
 		public  void receiveInteraction(Goombas obj) {	
 			if(obj.isInPosition(pos)&& this.isAlive()) {
 				this.direction=direction.opposite(direction);
 			}
 		}
 	//--------------------------------------------------
+		@Override
 		public  boolean isSolid() {return false;}
 	//--------------------------------------------------
 	

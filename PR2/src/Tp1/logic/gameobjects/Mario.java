@@ -40,7 +40,7 @@ public class Mario extends MovingObject{
 	}
 
 //--------------------------------------------------
-
+	@Override
 	public String getIcon() {	//Va hacia la izq? Si-> devuelve imagen mario izq : No-> mario recto
 		String pose=Messages.MARIO_STOP;
 		if(direction==Action.LEFT) {
@@ -72,7 +72,7 @@ public class Mario extends MovingObject{
 	}
 	
 //--------------------------------------------------
-
+	@Override
 	public void update() {	
 
 	if(game.isSolid(pos.move(Action.DOWN))) {	
@@ -318,16 +318,17 @@ public boolean isBIG() {
 	
 }
 //--------------------------------------------------
-
+@Override
 public boolean isFalling() {
 	return this.isFalling;
 }
 
 //--------------------------------------------------
-
+	@Override
 	public  boolean isSolid() {return false;}
 
 //--------------------------------------------------
+	@Override
 	public boolean interactWith(GameItem item) {
 		boolean canInteract=item.isInPosition(pos);
 		if(canInteract && this.isAlive()) {
@@ -336,30 +337,36 @@ public boolean isFalling() {
 		return canInteract;
 	}
 //--------------------------------------------------
+		@Override
 		public  void receiveInteraction(Land obj) {
 			if(obj.isInPosition(pos) && this.isAlive()) {
 				this.direction=direction.opposite(direction);
 			}
 		}
 //--------------------------------------------------
+		@Override
 		public  void receiveInteraction(ExitDoor obj) {
 			if(obj.isInPosition(pos) && this.isAlive()) {
 				game.marioExited();
 			}
 		}
 //--------------------------------------------------
+		@Override
 		public void  receiveInteraction(Mario obj) {
 		}
 //--------------------------------------------------
+		@Override
 		public  void receiveInteraction(Goombas obj) {
 			
 		}
+//--------------------------------------------------
 
 		@Override
 		protected GameObject createInstance(Position pos, GameWorld game) {
 			return new Mario(game,pos);
 
 		}
+//--------------------------------------------------
 
 		private boolean isBig(String p) {
 			p.toLowerCase();
@@ -368,7 +375,9 @@ public boolean isFalling() {
 			}
 			return false;
 		}
-@Override
+//--------------------------------------------------
+
+		@Override
 	public GameObject parse(String objWords[],GameWorld game) {
 		GameObject obj=null;
 		if(objWords.length>=2 && matchParseName(objWords[1]) && Action.isAction(objWords[2]) && isBig(objWords[3])) {

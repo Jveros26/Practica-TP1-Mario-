@@ -14,15 +14,21 @@ public abstract class MovingObject extends GameObject{
 		this.direction=dir;
 		this.isFalling=isFalling;
 	}
+//--------------------------------------------------
+
 	public MovingObject(Action dir,boolean isFalling,String NAME,String SHORTCUT) {
 		super(NAME,SHORTCUT);
 		this.direction=dir;
 		this.isFalling=isFalling;
 	}
+//--------------------------------------------------
+	@Override
 	public abstract String getIcon();
+//--------------------------------------------------
 
 	public boolean isFalling() {return isFalling;}
-	
+//--------------------------------------------------
+
 	public void step() {	//Aqui como controlar a mario grande	
 			
 		if(!((game.isSolid(pos.move(Action.LEFT)) && (game.isSolid(pos.move(Action.RIGHT)))))) {

@@ -29,12 +29,14 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		reset(nLevel);
 		this.gameObjects= new GameObjectContainer();
 	}
-	
+//--------------------------------------------------
+
+	@Override
 	public void reset() {
 		this.exit=true;
 	}
 //--------------------------------------------------
-
+	@Override
 	public String positionToString(int col, int row) {
 			
 		Position pos= new Position (row,col);
@@ -44,13 +46,13 @@ public class Game implements GameModel, GameStatus, GameWorld {
 	}
 //--------------------------------------------------
 
-
+	@Override
 	public boolean playerWins() {
 		return marioExited;
 	}
 	
 //--------------------------------------------------
-
+	@Override
 	public boolean playerLoses() {
 		if(numLives<=0||remainingTime==0) {
 			return true;
@@ -58,17 +60,17 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		return false;
 	}
 //--------------------------------------------------
-
+	@Override
 	public void exit(){
 		this.exit=true;
 	}
 //--------------------------------------------------
-
+	@Override
 	public void addPoints(int points){
 		this.points+=points;
 	}
 //--------------------------------------------------
-
+	@Override
 	public void reset(int nLevel) {
 //		switch(nLevel) {
 //		case 0:	initLevel0();
@@ -80,27 +82,27 @@ public class Game implements GameModel, GameStatus, GameWorld {
 	}
 
 //--------------------------------------------------
-
+	@Override
 	public int remainingTime() {
 		return remainingTime;
 	}
 //--------------------------------------------------
-
+	@Override
 	public int points() {
 		return this.points;
 	}
 //--------------------------------------------------
-
+	@Override
 	public void resetPoints() {
 		this.points=0;
 	}
 //--------------------------------------------------
-
+	@Override
 	public int numLives() {
 		return this.numLives;
 	}
 //--------------------------------------------------
-
+	@Override
 	public void resetLives() {
 		this.numLives=3;
 	}
@@ -110,13 +112,13 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		return nLevel;
 	}
 //--------------------------------------------------
-
+	@Override
 	public void update(){
 		this.remainingTime--;
 		gameObjects.update();
 	}
 //--------------------------------------------------
-
+	@Override
 	public void clearList() {
 		mario.clearListM();
 	}
@@ -230,12 +232,14 @@ public class Game implements GameModel, GameStatus, GameWorld {
 //	gameObjects.add(new Goombas(this,new Position(12, 14)));
 //}
 //--------------------------------------------------
-public boolean isSolid(Position pos) {
+	@Override
+	public boolean isSolid(Position pos) {
 	
 	return gameObjects.isSolid(pos);	//Comprueba en objectContainer si la pos contiene un objeto solido (Land)
 }	
 //--------------------------------------------------
-
+	
+	@Override
 	public boolean positionIsIn(Position pos) {
 	    return pos.isInside(DIM_Y, DIM_X);
 	}
@@ -243,6 +247,9 @@ public boolean isSolid(Position pos) {
 	public void addAction(Action action) {
 		mario.addAction(action);
 	}
+//--------------------------------------------------
+
+	@Override
 	public void marioDead() {
 		numLives--;
 		if(this.numLives>0) {
@@ -250,7 +257,7 @@ public boolean isSolid(Position pos) {
 		}
 	}
 //--------------------------------------------------
-
+	@Override
 	public void marioExited() {
 		addPoints(remainingTime*10);
 		marioExited=true;

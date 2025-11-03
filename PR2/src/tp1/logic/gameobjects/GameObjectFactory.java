@@ -22,12 +22,12 @@ public class GameObjectFactory {
 	public static GameObject parse(String objWords[],GameWorld game) {
 		
 		for(GameObject obj:aviableObjects) {
-			GameObject objeto=obj.parse(objWords,game);
+			GameObject objeto=obj.parse(objWords,game);	//Llama a los parses de cada objeto y ve que concuerda con su estructura
 			if(objeto!=null) {
-				return objeto;
+				return objeto;	//Devuelve la instancia creada desde el parse si es distinto de null
 			}
 		}
-		return null;
+		return null;	//Sino devuelve null
 	}
 			
 			

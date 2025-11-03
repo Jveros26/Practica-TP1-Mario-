@@ -124,4 +124,16 @@ public class Goombas extends MovingObject {
 			return new Goombas(game,pos);
 
 		}
+	//--------------------------------------------------
+		/*@Override //Creemos que es innecesario
+		public GameObject parse(String objWords[],GameWorld game) {
+			GameObject obj=super.parse(objWords, game);
+			if(obj!=null) {	//Si concuerda con ser MovingObject y ser GameObject devuelve instancia
+				return this.createInstance(pos, game);
+			}
+			else {
+				return null;
+			}
+		}*/
+
 	}

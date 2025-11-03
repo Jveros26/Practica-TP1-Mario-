@@ -368,10 +368,15 @@ public boolean isFalling() {
 		}
 //--------------------------------------------------
 
-		private boolean isBig(String p) {
+		private boolean isStatus(String p) {
 			p.toLowerCase();
-			if(p=="big") {
+			if(p=="big"|| p=="p") {
 				return true;
+			}
+			else {
+				if(p=="small"||p=="s") {
+					return true;
+				}
 			}
 			return false;
 		}
@@ -379,12 +384,14 @@ public boolean isFalling() {
 
 		@Override
 	public GameObject parse(String objWords[],GameWorld game) {
-		GameObject obj=null;
-		if(objWords.length>=2 && matchParseName(objWords[1]) && Action.isAction(objWords[2]) && isBig(objWords[3])) {
-			Position pos=new Position(objWords[0]);
-			
-			if(game.positionIsIn(pos)) {
-				obj=this.createInstance(pos,game);
+		GameObject obj;
+		obj=super.parse(objWords, game);
+		if(obj!=null) {	//Si lo devuelto del super no concuerda con GameObject o MovingObject no es un elemento movible y no concuerda con mario
+			if(isStatus(objWords[3])) {	//Concuerda con que el ultimo elemento es Big o Small para mario
+				obj=this.createInstance(pos,game);	//Si es un GameObject, MovingObject y concuerda con estructura mario devuelve estancia
+			}
+			else {
+				return null;
 			}
 		}
 		return obj;

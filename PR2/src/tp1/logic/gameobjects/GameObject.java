@@ -37,11 +37,9 @@ public abstract class GameObject implements GameItem{
 	public GameObject parse(String strsObject[],GameWorld game ) {
 		GameObject obj=null;
 		
-		if(strsObject.length>=2 && matchParseName(strsObject[1])) {
-			Position pos=new Position(strsObject[0]);
-			//Compruebo que strsObject[2]!=null-->tiene algo
-			//llamo al parse de moving object (donde compeuba si el elemento es una accion)
-			if(game.positionIsIn(pos)) {
+		if(strsObject.length>=2 && matchParseName(strsObject[1])) {	//Comprueba si la lista es mayor igual que dos y si concuerda con el nombre
+			Position pos=new Position(strsObject[0]);	//Crea posicion a partir del string
+			if(game.positionIsIn(pos)) {	//Si esta dentro del tablero
 				obj=this.createInstance(pos,game);
 			}
 		}
@@ -54,9 +52,9 @@ public abstract class GameObject implements GameItem{
 	
 //--------------------------------------------------
 	
-	protected boolean matchParseName(String name) {
-		return getNAME().equalsIgnoreCase(name) 
-				/*&&getSHORCUT().equalsIgnoreCase(SHORTCUT);*/;
+	protected boolean matchParseName(String id) {
+		return getNAME().equalsIgnoreCase(id) 
+				|| getSHORCUT().equalsIgnoreCase(id);
 	}
 //--------------------------------------------------
 	@Override

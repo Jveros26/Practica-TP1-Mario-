@@ -60,5 +60,23 @@ public abstract class MovingObject extends GameObject{
 		}
 			
 		}
+//--------------------------------------------------
+	@Override
+	public GameObject parse(String strsObject[],GameWorld game) {
+		GameObject obj;
+		obj=super.parse(strsObject, game);	//LLamamos al parse de arriba para comprobar que lo primero del array es un GameObject
+		if(obj!=null) {	//Si la instancia devuelta por el super es null es que no concuerda con la estructura GameObject
+			String p=strsObject[2].toLowerCase();
+			Action acc=Action.parse(p);
+			if(acc!=null){	//Si el string concuerda con que es una accion devuelve instancia
+				return this.createInstance(pos,game);
+			}
+			else {
+				return null;
+			}
+		}
+		return obj;
+	}
+
 	
 }

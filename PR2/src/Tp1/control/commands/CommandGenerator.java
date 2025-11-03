@@ -12,7 +12,8 @@ public class CommandGenerator {
 	        new UpdateCommand(),
 	        new ResetCommand(),
 	        new HelpCommand(),
-	        new ExitCommand()
+	        new ExitCommand(),
+	        new AddObjectCommand()
 	   );
 	public static Command parse(String[] commandWords) {		
 		for (Command c: AVAILABLE_COMMANDS) {

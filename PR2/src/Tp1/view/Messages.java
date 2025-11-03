@@ -54,6 +54,8 @@ public class Messages {
 	public static final String INVALID_COMMAND = "Invalid command: %s";
 	public static final String INVALID_COMMAND_PARAMETERS = "Invalid command parameters";
 	public static final String ERROR_COMMAND_EXECUTE = "Command execute problem";
+	public static final String ERROR_COMMAND_INVALIDGAMEOBJECT = "Invalid game object: <stringObjeto>";
+
 	
 	public static final String HELP_AVAILABLE_COMMANDS = "Available commands:";
 
@@ -97,6 +99,11 @@ public class Messages {
 	public static final String COMMAND_HELP_SHORTCUT = "h";
 	public static final String COMMAND_HELP_DETAILS = "[h]elp";
 	public static final String COMMAND_HELP_HELP = "print this help message";
+//AddObjectCommand
+	public static final String COMMAND_AddAction_NAME = "addObject";
+	public static final String COMMAND_AddAction_SHORTCUT = "aO";
+	public static final String COMMAND_AddAction_DETAILS = "[a]dd[O]bject <object_description>";
+	public static final String COMMAND_AddAction_HELP = "adds to the board the object given by object_description";	
 //GAMEOBJECT
 	public static final String MARIO_NAME = "Mario";
 	public static final String GOOMBA_NAME = "GOOMBA";

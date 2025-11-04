@@ -34,7 +34,7 @@ public abstract class GameObject implements GameItem{
 	}
 //--------------------------------------------------
 	
-	public GameObject parse(String strsObject[],GameWorld game ) {
+	public GameObject parse(String strsObject[],GameWorld game) {
 		GameObject obj=null;
 		
 		if(strsObject.length>=2 && matchParseName(strsObject[1])) {	//Comprueba si la lista es mayor igual que dos y si concuerda con el nombre

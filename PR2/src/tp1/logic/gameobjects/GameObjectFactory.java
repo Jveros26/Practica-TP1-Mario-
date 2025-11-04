@@ -12,10 +12,9 @@ public class GameObjectFactory {
 			new Land(),
 			new ExitDoor(),
 			new Goombas(),
-			new Mario()
-			
+			new Mario(),
 			//new Box(),
-			//new Mushroom()
+			new Mushroom()
 	);
 			
 	

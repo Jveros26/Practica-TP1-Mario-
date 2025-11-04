@@ -338,25 +338,47 @@ public boolean isFalling() {
 	}
 //--------------------------------------------------
 		@Override
-		public  void receiveInteraction(Land obj) {
+		public  boolean receiveInteraction(Land obj) {
 			if(obj.isInPosition(pos) && this.isAlive()) {
 				this.direction=direction.opposite(direction);
+				return true;
 			}
+			return false;
 		}
 //--------------------------------------------------
 		@Override
-		public  void receiveInteraction(ExitDoor obj) {
-			if(obj.isInPosition(pos) && this.isAlive()) {
+		public  boolean receiveInteraction(ExitDoor obj) {
+			if(obj.isInPosition(pos) && this.isAlive() && obj.receiveInteraction(this)) {
 				game.marioExited();
+				return true;
+			}
+			else {
+				return false;
 			}
 		}
 //--------------------------------------------------
 		@Override
-		public void  receiveInteraction(Mario obj) {
+		public boolean  receiveInteraction(Mario obj) {
+			return false;
 		}
 //--------------------------------------------------
 		@Override
-		public  void receiveInteraction(Goombas obj) {
+		public  boolean receiveInteraction(Goombas obj) {
+			if(obj.isInPosition(pos) && this.isAlive() && obj.receiveInteraction(this)) {
+				return true;
+			}
+			return false;
+		}
+//--------------------------------------------------
+		@Override
+		public boolean receiveInteraction(Mushroom obj) {
+			if(obj.isInPosition(pos) && this.isAlive() && !this.isBIG()) {	//Comprueba que concuerde la pos con la del la seta, que mario esta vivo y que no es grande
+					this.isBig=true;
+					return true;
+			}
+			else {
+				return false;
+			}
 			
 		}
 //--------------------------------------------------

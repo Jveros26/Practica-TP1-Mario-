@@ -10,4 +10,5 @@ public interface GameModel {
 	public void resetPoints();
 	public void reset(int nLevel);
 	public void clearList();
+	public boolean addObject(String[] strsObject);
 }

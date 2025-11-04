@@ -56,22 +56,33 @@ public class ExitDoor extends GameObject {
 	}
 //--------------------------------------------------
 	@Override
-		public  void receiveInteraction(Land obj) {
+		public  boolean receiveInteraction(Land obj) {
+		return false;
 		}
 //--------------------------------------------------
 		@Override
-		public  void receiveInteraction(ExitDoor obj) {
+		public  boolean receiveInteraction(ExitDoor obj) {
+			return false;
 		}
 //--------------------------------------------------
 		@Override
-		public void  receiveInteraction(Mario obj) {
+		public boolean receiveInteraction(Mushroom obj) {
+			return false;
+		}
+//--------------------------------------------------
+		@Override
+		public boolean receiveInteraction(Mario obj) {
 			if(obj.isInPosition(pos)&& this.isAlive()) {
-				game.marioExited();	//Si al estar hecho en gameWorld por nosotros puede llamar a la funcion del Game
-			}	
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 //--------------------------------------------------
 		@Override
-		public  void receiveInteraction(Goombas obj) {	
+		public  boolean receiveInteraction(Goombas obj) {
+			return false;
 		}
 
 }

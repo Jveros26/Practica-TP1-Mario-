@@ -52,16 +52,26 @@ public  boolean isSolid() {return true;}
 		return canInteract;
 	}
 //--------------------------------------------------
-	public void receiveInteraction(Land obj) {
+	public boolean receiveInteraction(Land obj) {
+		return false;
 	}
 //--------------------------------------------------
-	public  void receiveInteraction(ExitDoor obj) {
+	public  boolean receiveInteraction(ExitDoor obj) {
+		return false;
 	}
 //--------------------------------------------------
-	public void  receiveInteraction(Mario obj) {
+	public boolean  receiveInteraction(Mario obj) {
+		return false;
 	}
 //--------------------------------------------------
-	public  void receiveInteraction(Goombas obj) {	
+	public boolean receiveInteraction(Goombas obj) {
+		return false;
+		
+	}
+//--------------------------------------------------
+	@Override
+	public boolean receiveInteraction(Mushroom obj) {
+		return false;
 	}
 
 }

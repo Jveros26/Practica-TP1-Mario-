@@ -7,7 +7,7 @@ public abstract class GameView implements ViewInterface{
 
 	protected GameStatus game;
 	
-	public GameView(Game game) {
+	public GameView(GameStatus game) {
 		this.game = game;
 	}
 

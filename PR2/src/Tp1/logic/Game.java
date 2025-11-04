@@ -72,13 +72,16 @@ public class Game implements GameModel, GameStatus, GameWorld {
 //--------------------------------------------------
 	@Override
 	public void reset(int nLevel) {
-//		switch(nLevel) {
-//		case 0:	initLevel0();
-//			break;
-//		case 1: initLevel1();
-//			break;
-//		default: reset(this.nLevel);
-//		}
+		switch(nLevel) {
+		case -1:
+				//initLevel-1();
+			break;
+		case 0:	//initLevel0();
+			break;
+		case 1:// initLevel1();
+			break;
+		default: reset(this.nLevel);
+		}
 	}
 
 //--------------------------------------------------
@@ -263,20 +266,7 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		marioExited=true;
 	}
 //--------------------------------------------------
-/*public void doInteractionsFrom(Mario mario) {
-	this.gameObjects.doInteractionsFrom(Mario mario);
-}*/
-//--------------------------------------------------
-//	public void execute( GameModel game, GameView view) {
-//		
-//		if(game.addObject(strsObject)) {
-//			view.showGame();
-//		}
-//		else {
-//			view.showError(Messages.INVALID_GAME_OBJECT.formatted(String.jo))
-//		}
-//	}
-	
+	@Override
 	public boolean addObject(String[] strsObject) {
 		
 		
@@ -292,8 +282,4 @@ public class Game implements GameModel, GameStatus, GameWorld {
 		
 		return obj!=null;
 	}
-	
-
-	
-
 }

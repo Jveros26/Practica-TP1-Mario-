@@ -4,6 +4,7 @@ import tp1.logic.gameobjects.ExitDoor;
 import tp1.logic.gameobjects.Goombas;
 import tp1.logic.gameobjects.Land;
 import tp1.logic.gameobjects.Mario;
+import tp1.logic.gameobjects.Mushroom;
 
 public  interface GameItem {
 	public  boolean isSolid();
@@ -12,8 +13,9 @@ public  interface GameItem {
 
 	public  boolean interactWith(GameItem item);
 
-	public  void receiveInteraction(Land obj);
-	public  void receiveInteraction(ExitDoor obj);
-	public  void receiveInteraction(Mario obj);
-	public  void receiveInteraction(Goombas obj);
+	public  boolean receiveInteraction(Land obj);
+	public  boolean receiveInteraction(ExitDoor obj);
+	public  boolean receiveInteraction(Mario obj);
+	public  boolean receiveInteraction(Goombas obj);
+	public boolean receiveInteraction(Mushroom obj);
 }

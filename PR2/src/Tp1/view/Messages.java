@@ -55,6 +55,7 @@ public class Messages {
 	public static final String INVALID_COMMAND_PARAMETERS = "Invalid command parameters";
 	public static final String ERROR_COMMAND_EXECUTE = "Command execute problem";
 	public static final String ERROR_COMMAND_INVALIDGAMEOBJECT = "Invalid game object: <stringObjeto>";
+	public static final String INVALID_GAME_OBJECT= "Invalid command structure";
 
 	
 	public static final String HELP_AVAILABLE_COMMANDS = "Available commands:";
@@ -105,7 +106,7 @@ public class Messages {
 	public static final String COMMAND_AddAction_DETAILS = "[a]dd[O]bject <object_description>";
 	public static final String COMMAND_AddAction_HELP = "adds to the board the object given by object_description";	
 //GAMEOBJECT
-	public static final String MARIO_NAME = "Mario";
+	public static final String MARIO_NAME = "MARIO";
 	public static final String GOOMBA_NAME = "GOOMBA";
 	public static final String EXITDOOR_NAME = "EXITDOOR";
 	public static final String LAND_NAME = "LAND";
@@ -117,6 +118,10 @@ public class Messages {
 	public static final String BIG_SHORTCUT= "B";
 	public static final String SMALL_NAME = "SMALL";
 	public static final String SMALL_SHORTCUT = "S";
+	public static final String MUSHROOM_SHORTCUT = "MU";
+	public static final String MUSHROOM_NAME = "MUSHROOM";
+
+
 
 //Symbols
 	public static final String EMPTY = "";
@@ -126,4 +131,6 @@ public class Messages {
 	public static final String MARIO_RIGHT = "🧍";//"🧍➡️";
 	public static final String MARIO_LEFT = "🚶";//"⬅️🚶";
 	public static final String GOOMBA = "🐻";
+	public static final String MUSHROOM = "🍄";
+
 }

@@ -69,18 +69,26 @@ public class Goombas extends MovingObject {
 
 	//--------------------------------------------------
 		@Override
-		public void receiveInteraction(Mario obj) {
-			if(obj.isFalling()) {	//Si mario esta en la posicion del goomba y resulta que estaba cayendo el goomba muere
-				dead();
-			}
-			else {
-				if(obj.isBIG()) {	//Si mario no estaba cayendo pero se encuentra al goomba este muere
+		public boolean receiveInteraction(Mario obj) {
+			if(obj.isInPosition(pos)) {
+				if(obj.isFalling()) {	//Si mario esta en la posicion del goomba y resulta que estaba cayendo el goomba muere
 					dead();
+					return true;
 				}
 				else {
-					this.game.addPoints(100);	//Se suman puntos
-					game.marioDead();		//Mario muere y se reinicia todo
+					if(obj.isBIG()) {	//Si mario no estaba cayendo pero se encuentra al goomba este muere
+						dead();
+						return true;
+					}
+					else {
+						this.game.addPoints(100);	//Se suman puntos
+						game.marioDead();		//Mario muere y se reinicia todo
+						return true;
+					}
 				}
+			}
+			else {
+				return false;
 			}
 		}
 
@@ -95,45 +103,33 @@ public class Goombas extends MovingObject {
 		}
 	//--------------------------------------------------
 		@Override
-		public  void receiveInteraction(Land obj) {
-			if(obj.isInPosition(pos)&& this.isAlive() ) {
-				this.direction=direction.opposite(direction);
-			}
+		public  boolean receiveInteraction(Land obj) {
+			return false;
 		}
 	//--------------------------------------------------
 		@Override
-		public  void receiveInteraction(ExitDoor obj) {
-			if(obj.isInPosition(pos)&& this.isAlive()) {
-				this.direction=direction.opposite(direction);
-			}
+		public  boolean receiveInteraction(ExitDoor obj) {
+			return false;
 		}
 	//--------------------------------------------------
 		@Override
-		public  void receiveInteraction(Goombas obj) {	
-			if(obj.isInPosition(pos)&& this.isAlive()) {
-				this.direction=direction.opposite(direction);
-			}
+		public  boolean receiveInteraction(Goombas obj) {	
+			return false;
+		}
+	//--------------------------------------------------
+		@Override
+		public boolean receiveInteraction(Mushroom obj) {
+			return false;
 		}
 	//--------------------------------------------------
 		@Override
 		public  boolean isSolid() {return false;}
-	//--------------------------------------------------
-	
+	//--------------------------------------------------	
 		@Override
 		protected GameObject createInstance(Position pos, GameWorld game) {
 			return new Goombas(game,pos);
 
 		}
-	//--------------------------------------------------
-		/*@Override //Creemos que es innecesario
-		public GameObject parse(String objWords[],GameWorld game) {
-			GameObject obj=super.parse(objWords, game);
-			if(obj!=null) {	//Si concuerda con ser MovingObject y ser GameObject devuelve instancia
-				return this.createInstance(pos, game);
-			}
-			else {
-				return null;
-			}
-		}*/
+
 
 	}

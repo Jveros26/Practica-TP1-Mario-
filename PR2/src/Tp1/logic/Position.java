@@ -45,6 +45,13 @@ public class Position {
 	public boolean isInside(int maxRows, int maxCols) {
 	    return row >= 0 && row < maxRows && col >= 0 && col < maxCols;
 	}
+	
+	public String toString() {
+		StringBuilder position=new StringBuilder();
+		position.append(col);
+		position.append(row);
+		return position.toString();	//Devuelve la pos en el formato colrow (numnum)
+	}
 
 	
 }

@@ -86,7 +86,6 @@ public class GameObjectContainer {
 			GameObject obj1=gameObjects.get(i);	//Coge el objeto que toque
 			for (int j = i + 1; j < gameObjects.size(); j++) {	//Y lo comprueba comprueba con el resto de elementos con los que no haya interactuado
 				GameObject obj2 = gameObjects.get(j);	//Coge cada uno de los objetos
-				
 		           obj1.interactWith(obj2);	//Interactua bidireccionalmente
 		           obj2.interactWith(obj1);
 			}

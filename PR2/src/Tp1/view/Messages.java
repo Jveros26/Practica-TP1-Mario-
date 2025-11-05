@@ -120,6 +120,8 @@ public class Messages {
 	public static final String SMALL_SHORTCUT = "S";
 	public static final String MUSHROOM_SHORTCUT = "MU";
 	public static final String MUSHROOM_NAME = "MUSHROOM";
+	public static final String BOX_NAME="BOX";
+	public static final String BOX_SHORTCUT="B";
 
 
 
@@ -132,5 +134,7 @@ public class Messages {
 	public static final String MARIO_LEFT = "🚶";//"⬅️🚶";
 	public static final String GOOMBA = "🐻";
 	public static final String MUSHROOM = "🍄";
+	public static final String OPENED_BOX="0";
+	public static final String NOT_OPENED_BOX="?";
 
 }

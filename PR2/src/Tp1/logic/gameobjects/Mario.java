@@ -299,17 +299,20 @@ public class Mario extends MovingObject{
 //}
 //--------------------------------------------------
 
-private void crash(Goombas other) {
-	
-	if(this.isBig) {
-		other.receiveInteraction(this);	//El goomba muere
+private boolean crash(Goombas other) {
+	boolean ok;
+	if(this.isBIG()) {	//Si mario es gande
+		ok=other.receiveInteraction(this);	//El goomba recive la interaccion y muere
+		if(!this.isFalling()) {	//Si al realizar la interaccion con el goomba mario no estaba cayendo deja de ser grande, si estaba cayendo sigue siendo grande
 		this.isBig=false;	//Deja de ser grande
-		game.addPoints(100);
+		}
+		game.addPoints(100);	//Suma los puntos al game
 	}
 	else {
 		this.game.addPoints(100);	//Se suman puntos
-		other.receiveInteraction(this);
+		ok=other.receiveInteraction(this);	//Mario muere 
 	}
+	return ok;
 }
 //--------------------------------------------------
 
@@ -330,7 +333,8 @@ public boolean isFalling() {
 //--------------------------------------------------
 	@Override
 	public boolean interactWith(GameItem item) {
-		boolean canInteract=item.isInPosition(pos);
+		Position posUp=pos.move(Action.UP);
+		boolean canInteract=item.isInPosition(pos) || (this.isBIG() && item.isInPosition(posUp));	//Comprueba el mario de arriba y abajo
 		if(canInteract && this.isAlive()) {
 			item.receiveInteraction(this);
 		}
@@ -339,16 +343,35 @@ public boolean isFalling() {
 //--------------------------------------------------
 		@Override
 		public  boolean receiveInteraction(Land obj) {
-			if(obj.isInPosition(pos) && this.isAlive()) {
-				this.direction=direction.opposite(direction);
+			return false;
+		}
+		@Override
+		public  boolean receiveInteraction(Box obj) {
+			Position posUp=pos.move(Action.UP);
+			Position posUpUp=posUp.move(Action.UP);
+
+			boolean canInteract;
+			if((this.direction==Action.UP && obj.isInPosition(posUp))||
+					(this.direction==Action.UP && this.isBIG() && obj.isInPosition(posUpUp))) {
+				canInteract=true;
+			}
+			else {
+				canInteract=false;
+			}
+			if(this.isAlive() && canInteract) {
 				return true;
 			}
-			return false;
+			else {
+				return false;
+			}
+			
 		}
 //--------------------------------------------------
 		@Override
 		public  boolean receiveInteraction(ExitDoor obj) {
-			if(obj.isInPosition(pos) && this.isAlive() && obj.receiveInteraction(this)) {
+			Position posUp=pos.move(Action.UP);
+			boolean canInteract= obj.isInPosition(pos) || this.isBIG() && obj.isInPosition(posUp);
+			if(canInteract && this.isAlive() && obj.receiveInteraction(this)) {
 				game.marioExited();
 				return true;
 			}
@@ -364,15 +387,19 @@ public boolean isFalling() {
 //--------------------------------------------------
 		@Override
 		public  boolean receiveInteraction(Goombas obj) {
-			if(obj.isInPosition(pos) && this.isAlive() && obj.receiveInteraction(this)) {
-				return true;
+			Position posUp=pos.move(Action.UP);
+			boolean canInteract= obj.isInPosition(pos) || this.isBIG() && obj.isInPosition(posUp);	//Comprueba si mario se choca con algun goomba en pequeño o si es grande arriba y abajo
+			if(canInteract && this.isAlive()) {
+				return crash(obj);	//Si mario esta vivo, y esta en la misma posicion que un Goomba choca
 			}
 			return false;
 		}
 //--------------------------------------------------
 		@Override
 		public boolean receiveInteraction(Mushroom obj) {
-			if(obj.isInPosition(pos) && this.isAlive() && !this.isBIG()) {	//Comprueba que concuerde la pos con la del la seta, que mario esta vivo y que no es grande
+			Position posUp=pos.move(Action.UP);
+			boolean canInteract= obj.isInPosition(pos) || this.isBIG() && obj.isInPosition(posUp);
+			if(canInteract && this.isAlive() && !this.isBIG()) {	//Comprueba que concuerde la pos con la del la seta, que mario esta vivo y que no es grande
 					this.isBig=true;
 					return true;
 			}

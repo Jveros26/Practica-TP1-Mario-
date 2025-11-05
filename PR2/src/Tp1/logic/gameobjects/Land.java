@@ -22,12 +22,12 @@ public class Land extends GameObject{
 		super(NAME,SHORTCUT);
 	}
 //--------------------------------------------------
-
+	@Override
 	public String getIcon() {
 		return Messages.LAND;
 	}
 //--------------------------------------------------
-
+	@Override
 	public boolean isInPosition(Position pos) {
 		
 		if(this.pos.equals(pos)) {
@@ -36,34 +36,36 @@ public class Land extends GameObject{
 		return false;
 	}
 //--------------------------------------------------
+	@Override
 	protected Land createInstance(Position pos, GameWorld game) {
 		return new Land(game,pos);
 	}
 //--------------------------------------------------
-
+@Override
 public  boolean isSolid() {return true;}
 	
 //--------------------------------------------------
+@Override
 	public boolean interactWith(GameItem other) {
-		boolean canInteract=other.isInPosition(pos);
-		if(canInteract && this.isAlive()) {
-			other.receiveInteraction(this);
-		}
-		return canInteract;
+		return false;
 	}
 //--------------------------------------------------
+@Override
 	public boolean receiveInteraction(Land obj) {
 		return false;
 	}
 //--------------------------------------------------
+@Override
 	public  boolean receiveInteraction(ExitDoor obj) {
 		return false;
 	}
 //--------------------------------------------------
+@Override
 	public boolean  receiveInteraction(Mario obj) {
 		return false;
 	}
 //--------------------------------------------------
+@Override
 	public boolean receiveInteraction(Goombas obj) {
 		return false;
 		

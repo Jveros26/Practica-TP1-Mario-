@@ -62,11 +62,10 @@ public class Mushroom extends MovingObject{
 
 	}
 	@Override
-
 	public  boolean receiveInteraction(Goombas obj) {
 		return false;
 	}
-	
+	@Override
 	public boolean receiveInteraction(Mushroom obj) {
 		return false;
 	}

@@ -15,7 +15,7 @@ public class Land extends GameObject{
 
 
 	
-	public Land(GameWorld game,Position pos) {
+	public Land(GameWorld game,Position pos) {	//añadir this en el contstructor pra el game
 		super(game,pos,NAME,SHORTCUT);
 	}
 	public Land() {

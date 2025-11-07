@@ -13,7 +13,7 @@ public class GameObjectFactory {
 			new ExitDoor(),
 			new Goombas(),
 			new Mario(),
-			new Box(),
+			//new Box(),
 			new Mushroom()
 	);
 			

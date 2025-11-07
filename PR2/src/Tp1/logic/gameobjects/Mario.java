@@ -17,8 +17,6 @@ import tp1.logic.GameWorld;
 
 public class Mario extends MovingObject{
 	private ActionList actList;
-	private Position pos;
-	private GameWorld game;
 	private boolean isBig;
 	private boolean left,right;
 	private boolean onAir;
@@ -59,7 +57,7 @@ public class Mario extends MovingObject{
 		return this.pos;
 	}
 //--------------------------------------------------
-
+	@Override
 	public boolean isInPosition(Position pos) {
 		
 		return isAlive() && (this.pos.equals(pos) || 
@@ -80,6 +78,7 @@ public class Mario extends MovingObject{
 		this.isAscending=false;
 		this.isFalling=false;
 		if(actList.lenght()==0) {
+			direction=Action.RIGHT;
 			step();	
 		}
 		else {
@@ -100,7 +99,7 @@ public class Mario extends MovingObject{
 		}
 			
 	if(!game.positionIsIn(pos)) {
-		dead();
+		game.marioDead();
 	}	
 }	
 //--------------------------------------------------
@@ -112,18 +111,17 @@ public class Mario extends MovingObject{
 	public void fall() {
 		this.pos=pos.move(Action.DOWN);
 	}
-//--------------------------------------------------
 
-	/*public void dead() {
-		this.alive=false;
-		game.marioDead();
-	}*/
 //--------------------------------------------------
 	
 	public void addAction(Action action) {
 		actList.add(action);
 	}
 
+	
+	public void shrink() {
+		isBig=false;
+	}
 //--------------------------------------------------
 
 
@@ -271,16 +269,7 @@ public class Mario extends MovingObject{
 			actList.remove(i);
 		}
 	}
-	
-//--------------------------------------------------
-//	public boolean interactWith(ExitDoor other) {
-//		
-//		if(other.isInPosition(this.pos)) {
-//			
-//			return true;
-//		}
-//		return false;
-//	}
+
 //--------------------------------------------------
 
 //public void Interactwith(Goombas obj) {
@@ -297,23 +286,7 @@ public class Mario extends MovingObject{
 //	}
 //	
 //}
-//--------------------------------------------------
 
-private boolean crash(Goombas other) {
-	boolean ok;
-	if(this.isBIG()) {	//Si mario es gande
-		ok=other.receiveInteraction(this);	//El goomba recive la interaccion y muere
-		if(!this.isFalling()) {	//Si al realizar la interaccion con el goomba mario no estaba cayendo deja de ser grande, si estaba cayendo sigue siendo grande
-		this.isBig=false;	//Deja de ser grande
-		}
-		game.addPoints(100);	//Suma los puntos al game
-	}
-	else {
-		this.game.addPoints(100);	//Se suman puntos
-		ok=other.receiveInteraction(this);	//Mario muere 
-	}
-	return ok;
-}
 //--------------------------------------------------
 
 public boolean isBIG() {
@@ -345,27 +318,27 @@ public boolean isFalling() {
 		public  boolean receiveInteraction(Land obj) {
 			return false;
 		}
-		@Override
-		public  boolean receiveInteraction(Box obj) {
-			Position posUp=pos.move(Action.UP);
-			Position posUpUp=posUp.move(Action.UP);
-
-			boolean canInteract;
-			if((this.direction==Action.UP && obj.isInPosition(posUp))||
-					(this.direction==Action.UP && this.isBIG() && obj.isInPosition(posUpUp))) {
-				canInteract=true;
-			}
-			else {
-				canInteract=false;
-			}
-			if(this.isAlive() && canInteract) {
-				return true;
-			}
-			else {
-				return false;
-			}
-			
-		}
+//		@Override
+//		public  boolean receiveInteraction(Box obj) {
+//			Position posUp=pos.move(Action.UP);
+//			Position posUpUp=posUp.move(Action.UP);
+//
+//			boolean canInteract;
+//			if((this.direction==Action.UP && obj.isInPosition(posUp))||
+//					(this.direction==Action.UP && this.isBIG() && obj.isInPosition(posUpUp))) {
+//				canInteract=true;
+//			}
+//			else {
+//				canInteract=false;
+//			}
+//			if(this.isAlive() && canInteract) {
+//				return true;
+//			}
+//			else {
+//				return false;
+//			}
+//			
+//		}
 //--------------------------------------------------
 		@Override
 		public  boolean receiveInteraction(ExitDoor obj) {
@@ -390,7 +363,7 @@ public boolean isFalling() {
 			Position posUp=pos.move(Action.UP);
 			boolean canInteract= obj.isInPosition(pos) || this.isBIG() && obj.isInPosition(posUp);	//Comprueba si mario se choca con algun goomba en pequeño o si es grande arriba y abajo
 			if(canInteract && this.isAlive()) {
-				return crash(obj);	//Si mario esta vivo, y esta en la misma posicion que un Goomba choca
+				return obj.receiveInteraction(this);
 			}
 			return false;
 		}
@@ -446,4 +419,5 @@ public boolean isFalling() {
 		return obj;
 	}
 
+		
 }

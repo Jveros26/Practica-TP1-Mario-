@@ -19,10 +19,12 @@ public class ActionCommand extends AbstractCommand {
 
     public ActionCommand( ArrayList<Action> actionList) {	//Llamamos al consturctor super
     	super(NAME,SHORTCUT,DETAILS,HELP);
+    	this.actionList=new ArrayList<Action>();
     	this.actionList=actionList;	//Inicializamos el actionList con lo que dan
     }
 	 public ActionCommand() {
 	 super(NAME,SHORTCUT,DETAILS,HELP);
+	 this.actionList=new ArrayList<Action>();
 	 }
 	 @Override
 	 public Command parse(String[] commandWords) {
@@ -34,6 +36,7 @@ public class ActionCommand extends AbstractCommand {
 				 for(int i=1;i<commandWords.length;i++) {	//Recorro las pocisiones haciendo parse y añado a lista
 					 Action acc=Action.parse(commandWords[i]);
 					 actionList.add(acc);
+					 
 				 }
 				 return this;	//al terminar
 			 	}
@@ -42,10 +45,20 @@ public class ActionCommand extends AbstractCommand {
 			 }
 		 }
 	}
+	 private void clearList() {
+		 for(int i=actionList.size()-1;i>=0;i--) {
+				actionList.remove(i);
+			}
+	 }
 	 @Override
 	 public void execute(GameModel game, GameView view) {
+		 for(int i=0;i<actionList.size();i++) {
+			 Action acc=actionList.get(i);
+			 game.addAction(acc);
+		 }
 		game.update();
 		game.clearList();
+		this.clearList();
 		view.showGame();
 	 }
 			

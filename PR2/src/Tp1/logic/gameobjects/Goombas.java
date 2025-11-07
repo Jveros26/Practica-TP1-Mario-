@@ -72,10 +72,13 @@ public class Goombas extends MovingObject {
 		public boolean receiveInteraction(Mario obj) {	//Muere si mario es grande
 				if(obj.isFalling()) {	//Si mario esta en la posicion del goomba y resulta que estaba cayendo el goomba muere
 					dead();
+					game.addPoints(100);
 				}
 				else {
 					if(obj.isBIG()) {	//Si mario no estaba cayendo pero se encuentra al goomba este muere
 						dead();
+						game.addPoints(100);
+						obj.shrink();
 					}
 					else {
 						this.game.addPoints(100);	//Se suman puntos

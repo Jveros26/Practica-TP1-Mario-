@@ -41,7 +41,6 @@ public class ActionList {
 			}
 			
 		}
-		//resetNum();	//Una vez limpiamos la lista reiniciamos valores
 	}
 	
 	public Action get(int i) {
@@ -65,14 +64,7 @@ public class ActionList {
 		break;
 		}
 	}
-//--------------------------------------------------
 
-	private void resetNum() {
-		l=0;
-		r=0;
-		u=0;
-		d=0;
-	}
 	
 //--------------------------------------------------
 

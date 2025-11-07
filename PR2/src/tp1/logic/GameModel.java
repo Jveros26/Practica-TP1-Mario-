@@ -11,4 +11,5 @@ public interface GameModel {
 	public void reset(int nLevel);
 	public void clearList();
 	public boolean addObject(String[] strsObject);
+	public void addAction(Action action);
 }

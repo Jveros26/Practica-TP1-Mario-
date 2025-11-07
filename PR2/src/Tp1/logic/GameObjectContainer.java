@@ -41,13 +41,9 @@ public class GameObjectContainer {
 		
 		for(GameObject obj: gameObjects) {	//Recorre cada objeto haciendo su update correspondiente
 			obj.update();
+			
 		}
 		doInteractions();	//Una vez updateado todo se ejecutan las interacciones
-		
-//		if (!buffer.isEmpty()) {
-//            gameObjects.addAll(buffer);
-//            buffer.clear();
-//        }
 		
 		clear();	//Se borran aquellos que esten muertos
 
@@ -57,8 +53,10 @@ public class GameObjectContainer {
 	public boolean isSolid(Position pos) {
 		boolean issolid=false;
 		for(GameObject obj: gameObjects) {
-			if(obj.isSolid()) {
-				return true;
+			if(obj.isInPosition(pos)) {
+				if(obj.isSolid()) {
+					return true;
+				}
 			}
 		}
 		return issolid;	//Devuelve si hay un goomba/land-->objetos solidos

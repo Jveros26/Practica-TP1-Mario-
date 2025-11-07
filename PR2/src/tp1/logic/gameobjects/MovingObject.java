@@ -30,35 +30,57 @@ public abstract class MovingObject extends GameObject{
 //--------------------------------------------------
 
 	public void step() {	//Aqui como controlar a mario grande	
-			
-		if(!((game.isSolid(pos.move(Action.LEFT)) && (game.isSolid(pos.move(Action.RIGHT)))))) {
-			Position pa=pos.move(Action.LEFT);
-			if(game.isSolid(pos.move(Action.LEFT)) || !game.positionIsIn(pa)){ 
-				this.pos=pos.move(Action.RIGHT);
-				this.direction=Action.RIGHT;
+//	    Position nextPos = pos.move(direction);
+//
+//		//if(!((game.isSolid(pos.move(Action.LEFT)) && !(game.isSolid(pos.move(Action.RIGHT)))))) {
+//		if(!game.isSolid(nextPos) || !game.positionIsIn(nextPos)) {
+//			Position pa=pos.move(Action.LEFT);
+//			if(game.isSolid(pos.move(Action.LEFT)) || !game.positionIsIn(pa)){ 
+//				this.pos=pos.move(Action.RIGHT);
+//				this.direction=Action.RIGHT;
+//
+//			}
+//			else {
+//				if(game.isSolid(pos.move(Action.RIGHT))){
+//					this.pos=pos.move(Action.LEFT);
+//					this.direction=Action.LEFT;
+//
+//				}
+//				else {
+//					if(this.direction==Action.LEFT) {
+//						this.pos=pos.move(Action.LEFT);
+//						this.direction=Action.LEFT;
+//
+//					}
+//					else {
+//						this.pos=pos.move(Action.RIGHT);
+//						this.direction=Action.RIGHT;
+//
+//					}
+//				}
+//			}
+//		}
+		Position nextPos = pos.move(direction);
+	    
+	    // Si el siguiente movimiento es sólido o fuera del mapa → cambia de dirección
+	    if (game.isSolid(nextPos) || !game.positionIsIn(nextPos)) {
+	        // Cambia dirección
+	        if (direction == Action.LEFT) {
+	            direction = Action.RIGHT;
+	            nextPos = pos.move(Action.RIGHT);
+	        } else {
+	            direction = Action.LEFT;
+	            nextPos = pos.move(Action.LEFT);
+	        }
 
-			}
-			else {
-				if(game.isSolid(pos.move(Action.RIGHT))){
-					this.pos=pos.move(Action.LEFT);
-					this.direction=Action.LEFT;
+	        // Si la nueva posición también está bloqueada, no te muevas
+	        if (game.isSolid(nextPos) || !game.positionIsIn(nextPos)) {
+	            return;
+	        }
+	    }
 
-				}
-				else {
-					if(this.direction==Action.LEFT) {
-						this.pos=pos.move(Action.LEFT);
-						this.direction=Action.LEFT;
-
-					}
-					else {
-						this.pos=pos.move(Action.RIGHT);
-						this.direction=Action.RIGHT;
-
-					}
-				}
-			}
-		}
-			
+	    // Mueve al Goomba
+	    pos = nextPos;
 		}
 //--------------------------------------------------
 	@Override

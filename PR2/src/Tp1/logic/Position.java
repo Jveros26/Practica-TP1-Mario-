@@ -20,10 +20,18 @@ public class Position {
 	public Position(String pos) {
 
 		int p=Integer.parseInt(pos);
-		int a=p%10;
-		int k= (p-a)/10;
-		this.row=k;
-		this.col=a;
+		if(p<500) {
+			int a=p%10;
+			int k= (p-a)/10;
+			this.row=k;
+			this.col=a;
+		}
+		else {
+			int a=p%100;
+			int k=(p-a)/100;
+			this.row=k;
+			this.col=a;
+		}
 	}
 //--------------------------------------------------
 

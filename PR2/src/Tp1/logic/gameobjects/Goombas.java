@@ -21,6 +21,10 @@ public class Goombas extends MovingObject {
 		super(game,pos,Action.RIGHT,false,NAME,SHORTCUT);
 	}
 	
+	public Goombas(GameWorld game,Position pos,Action dir) {
+		super(game,pos,dir,false,NAME,SHORTCUT);
+	}
+	
 	public Goombas() {
 		super(Action.STOP,false,NAME,SHORTCUT);
 	}
@@ -126,6 +130,10 @@ public class Goombas extends MovingObject {
 			return new Goombas(game,pos);
 
 		}
+		protected GameObject createInstance(Position pos, GameWorld game,Action dir) {
+			return new Goombas(game,pos,dir);
+
+		}
 		@Override
 		public GameObject parse(String strsObject[],GameWorld game) {
 			GameObject obj=super.parse(strsObject, game);
@@ -135,7 +143,7 @@ public class Goombas extends MovingObject {
 				Position p=new Position(strsObject[0],strsObject[1]);	//Vuelvo a crear la posicion para que se guarde desde goomba y no quede null
 				//Ya no compruebo si la pos sale dle tablero pq eso ya lo hace el parse de GameObject
 				Action dir=Action.parse(strsObject[3]);
-				return this.createInstance(p,game);
+				return this.createInstance(p,game,dir);
 				
 			}
 			else {

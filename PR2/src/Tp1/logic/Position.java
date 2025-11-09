@@ -20,7 +20,7 @@ public class Position {
 	public Position(String pos) {
 
 		int p=Integer.parseInt(pos);
-		if(p<500) {
+		if(p<100) {
 			int a=p%10;
 			int k= (p-a)/10;
 			this.row=k;
@@ -33,8 +33,13 @@ public class Position {
 			this.col=a;
 		}
 	}
-//--------------------------------------------------
+	public Position(String row,String col) {
 
+		this.row=Integer.parseInt(row);
+		this.col=Integer.parseInt(col);
+	}
+//--------------------------------------------------
+	@Override
 	public boolean equals(Object pos) {
 		if(this==pos) return true;
 		

@@ -32,8 +32,8 @@ public class Goombas extends MovingObject {
 	//--------------------------------------------------
 
 		@Override
-		public boolean isInPosition(Position pos) {
-			if(this.pos.equals(pos)) {
+		public boolean isInPosition(Position p) {
+			if(this.pos.equals(p)) {
 				return true;
 			}
 			return false;
@@ -126,6 +126,21 @@ public class Goombas extends MovingObject {
 			return new Goombas(game,pos);
 
 		}
-
+		@Override
+		public GameObject parse(String strsObject[],GameWorld game) {
+			GameObject obj=super.parse(strsObject, game);
+			if(obj!=null) {
+				Alive=true;
+				isFalling=true;
+				Position p=new Position(strsObject[0],strsObject[1]);	//Vuelvo a crear la posicion para que se guarde desde goomba y no quede null
+				//Ya no compruebo si la pos sale dle tablero pq eso ya lo hace el parse de GameObject
+				Action dir=Action.parse(strsObject[3]);
+				return this.createInstance(p,game);
+				
+			}
+			else {
+				return null;
+			}
+		}
 
 	}

@@ -98,7 +98,12 @@ public class Box extends GameObject {
 	//--------------------------------------------------
 	@Override
 		public boolean interactWith(GameItem other) {
-			return other.receiveInteraction(this);
+			if (!this.isOpened) {	//Comprueba si la caja ya se abrio
+				return  other.receiveInteraction(this);	//Si todavia no se abrio comprueba interaccion con elementos
+			}
+			else {	//Si ya se abrio no realiza ninguna interaccion mas (comportamiento Land)
+				return false;
+			}
 		}
 	//--------------------------------------------------
 	@Override

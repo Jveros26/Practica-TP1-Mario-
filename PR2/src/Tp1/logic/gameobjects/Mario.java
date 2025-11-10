@@ -379,8 +379,13 @@ public boolean isFalling() {
 					return true;
 			}
 			else {
-				obj.mushDead();
-				return false;
+				if(canInteract && this.isAlive() && this.isBIG()) {	//Si mario es grande la seta simplemente desaparece
+					obj.mushDead();
+					return true;
+				}
+				else {
+					return false;
+				}
 			}
 			
 		}

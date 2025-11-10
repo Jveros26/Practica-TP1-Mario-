@@ -50,6 +50,7 @@ public abstract class GameObject implements GameItem{
 //--------------------------------------------------
 
 	protected abstract GameObject createInstance(Position pos,GameWorld game);
+
 	
 //--------------------------------------------------
 	
@@ -95,6 +96,7 @@ public abstract class GameObject implements GameItem{
 		}
 		return false;
 	}
+	
 //--------------------------------------------------
 
 	public void marioExited() {

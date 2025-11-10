@@ -7,4 +7,5 @@ public interface GameWorld {
 	public void marioExited();
 	public boolean positionIsIn(Position pos);
 	public void marioDead();
+	public boolean addObject(String[] strsObject);
 }

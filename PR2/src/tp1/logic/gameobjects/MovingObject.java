@@ -83,6 +83,8 @@ public abstract class MovingObject extends GameObject{
 	    pos = nextPos;
 		}
 //--------------------------------------------------
+	protected abstract GameObject createInstance(Position pos,GameWorld game,Action dir);
+
 	@Override
 	public GameObject parse(String strsObject[],GameWorld game) {//CASTEAR OBJ PARA PONER LA ACCION Y EN MARIO IGUAL
 		GameObject obj;
@@ -91,8 +93,8 @@ public abstract class MovingObject extends GameObject{
 			String p=strsObject[3].toLowerCase();
 			Action acc=Action.parse(p);
 			if(acc!=null){	//Si el string concuerda con que es una accion devuelve instancia
-				obj= this.createInstance(pos,game);
-				direction=acc;
+				Position po=new Position(strsObject[0],strsObject[1]);
+				obj= this.createInstance(po,game,acc);
 			}
 			else {
 				obj=null;
@@ -100,6 +102,9 @@ public abstract class MovingObject extends GameObject{
 		}
 		return obj;
 	}
-
+	
+	public void fall() {
+		this.pos=pos.move(Action.DOWN);
+	}
 	
 }

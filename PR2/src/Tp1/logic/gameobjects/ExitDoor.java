@@ -85,5 +85,14 @@ public class ExitDoor extends GameObject {
 		public  boolean receiveInteraction(Goombas obj) {
 			return false;
 		}
+		protected GameObject createInstance(Position pos, GameWorld game,Action dir) {
+			return new Mushroom(game,pos,dir);
+
+		}
+		@Override
+		public boolean receiveInteraction(Box obj) {
+			return false;
+		}
+
 
 }

@@ -75,5 +75,9 @@ public  boolean isSolid() {return true;}
 	public boolean receiveInteraction(Mushroom obj) {
 		return false;
 	}
+	@Override
+	public boolean receiveInteraction(Box obj) {
+		return false;
+	}
 
 }

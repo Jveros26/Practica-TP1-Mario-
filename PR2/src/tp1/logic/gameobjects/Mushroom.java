@@ -14,6 +14,11 @@ public class Mushroom extends MovingObject{
 		super(game,pos,Action.RIGHT,false,NAME,SHORTCUT);	
 		
 	}
+	public Mushroom(GameWorld game,Position pos,Action dir) {
+		super(game,pos,Action.RIGHT,false,NAME,SHORTCUT);
+		direction=dir;
+		
+	}
 	
 	public Mushroom() {
 		super(Action.RIGHT,false,NAME,SHORTCUT);
@@ -27,6 +32,10 @@ public class Mushroom extends MovingObject{
 	@Override
 	protected GameObject createInstance(Position pos, GameWorld game) {
 		return new Mushroom(game,pos);
+
+	}
+	protected GameObject createInstance(Position pos, GameWorld game,Action dir) {
+		return new Mushroom(game,pos,dir);
 
 	}
 	
@@ -53,7 +62,7 @@ public class Mushroom extends MovingObject{
 	
 	@Override
 	public  boolean receiveInteraction(Mario obj) {
-		if(obj.isInPosition(pos) && this.isAlive() && obj.receiveInteraction(this)) {
+		if(this.isAlive() && obj.receiveInteraction(this)) {
 			return true;
 		}
 		else {
@@ -67,6 +76,31 @@ public class Mushroom extends MovingObject{
 	}
 	@Override
 	public boolean receiveInteraction(Mushroom obj) {
+		return false;
+	}
+	public void update() {
+
+		if(game.isSolid(pos.move(Action.DOWN))){
+			this.isFalling=false;
+			step();	
+		}
+		else{
+			this.isFalling=true;
+			fall();
+		}
+		if(!game.positionIsIn(pos)) {
+			dead();
+		}
+	}
+//--------------------------------------------------	
+
+	public void mushDead() {
+		dead();
+	}
+//--------------------------------------------------	
+
+	@Override
+	public boolean receiveInteraction(Box obj) {
 		return false;
 	}
 	

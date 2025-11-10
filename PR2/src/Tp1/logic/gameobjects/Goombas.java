@@ -67,9 +67,7 @@ public class Goombas extends MovingObject {
 
 	//--------------------------------------------------
 
-		public void fall() {
-			this.pos=pos.move(Action.DOWN);
-		}
+	
 
 	//--------------------------------------------------
 		@Override
@@ -123,17 +121,21 @@ public class Goombas extends MovingObject {
 		}
 	//--------------------------------------------------
 		@Override
-		public  boolean isSolid() {return false;}
+		public  boolean isSolid() {return true;}
 	//--------------------------------------------------	
 		@Override
 		protected GameObject createInstance(Position pos, GameWorld game) {
 			return new Goombas(game,pos);
 
 		}
+	//--------------------------------------------------	
+
 		protected GameObject createInstance(Position pos, GameWorld game,Action dir) {
 			return new Goombas(game,pos,dir);
 
 		}
+	//--------------------------------------------------	
+
 		@Override
 		public GameObject parse(String strsObject[],GameWorld game) {
 			GameObject obj=super.parse(strsObject, game);
@@ -149,6 +151,12 @@ public class Goombas extends MovingObject {
 			else {
 				return null;
 			}
+		}
+	//--------------------------------------------------	
+
+		@Override
+		public boolean receiveInteraction(Box obj) {
+			return false;
 		}
 
 	}

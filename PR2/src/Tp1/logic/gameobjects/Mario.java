@@ -13,6 +13,8 @@ import tp1.logic.ActionList;
 import tp1.view.Messages;
 import tp1.logic.GameItem;
 import tp1.logic.GameWorld;
+import tp1.logic.gameobjects.Box;
+
 
 
 public class Mario extends MovingObject{
@@ -32,9 +34,16 @@ public class Mario extends MovingObject{
 		isAscending=false;
 		actList=new ActionList();
 	}
-	
+	public Mario(GameWorld game,Position pos,Action dir,boolean big) {
+		super(game,pos,dir,false,NAME,SHORTCUT);
+		this.isBig=big;
+		actList=new ActionList();
+
+	}
 	public Mario() {
 		super(Action.STOP,false,NAME,SHORTCUT);
+		actList=new ActionList();
+
 	}
 
 //--------------------------------------------------
@@ -106,11 +115,6 @@ public class Mario extends MovingObject{
 
 	/*STEP() IMPLEMENTADA EN MOVING OBJECT*/
 
-//--------------------------------------------------
-
-	public void fall() {
-		this.pos=pos.move(Action.DOWN);
-	}
 
 //--------------------------------------------------
 	
@@ -202,6 +206,9 @@ public class Mario extends MovingObject{
 					this.isAscending=true;
 					this.isFalling=false;
 				}
+				else {
+					this.isAscending=true;
+				}
 					
 			}
 			else {
@@ -209,6 +216,9 @@ public class Mario extends MovingObject{
 					this.pos=pos.move(Action.UP);
 					this.isAscending=true;
 					this.isFalling=false;
+				}
+				else {
+					this.isAscending=true;
 				}
 					
 			}
@@ -272,23 +282,6 @@ public class Mario extends MovingObject{
 
 //--------------------------------------------------
 
-//public void Interactwith(Goombas obj) {
-//	boolean canInteract=obj.isInPosition(this.pos) ||	//si el gomba y mario estan en la misma pos o si mario es grande y el goomba esta en la posicion de abajo o arriba
-//			this.isBig && obj.isInPosition(this.pos.move(Action.UP));
-//	if(canInteract && !this.isFalling) {
-//		this.crash(obj);	//Si no cae mario se choca y o muere o mata al goomba y deja de ser grande
-//	}
-//	else {
-//		if(canInteract && this.isFalling) {
-//			obj.receiveInteraction(this);	//Gomba muere
-//			game.addPoints(100);
-//		}
-//	}
-//	
-//}
-
-//--------------------------------------------------
-
 public boolean isBIG() {
 	return this.isBig;
 	
@@ -307,7 +300,12 @@ public boolean isFalling() {
 	@Override
 	public boolean interactWith(GameItem item) {
 		Position posUp=pos.move(Action.UP);
+		Position posUpUp=posUp.move(Action.UP);
 		boolean canInteract=item.isInPosition(pos) || (this.isBIG() && item.isInPosition(posUp));	//Comprueba el mario de arriba y abajo
+		if (this.isAscending &&
+	            ((item.isInPosition(posUp) || (this.isBIG() && item.isInPosition(posUpUp))))) {
+	        canInteract = true;
+	    }
 		if(canInteract && this.isAlive()) {
 			item.receiveInteraction(this);
 		}
@@ -318,27 +316,30 @@ public boolean isFalling() {
 		public  boolean receiveInteraction(Land obj) {
 			return false;
 		}
-//		@Override
-//		public  boolean receiveInteraction(Box obj) {
-//			Position posUp=pos.move(Action.UP);
-//			Position posUpUp=posUp.move(Action.UP);
-//
-//			boolean canInteract;
-//			if((this.direction==Action.UP && obj.isInPosition(posUp))||
-//					(this.direction==Action.UP && this.isBIG() && obj.isInPosition(posUpUp))) {
-//				canInteract=true;
-//			}
-//			else {
-//				canInteract=false;
-//			}
-//			if(this.isAlive() && canInteract) {
-//				return true;
-//			}
-//			else {
-//				return false;
-//			}
-//			
-//		}
+//--------------------------------------------------
+	
+		@Override
+		public boolean receiveInteraction(Box obj) {
+			Position posUp=pos.move(Action.UP);	//Mario chiquito
+			Position posUpUp=posUp.move(Action.UP);	//Mario grande
+
+			boolean canInteract;
+			if((this.isAscending && obj.isInPosition(posUp))||
+					(this.isAscending && this.isBIG() && obj.isInPosition(posUpUp))) {
+				canInteract=true;
+			}
+			else {
+				canInteract=false;
+			}
+			if(this.isAlive() && canInteract) {
+				obj.addMushroom();
+				return true;
+			}
+			else {
+				return false;
+			}
+			
+		}
 //--------------------------------------------------
 		@Override
 		public  boolean receiveInteraction(ExitDoor obj) {
@@ -374,9 +375,11 @@ public boolean isFalling() {
 			boolean canInteract= obj.isInPosition(pos) || this.isBIG() && obj.isInPosition(posUp);
 			if(canInteract && this.isAlive() && !this.isBIG()) {	//Comprueba que concuerde la pos con la del la seta, que mario esta vivo y que no es grande
 					this.isBig=true;
+					obj.mushDead();
 					return true;
 			}
 			else {
+				obj.mushDead();
 				return false;
 			}
 			
@@ -388,19 +391,38 @@ public boolean isFalling() {
 			return new Mario(game,pos);
 
 		}
+		@Override
+		protected GameObject createInstance(Position pos, GameWorld game,Action dir) {
+			return new Mario(game,pos);
+
+		}
 //--------------------------------------------------
 
 		private boolean isStatus(String p) {
-			p.toLowerCase();
-			if(p=="big"|| p=="p") {
+			if(("big".equals(p) )||( "b".equals(p) )) {
 				return true;
 			}
 			else {
-				if(p=="small"||p=="s") {
+				if(("small".equals(p) )||("s".equals(p) )) {
 					return true;
 				}
 			}
 			return false;
+		}
+		
+		private boolean Status(String s) {
+			if("big".equals(s)|| "b".equals(s)) {
+				return true;
+			}
+			else {
+				if("small".equals(s)||"s".equals(s)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		protected GameObject createInstance(Position pos, GameWorld game,Action dir,boolean big) {
+			return new Mario(game,pos,dir,big);
 		}
 //--------------------------------------------------
 
@@ -409,11 +431,20 @@ public boolean isFalling() {
 		GameObject obj;
 		obj=super.parse(objWords, game);
 		if(obj!=null) {	//Si lo devuelto del super no concuerda con GameObject o MovingObject no es un elemento movible y no concuerda con mario
-			if(isStatus(objWords[3])) {	//Concuerda con que el ultimo elemento es Big o Small para mario
-				obj=this.createInstance(pos,game);	//Si es un GameObject, MovingObject y concuerda con estructura mario devuelve estancia
+			if(objWords.length>4) {	//Si hay 4º posicion del array 
+				if(isStatus(objWords[4].toLowerCase())) {	//Concuerda con que el ultimo elemento es Big o Small para mario
+					Position p=new Position(objWords[0],objWords[1]);
+					Action dir=Action.parse(objWords[3]);
+					obj=this.createInstance(p,game,dir,Status(objWords[4].toLowerCase()));	//Si es un GameObject, MovingObject y concuerda con estructura mario devuelve estancia
+				}
+				else {
+					return null;
+				}
 			}
-			else {
-				return null;
+			else {	//Si es menor que cuatro entonces inicializo con isBig
+				Position p=new Position(objWords[0],objWords[1]);
+				Action dir=Action.parse(objWords[3]);
+				obj=this.createInstance(p,game,dir,true);
 			}
 		}
 		return obj;

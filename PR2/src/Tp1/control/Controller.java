@@ -30,6 +30,10 @@ public class Controller {
 		while(!game.isFinished()) {
 			String [] userWords=view.getPrompt();
 			Command command=CommandGenerator.parse(userWords);
+//			if(!(userWords.length>0)) {
+//				command=UpdateCommand;
+//				command.execute(game, view);
+//			}
 			
 			if(command!=null) {
 				command.execute(game, view);

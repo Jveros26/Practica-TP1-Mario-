@@ -54,7 +54,7 @@ public class AddObjectCommand extends AbstractCommand {
 				 String[] ArrayComando = comand.trim().split("\\s+");	//Cada palabra separada por espacios es un elemento del array word (String)
 				 
 				 
-				 GameWorld game=new Game(1);;	//Creamos un juego sin mas, para hacer el parse y ver si concuerda la estructura del Array con algun objeto de la factoria
+				 GameWorld game=new Game(1);	//Creamos un juego sin mas, para hacer el parse y ver si concuerda la estructura del Array con algun objeto de la factoria
 				 //Inicializamos a null pq simplemente queremos ver si devuelve instancia, el juego da igual
 				 GameObject obj=GameObjectFactory.parse(ArrayComando,game);
 				 

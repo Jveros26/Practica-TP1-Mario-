@@ -41,7 +41,6 @@ public class GameObjectContainer {
 		
 		for(GameObject obj: gameObjects) {	//Recorre cada objeto haciendo su update correspondiente
 			obj.update();
-			
 		}
 		doInteractions();	//Una vez updateado todo se ejecutan las interacciones
 		

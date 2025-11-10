@@ -17,7 +17,7 @@ public class Position {
 		this.col=pos.col;
 		this.row=pos.row;
 	}
-	public Position(String pos) {
+	public Position(String pos) {	
 
 		int p=Integer.parseInt(pos);
 		if(p<100) {
@@ -61,9 +61,10 @@ public class Position {
 	
 	public String toString() {
 		StringBuilder position=new StringBuilder();
-		position.append(col);
 		position.append(row);
-		return position.toString();	//Devuelve la pos en el formato colrow (numnum)
+		position.append(" ");
+		position.append(col);
+		return position.toString();	//Devuelve la pos en el formato colrow (num num)
 	}
 
 	

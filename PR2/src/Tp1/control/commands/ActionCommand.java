@@ -29,7 +29,14 @@ public class ActionCommand extends AbstractCommand {
 	 @Override
 	 public Command parse(String[] commandWords) {
 		 if(commandWords.length<2) {
-			 return null;
+			 if(this.matchCommandName(commandWords[0])) {
+				 actionList.add(Action.RIGHT);
+				 return this;
+			 }
+			 else {
+				 return null;
+ 
+			 }
 		 }
 		 else {
 			 if(this.matchCommandName(commandWords[0])) {	//Veo si el primer argumento concuerda con la el nombre d ela clase

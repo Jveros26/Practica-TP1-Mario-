@@ -78,7 +78,7 @@ public abstract class GameObject implements GameItem{
 	public abstract boolean isSolid();	//Abtracta pq cada una implementa su isSolid pq depende directamente del tipo
 //--------------------------------------------------
 	
-	public void update() {};	//Abtracta tambien pq cada clase tiene su propio update
+	public  abstract void update();	//Abtracta tambien pq cada clase tiene su propio update
 								//Aunque land y ExitDoor tmb tengan updates son vacios y no hace nada
 //--------------------------------------------------
 

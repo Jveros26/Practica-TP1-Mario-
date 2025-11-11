@@ -281,4 +281,8 @@ private void initLevel1() {
 		
 		return obj!=null;
 	}
+	@Override
+	public void doInteractions() {
+		gameObjects.doInteractions();
+	}
 }

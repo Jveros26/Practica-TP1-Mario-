@@ -25,8 +25,18 @@ public abstract class AbstractCommand implements Command {
 	protected String getHelp() { return help; }
 
 	protected boolean matchCommandName(String name) {
-		return getShortcut().equalsIgnoreCase(name) || 
-			   getName().equalsIgnoreCase(name);
+		
+		if(getShortcut().equalsIgnoreCase(name) || getName().equalsIgnoreCase(name)) {	//Si es un comando normal devuelve true
+			return true;
+		}
+		else {
+			if(name=="") {	//Si pones enter simplemente toma como que es update y devuelve true
+				return true;
+			}
+			else {	//Si no es nombre/atajo/enter--->false
+				return false;
+			}
+		}
 	}
 
 	@Override

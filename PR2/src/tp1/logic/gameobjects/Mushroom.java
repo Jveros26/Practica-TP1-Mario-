@@ -88,6 +88,7 @@ public class Mushroom extends MovingObject{
 			this.isFalling=true;
 			fall();
 		}
+		game.doInteractions();
 		if(!game.positionIsIn(pos)) {
 			dead();
 		}

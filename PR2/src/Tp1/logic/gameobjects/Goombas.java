@@ -55,6 +55,7 @@ public class Goombas extends MovingObject {
 				this.isFalling=true;
 				fall();
 			}
+			game.doInteractions();
 			if(!game.positionIsIn(pos)) {
 				dead();
 			}
@@ -121,7 +122,7 @@ public class Goombas extends MovingObject {
 		}
 	//--------------------------------------------------
 		@Override
-		public  boolean isSolid() {return true;}
+		public  boolean isSolid() {return false;}
 	//--------------------------------------------------	
 		@Override
 		protected GameObject createInstance(Position pos, GameWorld game) {

@@ -8,7 +8,7 @@ public abstract class NoParamsCommand extends AbstractCommand {
 
 	@Override
 	public Command parse(String[] commandWords) {
-		if(commandWords.length==1 && matchCommandName(commandWords[0])) {
+		if(commandWords.length==1 && matchCommandName(commandWords[0])) {	//Considera en ela clase de arriba el espacio tmb para el update
 			return this;
 		}
 		return null;

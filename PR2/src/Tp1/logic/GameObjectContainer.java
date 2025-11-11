@@ -38,12 +38,10 @@ public class GameObjectContainer {
 //--------------------------------------------------
 
 	public void update() {	
-		
 		for(GameObject obj: gameObjects) {	//Recorre cada objeto haciendo su update correspondiente
 			obj.update();
-		}
-		doInteractions();	//Una vez updateado todo se ejecutan las interacciones
-		
+		}	
+		//buffer (crear nueva lista con elementos anteriores y los nuevos agregados (mushroom))
 		clear();	//Se borran aquellos que esten muertos
 
 	}

@@ -79,5 +79,8 @@ public  boolean isSolid() {return true;}
 	public boolean receiveInteraction(Box obj) {
 		return false;
 	}
+	public void update() {
+		
+	}
 
 }

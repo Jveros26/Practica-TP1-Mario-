@@ -93,6 +93,8 @@ public class ExitDoor extends GameObject {
 		public boolean receiveInteraction(Box obj) {
 			return false;
 		}
-
+		public void update() {
+			
+		}
 
 }

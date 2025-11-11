@@ -8,4 +8,5 @@ public interface GameWorld {
 	public boolean positionIsIn(Position pos);
 	public void marioDead();
 	public boolean addObject(String[] strsObject);
+	public void doInteractions();
 }

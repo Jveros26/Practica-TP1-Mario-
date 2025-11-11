@@ -119,12 +119,13 @@ public class Box extends GameObject {
 	@Override
 		public boolean  receiveInteraction(Mario obj) {
 			if(!this.isOpened() && obj.receiveInteraction(this)) {
+				addMushroom();
 				return true;
 			}
 			else {
 				return false;	
 			}
-
+			
 		}
 	//--------------------------------------------------
 	@Override
@@ -155,7 +156,10 @@ public class Box extends GameObject {
 		game.addPoints(50);
 		game.addObject(addMushroom);	//Añade al juego el mushroom
 	}
+	
+	@Override
+	public void update() {
+	}
 
-		
 
 }

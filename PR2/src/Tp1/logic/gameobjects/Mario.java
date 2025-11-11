@@ -29,7 +29,7 @@ public class Mario extends MovingObject{
 //--------------------------------------------------
 
 	public Mario(GameWorld game,Position pos) {
-		super(game,pos,Action.STOP,false,NAME,SHORTCUT);	
+		super(game,pos,Action.RIGHT,false,NAME,SHORTCUT);	
 		isBig=true;
 		isAscending=false;
 		actList=new ActionList();
@@ -87,12 +87,12 @@ public class Mario extends MovingObject{
 		this.isAscending=false;
 		this.isFalling=false;
 		if(actList.lenght()==0) {
-			direction=Action.RIGHT;
 			step();	
 		}
 		else {
 			runActions();
 		}
+		game.doInteractions();
 	}
 	else {
 		this.onAir=true;
@@ -112,8 +112,41 @@ public class Mario extends MovingObject{
 	}	
 }	
 //--------------------------------------------------
+	@Override
+	public void step() {
+		Position p=pos.move(Action.UP);	//Posicion de arriba de mario si este es grande
+		if(game.isSolid(pos.move(Action.LEFT)) || this.isBig && game.isSolid(p.move(Action.LEFT))){	//Si es peque y se choca a la izq o si es grande y la posicion de arriba la izq es land
+			//pos.commute(Action.RIGHT);
+			this.pos=pos.move(Action.RIGHT);
+			this.direction=Action.RIGHT;
+		}
+		else {
+			if(game.isSolid(pos.move(Action.RIGHT))|| this.isBig &&game.isSolid(p.move(Action.RIGHT))){
+				this.pos=pos.move(Action.LEFT);
+				this.direction=Action.LEFT;
+				
+			}
+			else {
+				Position pa=pos.move(Action.LEFT);
+				if(!game.positionIsIn(pa)) {	//Si se va a salir del tablero mario vuelve a girar
+					this.pos=pos.move(Action.RIGHT);
+					this.direction=Action.RIGHT;
+				}
+				else {
+					if(this.direction==Action.LEFT) {
+						this.pos=pos.move(Action.LEFT);
+						this.direction=Action.LEFT;
 
-	/*STEP() IMPLEMENTADA EN MOVING OBJECT*/
+					}
+					else {
+						this.pos=pos.move(Action.RIGHT);
+						this.direction=Action.RIGHT;
+					}	
+				}
+			}
+		}
+	  
+	}
 
 
 //--------------------------------------------------
@@ -331,13 +364,8 @@ public boolean isFalling() {
 			else {
 				canInteract=false;
 			}
-			if(this.isAlive() && canInteract) {
-				obj.addMushroom();
-				return true;
-			}
-			else {
-				return false;
-			}
+
+			return canInteract && this.isAlive();
 			
 		}
 //--------------------------------------------------

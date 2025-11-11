@@ -10,7 +10,6 @@ import tp1.logic.GameWorld;
 import tp1.logic.Action;
 
 public class Goombas extends MovingObject {
-	private boolean Alive;
 	private boolean isFalling;
 	private static final String NAME=Messages.GOOMBA_NAME;
 	private static final String SHORTCUT=Messages.GOOMBA_SHORTCUT;
@@ -46,7 +45,6 @@ public class Goombas extends MovingObject {
 		@Override
 		public void update() {
 			//if(game.isSolid(pos.move(Action.DOWN)) || game.isGoomba(pos.move(Action.DOWN))){
-
 			if(game.isSolid(pos.move(Action.DOWN))){
 				this.isFalling=false;
 				step();	
@@ -58,8 +56,7 @@ public class Goombas extends MovingObject {
 			game.doInteractions();
 			if(!game.positionIsIn(pos)) {
 				dead();
-			}
-			
+			}	
 		}
 
 	//--------------------------------------------------
@@ -73,6 +70,7 @@ public class Goombas extends MovingObject {
 	//--------------------------------------------------
 		@Override
 		public boolean receiveInteraction(Mario obj) {	//Muere si mario es grande
+			
 				if(obj.isFalling()) {	//Si mario esta en la posicion del goomba y resulta que estaba cayendo el goomba muere
 					dead();
 					game.addPoints(100);
@@ -94,11 +92,16 @@ public class Goombas extends MovingObject {
 	//--------------------------------------------------
 		@Override
 		public boolean interactWith(GameItem other) {
-			boolean canInteract=other.isInPosition(pos);
-			if(canInteract && this.isAlive()) {
-				other.receiveInteraction(this);
+			if(this.isAlive()) {	//Aqui vuelvo a comprobar si esta vivo pq si lo quito comprueba la posicion y puede llegar a realizar la interaccio a pesar de estar muerto
+				boolean canInteract=other.isInPosition(pos);
+				if(canInteract) {
+					other.receiveInteraction(this);
+				}
+				return canInteract;
 			}
-			return canInteract;
+			else {
+				return false;
+			}
 		}
 	//--------------------------------------------------
 		@Override
@@ -141,17 +144,23 @@ public class Goombas extends MovingObject {
 		public GameObject parse(String strsObject[],GameWorld game) {
 			GameObject obj=super.parse(strsObject, game);
 			if(obj!=null) {
-				Alive=true;
 				isFalling=true;
-				Position p=new Position(strsObject[0],strsObject[1]);	//Vuelvo a crear la posicion para que se guarde desde goomba y no quede null
 				//Ya no compruebo si la pos sale dle tablero pq eso ya lo hace el parse de GameObject
-				Action dir=Action.parse(strsObject[3]);
-				return this.createInstance(p,game,dir);
+				if(strsObject.length>3) {	// si es menor que 4 pero mayor que tres es del tipo: (num,num) mario accion
+					Position p=new Position(strsObject[0],strsObject[1]); //Vuelvo a crear la posicion para que se guarde desde goomba y no quede null
+					Action dir=Action.parse(strsObject[3]);
+					obj=this.createInstance(p,game,dir);
+				}
+				else { // si es menor que 3 es del tipo: (num,num) mario
+					Position p=new Position(strsObject[0],strsObject[1]);	//Vuelvo a crear la posicion para que se guarde desde goomba y no quede null
+					obj=this.createInstance(p,game,Action.RIGHT);	//Inicializo con valor predeterminado
+				}
 				
 			}
 			else {
 				return null;
 			}
+			return obj;
 		}
 	//--------------------------------------------------	
 
@@ -159,5 +168,7 @@ public class Goombas extends MovingObject {
 		public boolean receiveInteraction(Box obj) {
 			return false;
 		}
+		
+
 
 	}

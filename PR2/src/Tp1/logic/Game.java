@@ -2,6 +2,7 @@
 package tp1.logic;
 import tp1.logic.gameobjects.*;
 import tp1.view.GameView;
+import tp1.view.Messages;
 
 import java.util.ArrayList;
 
@@ -70,16 +71,18 @@ public class Game implements GameModel, GameStatus, GameWorld {
 	}
 //--------------------------------------------------
 	@Override
-	public void reset(int nLevel) {
+	public boolean reset(int nLevel) {
 		switch(nLevel) {
 		case -1:
-				//initLevel-1();
-			break;
+				initLevelMinus1();
+				return true;
 		case 0:	initLevel0();
-			break;
+				return true;
+			
 		case 1: initLevel1();
-			break;
-		default: reset(this.nLevel);
+				return true;
+		default: /*reset(this.nLevel;*/ System.out.println(Messages.INVALID_LEVEL_NUMBER);
+				return false;
 		}
 	}
 
@@ -233,6 +236,12 @@ private void initLevel1() {
 	gameObjects.add(new Goombas(this,new Position(12,10)));
 	gameObjects.add(new Goombas(this,new Position(12, 14)));
 }
+private void initLevelMinus1(){
+	this.nLevel = 0;
+	this.remainingTime = 100;
+	this.gameObjects= new GameObjectContainer();
+}
+
 //--------------------------------------------------
 	@Override
 	public boolean isSolid(Position pos) {
@@ -267,19 +276,32 @@ private void initLevel1() {
 //--------------------------------------------------
 	@Override
 	public boolean addObject(String[] strsObject) {
-		
-		
-		GameObject obj=this.mario.parse(strsObject, this);
-		if(obj!=null) {
-			this.mario=(Mario) obj;
+		GameObject obj;
+		if(this.mario!=null) {
+			obj=this.mario.parse(strsObject, this);
+			if(obj!=null) {
+				this.mario=(Mario) obj;
+			}
+			else {
+				obj=GameObjectFactory.parse(strsObject,this);
+			}
+			if(obj!=null) this.gameObjects.add(obj);
+			return obj!=null;
 		}
 		else {
 			obj=GameObjectFactory.parse(strsObject,this);
+			if(obj!=null) this.gameObjects.add(obj);
+			return obj!=null;
 		}
 		
-		if(obj!=null) this.gameObjects.add(obj);
 		
-		return obj!=null;
+	}
+	@Override
+	public void addObjectDelayed(String[] objWords) {
+	    GameObject obj =GameObjectFactory.parse(objWords,this);
+	    if(obj!=null) {
+	    	gameObjects.addDelayed(obj);
+	    }
 	}
 	@Override
 	public void doInteractions() {

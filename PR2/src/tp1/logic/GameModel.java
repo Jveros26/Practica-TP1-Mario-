@@ -8,7 +8,7 @@ public interface GameModel {
 	public void exit();
 	public void resetLives();
 	public void resetPoints();
-	public void reset(int nLevel);
+	public boolean reset(int nLevel);
 	public void clearList();
 	public boolean addObject(String[] strsObject);
 	public void addAction(Action action);

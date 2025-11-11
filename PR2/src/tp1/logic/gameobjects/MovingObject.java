@@ -64,20 +64,9 @@ public abstract class MovingObject extends GameObject{
 
 	@Override
 	public GameObject parse(String strsObject[],GameWorld game) {//CASTEAR OBJ PARA PONER LA ACCION Y EN MARIO IGUAL
-		GameObject obj;
-		obj=super.parse(strsObject, game);	//LLamamos al parse de arriba para comprobar que lo primero del array es un GameObject
-		if(obj!=null) {	//Si la instancia devuelta por el super es null es que no concuerda con la estructura GameObject
-			String p=strsObject[3].toLowerCase();
-			Action acc=Action.parse(p);
-			if(acc!=null){	//Si el string concuerda con que es una accion devuelve instancia
-				Position po=new Position(strsObject[0],strsObject[1]);
-				obj= this.createInstance(po,game,acc);
-			}
-			else {
-				obj=null;
-			}
-		}
-		return obj;
+		return super.parse(strsObject, game);	//LLamamos al parse de arriba para comprobar que lo primero del array es un GameObject
+		//Aqui no comprobamos si el siguiente elemento del array es una accion pq como pueden dar un elemento sin accion
+		//Para que se inicie con valor predeterminado no compruebo nada
 	}
 	
 	public void fall() {

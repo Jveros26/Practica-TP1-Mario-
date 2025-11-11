@@ -104,5 +104,24 @@ public class Mushroom extends MovingObject{
 	public boolean receiveInteraction(Box obj) {
 		return false;
 	}
+	@Override
+	public GameObject parse(String strsObject[],GameWorld game) {
+		GameObject obj=super.parse(strsObject, game);
+		if(obj!=null) {
+			if(strsObject.length>3) {	// si es menor que 4 pero mayor que tres es del tipo: (num,num) mario accion
+				Position p=new Position(strsObject[0],strsObject[1]);
+				Action dir=Action.parse(strsObject[3]);
+				obj=this.createInstance(p,game,dir); //Inicializo con valor dado
+			}
+			else { // si es menor que 3 es del tipo: (num,num) mario
+				Position p=new Position(strsObject[0],strsObject[1]);	//Coge posicion
+				obj=this.createInstance(p,game,Action.RIGHT); //Inicializo con valor predeterminado
+			}
+		}
+		else {
+			return null;
+		}
+		return obj;
+	}
 	
 }

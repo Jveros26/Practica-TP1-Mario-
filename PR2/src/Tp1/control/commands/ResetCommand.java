@@ -15,6 +15,7 @@ public class ResetCommand extends AbstractCommand {
     public ResetCommand() {
    	 super(NAME,SHORTCUT,DETAILS,HELP);
    	 }
+    @Override
     public Command parse(String[] commandWords) {
     	
     	if(commandWords.length==2) {	//Si la lista tiene tamaño 2--> reset + nivel y coincide con el nombre y atajo reset
@@ -42,12 +43,13 @@ public class ResetCommand extends AbstractCommand {
     	
     	
     }
-    
+    @Override
 	public void execute(GameModel game, GameView view) {
 		game.resetLives();
 		game.resetPoints();
-		game.reset(level);
-		view.showGame();
+		if(game.reset(level)) {	//Si se intenta resetear con un nivel no existente devuelve error y no muestra juego
+			view.showGame();
+		}
 	}
 
 	

@@ -154,7 +154,7 @@ public class Box extends GameObject {
 		String[] addMushroom = b.trim().split("\\s+");	//Genera el array de Strings
 		this.isOpened=true;
 		game.addPoints(50);
-		game.addObject(addMushroom);	//Añade al juego el mushroom
+		game.addObjectDelayed(addMushroom);	//Añade al juego el mushroom
 	}
 	
 	@Override

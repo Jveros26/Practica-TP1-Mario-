@@ -9,4 +9,5 @@ public interface GameWorld {
 	public void marioDead();
 	public boolean addObject(String[] strsObject);
 	public void doInteractions();
+	public void addObjectDelayed(String[] objWords);
 }

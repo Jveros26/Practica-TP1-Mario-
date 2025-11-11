@@ -98,11 +98,9 @@ public class Mario extends MovingObject{
 		this.onAir=true;
 		this.isFalling=true;
 		if(actList.lenght()>0) {
-			fall();
 			runActions();
 		}
 		else {
-				this.direction=Action.STOP;
 				fall();
 			}
 		}
@@ -292,6 +290,7 @@ public class Mario extends MovingObject{
 			break;
 		case DOWN:
 			if(game.isSolid(pos.move(Action.DOWN))) {
+				this.direction=Action.STOP;
 				yes=false;
 			}
 			
@@ -464,7 +463,7 @@ public boolean isFalling() {
 		GameObject obj;
 		obj=super.parse(objWords, game);
 		if(obj!=null) {	//Si lo devuelto del super no concuerda con GameObject o MovingObject no es un elemento movible y no concuerda con mario
-			if(objWords.length>4) {	//Si hay 4º posicion del array 
+			if(objWords.length>4) {	//Si hay 4º posicion del array , concuerda con el tipo: (num,num) mario accion status
 				if(isStatus(objWords[4].toLowerCase())) {	//Concuerda con que el ultimo elemento es Big o Small para mario
 					Position p=new Position(objWords[0],objWords[1]);
 					Action dir=Action.parse(objWords[3]);
@@ -475,9 +474,15 @@ public boolean isFalling() {
 				}
 			}
 			else {	//Si es menor que cuatro entonces inicializo con isBig
-				Position p=new Position(objWords[0],objWords[1]);
-				Action dir=Action.parse(objWords[3]);
-				obj=this.createInstance(p,game,dir,true);
+				if(objWords.length>3) {	// si es menor que 4 pero mayor que tres es del tipo: (num,num) mario accion
+					Position p=new Position(objWords[0],objWords[1]);
+					Action dir=Action.parse(objWords[3]);
+					obj=this.createInstance(p,game,dir,true);
+				}
+				else { // si es menor que 3 es del tipo: (num,num) mario
+					Position p=new Position(objWords[0],objWords[1]);	//Coge posicion
+					obj=this.createInstance(p,game,Action.RIGHT,true);
+				}
 			}
 		}
 		return obj;

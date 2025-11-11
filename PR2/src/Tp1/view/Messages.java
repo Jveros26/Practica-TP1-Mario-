@@ -56,6 +56,7 @@ public class Messages {
 	public static final String ERROR_COMMAND_EXECUTE = "Command execute problem";
 	public static final String ERROR_COMMAND_INVALIDGAMEOBJECT = "Invalid game object: <stringObjeto>";
 	public static final String INVALID_GAME_OBJECT= "Invalid command structure";
+	public static final String INVALID_GAME_LEVEL= "Not valid level number";
 
 	
 	public static final String HELP_AVAILABLE_COMMANDS = "Available commands:";

@@ -6,6 +6,7 @@ import tp1.logic.gameobjects.Land;
 import tp1.logic.gameobjects.Goombas;
 import tp1.logic.gameobjects.ExitDoor;
 import tp1.logic.gameobjects.GameObject;
+import tp1.logic.gameobjects.GameObjectFactory;
 import tp1.logic.gameobjects.Mario;
 import tp1.logic.gameobjects.Goombas;
 import java.util.ArrayList;
@@ -41,8 +42,13 @@ public class GameObjectContainer {
 		for(GameObject obj: gameObjects) {	//Recorre cada objeto haciendo su update correspondiente
 			obj.update();
 		}	
-		//buffer (crear nueva lista con elementos anteriores y los nuevos agregados (mushroom))
+		
 		clear();	//Se borran aquellos que esten muertos
+		
+		if (!buffer.isEmpty()) {	//Si el buffer esta vacio no hace falta modificar la lista
+	        gameObjects.addAll(buffer);	//Sino lo que hace es copiar el buffer en gameObjects
+	        buffer.clear();  // vaciamos el buffer después
+	    }
 
 	}
 //--------------------------------------------------
@@ -60,7 +66,7 @@ public class GameObjectContainer {
 	}
 //--------------------------------------------------
 
-	private void clear() {
+	public void clear() {
 		for(int i=gameObjects.size()-1;i>=0;i--) {
 			GameObject obj=gameObjects.get(i);
 			if(!(obj.isAlive())) {
@@ -81,8 +87,10 @@ public class GameObjectContainer {
 			GameObject obj1=gameObjects.get(i);	//Coge el objeto que toque
 			for (int j = i + 1; j < gameObjects.size(); j++) {	//Y lo comprueba comprueba con el resto de elementos con los que no haya interactuado
 				GameObject obj2 = gameObjects.get(j);	//Coge cada uno de los objetos
+				if (obj1.isAlive() && obj2.isAlive()) {	//Compruebo si ambos estan vivos, sino no se realiza interacio bidireccional pq 
 		           obj1.interactWith(obj2);	//Interactua bidireccionalmente
-		          obj2.interactWith(obj1);
+		           obj2.interactWith(obj1);
+				}
 			}
 			
 		}

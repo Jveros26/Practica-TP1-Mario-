@@ -41,7 +41,7 @@ public class Mario extends MovingObject{
 
 	}
 	public Mario() {
-		super(Action.STOP,false,NAME,SHORTCUT);
+		super(Action.RIGHT,false,NAME,SHORTCUT);
 		actList=new ActionList();
 
 	}
@@ -87,7 +87,9 @@ public class Mario extends MovingObject{
 		this.isAscending=false;
 		this.isFalling=false;
 		if(actList.lenght()==0) {
-			step();	
+			if(this.direction!=Action.STOP) {
+				step();	
+			}
 		}
 		else {
 			runActions();
@@ -257,18 +259,21 @@ public class Mario extends MovingObject{
 		
 		case Action.DOWN:
 			boolean isDead=false;
-			while(!game.isSolid(pos.move(Action.DOWN)) && !isDead) {
-				if(!game.positionIsIn(pos)) {
-					dead();
-					isDead=true;
-				}
-				else {
-				this.pos=pos.move(Action.DOWN);
-				this.isFalling=true;
-				}
+			if(game.isSolid(pos.move(Action.DOWN))) {
+				this.direction=Action.STOP;
 			}
-			this.direction=Action.STOP;
-			
+			else {
+				while(!game.isSolid(pos.move(Action.DOWN)) && !isDead) {
+					if(!game.positionIsIn(pos)) {
+						dead();
+						isDead=true;
+					}
+					else {
+					this.pos=pos.move(Action.DOWN);
+					this.isFalling=true;
+					}
+				}	
+			}
 
 			break;
 		}

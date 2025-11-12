@@ -19,7 +19,8 @@ public class AddObjectCommand extends AbstractCommand {
     private static final String DETAILS = Messages.COMMAND_AddAction_DETAILS;
     private static final String HELP = Messages.COMMAND_AddAction_HELP;
     private static String strsObject[];
-    
+    private static String Error[];
+    private static String err;
     
     public AddObjectCommand() {
     	super(NAME,SHORTCUT,DETAILS,HELP);
@@ -60,11 +61,14 @@ public class AddObjectCommand extends AbstractCommand {
 				 
 				 if(obj!=null) {	//Si devuelve instancia el array si sirve y se asigna al array de la clase y se devuelve instancia
 					 strsObject=ArrayComando;
+					 err="ok";
 					 return this;
 				 }
 				 else {	//Si devuelve null devolvemos null
-					 System.out.println(Messages.INVALID_GAME_OBJECT.formatted(String.join("", ArrayComando)));
-					 return null;
+					 String[] error=Arrays.copyOfRange(commandWords, 1, commandWords.length);
+					 Error=error;
+					 err="error";
+					 return this;
 				 }
 			 }
 			 else {
@@ -74,12 +78,13 @@ public class AddObjectCommand extends AbstractCommand {
     }
     @Override
 	public void execute(GameModel game, GameView view) {
-		
-		if(game.addObject(strsObject)) {	//Si consigue hacerlo muestra el juego 
-			view.showGame();
+		if(err!="error") {
+			if(game.addObject(strsObject)) {	//Si consigue hacerlo muestra el juego 
+				view.showGame();
+			}
 		}
 		else {	//Sino muestra error
-			view.showError(Messages.INVALID_GAME_OBJECT);
+			view.showError(Messages.INVALID_GAME_OBJECT.formatted(String.join("",Error)));
 		}
 	}
 	

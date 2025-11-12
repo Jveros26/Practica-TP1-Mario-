@@ -133,7 +133,7 @@ public class Goombas extends MovingObject {
 
 		}
 	//--------------------------------------------------	
-
+		@Override
 		protected GameObject createInstance(Position pos, GameWorld game,Action dir) {
 			return new Goombas(game,pos,dir);
 
@@ -153,7 +153,7 @@ public class Goombas extends MovingObject {
 				}
 				else { // si es menor que 3 es del tipo: (num,num) mario
 					Position p=new Position(strsObject[0],strsObject[1]);	//Vuelvo a crear la posicion para que se guarde desde goomba y no quede null
-					obj=this.createInstance(p,game,Action.RIGHT);	//Inicializo con valor predeterminado
+					obj=this.createInstance(p,game);	//Inicializo con valor predeterminado
 				}
 				
 			}

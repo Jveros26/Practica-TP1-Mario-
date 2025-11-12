@@ -43,6 +43,9 @@ public abstract class GameObject implements GameItem{
 			if(game.positionIsIn(pos)) {	//Si esta dentro del tablero
 				obj=this.createInstance(pos,game);
 			}
+			else {	//Si no esta dentro del juego no se puede
+				return null;
+			}
 		}
 		return obj;
 	}

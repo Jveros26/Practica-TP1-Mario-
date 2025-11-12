@@ -81,6 +81,8 @@ public class Game implements GameModel, GameStatus, GameWorld {
 			
 		case 1: initLevel1();
 				return true;
+		case 2: initLevel2();			
+				return true;
 		default: /*reset(this.nLevel;*/ System.out.println(Messages.INVALID_LEVEL_NUMBER);
 				return false;
 		}
@@ -235,6 +237,59 @@ private void initLevel1() {
 	gameObjects.add(new Goombas(this,new Position(10,10)));
 	gameObjects.add(new Goombas(this,new Position(12,10)));
 	gameObjects.add(new Goombas(this,new Position(12, 14)));
+}
+private void initLevel2() {  
+	this.nLevel = 2;
+	this.remainingTime = 100;
+	this.gameObjects= new GameObjectContainer();
+	
+	// 1. Mapa
+	for(int col = 0; col < 15; col++) {
+		gameObjects.add(new Land(this,new Position(13,col)));
+		gameObjects.add(new Land(this,new Position(14,col)));		
+	}
+
+	gameObjects.add(new Land(this,new Position(Game.DIM_Y-3,9)));
+	gameObjects.add(new Land(this,new Position(Game.DIM_Y-3,12)));
+	for(int col = 17; col < Game.DIM_X; col++) {
+		gameObjects.add(new Land(this,new Position(Game.DIM_Y-2, col)));
+		gameObjects.add(new Land(this,new Position(Game.DIM_Y-1, col)));		
+	}
+
+	gameObjects.add(new Land(this,new Position(9,2)));
+	gameObjects.add(new Land(this,new Position(9,5)));
+	gameObjects.add(new Land(this,new Position(9,6)));
+	gameObjects.add(new Land(this,new Position(9,7)));
+	gameObjects.add(new Land(this,new Position(5,6)));
+	
+	// Salto final
+	int tamX = 8, tamY= 8;
+	int posIniX = Game.DIM_X-3-tamX, posIniY = Game.DIM_Y-3;
+	
+	for(int col = 0; col < tamX; col++) {
+		for (int fila = 0; fila < col+1; fila++) {
+			gameObjects.add(new Land(this,new Position(posIniY- fila, posIniX+ col)));
+		}
+	}
+
+	gameObjects.add(new ExitDoor(this,new Position(Game.DIM_Y-3, Game.DIM_X-1)));
+
+	// 3. Personajes
+	this.mario = new Mario(this,new Position(Game.DIM_Y-3, 0));	
+	gameObjects.add(this.mario);
+	
+	gameObjects.add(new Goombas(this,new Position(0, 19)));
+	gameObjects.add(new Goombas(this,new Position(4,6)));
+	gameObjects.add(new Goombas(this,new Position(12,6)));
+	gameObjects.add(new Goombas(this,new Position(12,8)));
+	gameObjects.add(new Goombas(this,new Position(10,10)));
+	gameObjects.add(new Goombas(this,new Position(12,10)));
+	gameObjects.add(new Goombas(this,new Position(12, 14)));
+	gameObjects.add(new Box(this,new Position(9,4)));
+	gameObjects.add(new Mushroom(this,new Position(12,8)));
+	gameObjects.add(new Mushroom(this,new Position(2,20)));
+	
+
 }
 private void initLevelMinus1(){
 	this.nLevel = 0;

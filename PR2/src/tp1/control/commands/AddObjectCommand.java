@@ -63,6 +63,7 @@ public class AddObjectCommand extends AbstractCommand {
 					 return this;
 				 }
 				 else {	//Si devuelve null devolvemos null
+					 System.out.println(Messages.INVALID_GAME_OBJECT.formatted(String.join("", ArrayComando)));
 					 return null;
 				 }
 			 }

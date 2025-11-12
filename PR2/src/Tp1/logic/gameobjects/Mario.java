@@ -273,6 +273,7 @@ public class Mario extends MovingObject{
 					this.pos=pos.move(Action.DOWN);
 					this.isFalling=true;
 					}
+					game.doInteractions();
 				}	
 			}
 

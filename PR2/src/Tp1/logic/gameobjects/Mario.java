@@ -94,7 +94,6 @@ public class Mario extends MovingObject{
 		else {
 			runActions();
 		}
-		game.doInteractions();
 	}
 	else {
 		this.onAir=true;
@@ -104,6 +103,7 @@ public class Mario extends MovingObject{
 		}
 		else {
 				fall();
+				game.doInteractions();
 			}
 		}
 			
@@ -145,7 +145,7 @@ public class Mario extends MovingObject{
 				}
 			}
 		}
-	  
+		game.doInteractions();
 	}
 
 
@@ -186,6 +186,7 @@ public class Mario extends MovingObject{
 					}
 				}
 			}
+			game.doInteractions();
 		}
 		
 }

@@ -17,7 +17,7 @@ public class Goombas extends MovingObject {
 //--------------------------------------------------
 
 	public Goombas(GameWorld game,Position pos) {
-		super(game,pos,Action.RIGHT,false,NAME,SHORTCUT);
+		super(game,pos,Action.LEFT,false,NAME,SHORTCUT);
 	}
 	
 	public Goombas(GameWorld game,Position pos,Action dir) {

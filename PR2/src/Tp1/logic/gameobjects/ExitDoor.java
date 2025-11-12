@@ -74,6 +74,7 @@ public class ExitDoor extends GameObject {
 		@Override
 		public boolean receiveInteraction(Mario obj) {
 			if(obj.isInPosition(pos)&& this.isAlive()) {
+				game.marioExited();
 				return true;
 			}
 			else {

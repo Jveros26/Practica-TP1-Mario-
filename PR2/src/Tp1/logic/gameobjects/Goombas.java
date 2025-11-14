@@ -9,7 +9,7 @@ import tp1.logic.GameItem;
 import tp1.logic.GameWorld;
 import tp1.logic.Action;
 
-public class Goombas extends MovingObject {
+public class Goombas extends MovingObject {	//No hace falta parse aqui pq ya esta en MovingObject
 	private boolean isFalling;
 	private static final String NAME=Messages.GOOMBA_NAME;
 	private static final String SHORTCUT=Messages.GOOMBA_SHORTCUT;
@@ -52,6 +52,7 @@ public class Goombas extends MovingObject {
 			else{
 				this.isFalling=true;
 				fall();
+				game.doInteractions();
 			}
 			game.doInteractions();
 			if(!game.positionIsIn(pos)) {
@@ -138,30 +139,7 @@ public class Goombas extends MovingObject {
 			return new Goombas(game,pos,dir);
 
 		}
-	//--------------------------------------------------	
 
-		@Override
-		public GameObject parse(String strsObject[],GameWorld game) {
-			GameObject obj=super.parse(strsObject, game);
-			if(obj!=null) {
-				isFalling=true;
-				//Ya no compruebo si la pos sale dle tablero pq eso ya lo hace el parse de GameObject
-				if(strsObject.length>3) {	// si es menor que 4 pero mayor que tres es del tipo: (num,num) mario accion
-					Position p=new Position(strsObject[0],strsObject[1]); //Vuelvo a crear la posicion para que se guarde desde goomba y no quede null
-					Action dir=Action.parse(strsObject[3]);
-					obj=this.createInstance(p,game,dir);
-				}
-				else { // si es menor que 3 es del tipo: (num,num) mario
-					Position p=new Position(strsObject[0],strsObject[1]);	//Vuelvo a crear la posicion para que se guarde desde goomba y no quede null
-					obj=this.createInstance(p,game);	//Inicializo con valor predeterminado
-				}
-				
-			}
-			else {
-				return null;
-			}
-			return obj;
-		}
 	//--------------------------------------------------	
 
 		@Override

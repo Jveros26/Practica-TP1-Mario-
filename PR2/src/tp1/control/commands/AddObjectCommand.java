@@ -35,18 +35,18 @@ public class AddObjectCommand extends AbstractCommand {
 			 if(this.matchCommandName(commandWords[0])) {	//Veo si el primer argumento concuerda con la el nombre de la clase
 				 
 				 //-----CONVERSION (numero,numero) en numeronumero-----
-				 String[] posParts = Arrays.copyOfRange(commandWords, 1, 2);	//Coge de la estructura "numero", ",", "numero"
-				 String posString = String.join("", posParts); // "num,num"-> Creamos un string con las posiciones de los numeros position
+				 String[] posParts = Arrays.copyOfRange(commandWords, 1, 2);	//Coge de la estructura "(numero", ",", "numero)"
+				 String posString = String.join("", posParts); // "(num,num)"-> Creamos un string con las posiciones de los numeros position
 				 posString = posString.replace(",", " ");	//"numnum"-->quitamos la coma
-				 posString = posString.replace("(", "");	//"numnum"-->quitamos la coma
-				 posString = posString.replace(")", "");	//"numnum"-->quitamos la coma
+				 posString = posString.replace("(", "");	//"num num"-->quitamos la coma
+				 posString = posString.replace(")", "");	//"num num"-->quitamos la coma
 
 
-				 
-				 
+
+
 				 //------Copia array commandWords crea nuevo copia con numnum etc,....-----
 				 StringBuilder comando=new StringBuilder();
-				 comando.append(posString);	//Array que tiene numnum
+				 comando.append(posString);	//Array que tiene num num
 				 comando.append(" ");
 				 posParts=Arrays.copyOfRange(commandWords, 2, commandWords.length);	//Copia lo demas del array (el nombre dle objeto con su info)
 				 posString=String.join(" ", posParts);	//Coge la info del objeto, crea un string con los elementos separados por espacios

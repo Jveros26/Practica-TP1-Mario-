@@ -469,28 +469,34 @@ public boolean isFalling() {
 	public GameObject parse(String objWords[],GameWorld game) {
 		GameObject obj;
 		obj=super.parse(objWords, game);
-		if(obj!=null) {	//Si lo devuelto del super no concuerda con GameObject o MovingObject no es un elemento movible y no concuerda con mario
-			if(objWords.length>4) {	//Si hay 4º posicion del array , concuerda con el tipo: (num,num) mario accion status
-				if(isStatus(objWords[4].toLowerCase())) {	//Concuerda con que el ultimo elemento es Big o Small para mario
-					Position p=new Position(objWords[0],objWords[1]);
-					Action dir=Action.parse(objWords[3]);
-					obj=this.createInstance(p,game,dir,Status(objWords[4].toLowerCase()));	//Si es un GameObject, MovingObject y concuerda con estructura mario devuelve estancia
-				}
-				else {
-					return null;
-				}
+//		if(obj!=null) {	//Si lo devuelto del super no concuerda con GameObject o MovingObject no es un elemento movible y no concuerda con mario
+//			if(objWords.length>4) {	//Si hay 4º posicion del array , concuerda con el tipo: (num,num) mario accion status
+//				if(isStatus(objWords[4].toLowerCase())) {	//Concuerda con que el ultimo elemento es Big o Small para mario
+//					Position p=new Position(objWords[0],objWords[1]);
+//					Action dir=Action.parse(objWords[3]);
+//					obj=this.createInstance(p,game,dir,Status(objWords[4].toLowerCase()));	//Si es un GameObject, MovingObject y concuerda con estructura mario devuelve estancia
+//				}
+//				else {
+//					return null;
+//				}
+//			}
+//			else {	//Si es menor que cuatro entonces inicializo con isBig
+//				if(objWords.length>3) {	// si es menor que 4 pero mayor que tres es del tipo: (num,num) mario accion
+//					Position p=new Position(objWords[0],objWords[1]);
+//					Action dir=Action.parse(objWords[3]);
+//					obj=this.createInstance(p,game,dir,true);
+//				}
+//				else { // si es menor que 3 es del tipo: (num,num) mario
+//					Position p=new Position(objWords[0],objWords[1]);	//Coge posicion
+//					obj=this.createInstance(p,game,Action.RIGHT,true);
+//				}
+//			}
+//		}
+		if(obj!=null && objWords.length>4) {
+			if(isStatus(objWords[4])) {
+				((Mario)obj).isBig=Status(objWords[4]);
 			}
-			else {	//Si es menor que cuatro entonces inicializo con isBig
-				if(objWords.length>3) {	// si es menor que 4 pero mayor que tres es del tipo: (num,num) mario accion
-					Position p=new Position(objWords[0],objWords[1]);
-					Action dir=Action.parse(objWords[3]);
-					obj=this.createInstance(p,game,dir,true);
-				}
-				else { // si es menor que 3 es del tipo: (num,num) mario
-					Position p=new Position(objWords[0],objWords[1]);	//Coge posicion
-					obj=this.createInstance(p,game,Action.RIGHT,true);
-				}
-			}
+			
 		}
 		return obj;
 	}

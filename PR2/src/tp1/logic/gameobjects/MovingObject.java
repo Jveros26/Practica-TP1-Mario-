@@ -63,11 +63,18 @@ public abstract class MovingObject extends GameObject{
 	protected abstract GameObject createInstance(Position pos,GameWorld game,Action dir);
 
 	@Override
-	public GameObject parse(String strsObject[],GameWorld game) {//CASTEAR OBJ PARA PONER LA ACCION Y EN MARIO IGUAL
-		return super.parse(strsObject, game);	//LLamamos al parse de arriba para comprobar que lo primero del array es un GameObject
-		//Aqui no comprobamos si el siguiente elemento del array es una accion pq como pueden dar un elemento sin accion
-		//Para que se inicie con valor predeterminado no compruebo nada
+	public GameObject parse(String strsObject[],GameWorld game) {	//Hago parse en GameObject y compruebo direccion
+		
+		GameObject obj= super.parse(strsObject, game);
+		
+		if(obj!=null && strsObject.length>3) {	//Si tiene mas argumentos comrpobamos si es action
+			((MovingObject)obj).direction=Action.parse(strsObject[3]);
+		}
+		return obj;
+		
+		
 	}
+	
 	
 	public void fall() {
 		this.pos=pos.move(Action.DOWN);

@@ -41,7 +41,7 @@ public abstract class GameObject implements GameItem{
 		if(strsObject.length>=2 && matchParseName(strsObject[2])) {	//Comprueba si la lista es mayor igual que dos y si concuerda con el nombre
 			Position pos=new Position(strsObject[0],strsObject[1]);	//Crea posicion a partir del string
 			if(game.positionIsIn(pos)) {	//Si esta dentro del tablero
-				obj=this.createInstance(pos,game);
+				obj=this.createInstance(pos,game);	//Crea instancia de cada objeto que se ira casteando (o no)
 			}
 			else {	//Si no esta dentro del juego no se puede
 				return null;

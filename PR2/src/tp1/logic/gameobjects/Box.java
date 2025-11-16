@@ -68,8 +68,7 @@ public class Box extends GameObject {
 		if(obj!=null) {
 			if(strsObject.length>3) {
 				if(isStatus(strsObject[3].toLowerCase())) {
-//					Position p=new Position(strsObject[0],strsObject[1]);
-//					return this.createInstance(p, game,Status(strsObject[3].toLowerCase()));
+
 					((Box)obj).isOpened=Status(strsObject[3].toLowerCase());
 					return obj;
 				}
@@ -77,11 +76,7 @@ public class Box extends GameObject {
 					return null;
 				}	
 			}
-//			else {
-//				Position p=new Position(strsObject[0],strsObject[1]);
-//				return this.createInstance(p, game,false);
-//			}
-			
+
 		}
 		else {
 			return null;

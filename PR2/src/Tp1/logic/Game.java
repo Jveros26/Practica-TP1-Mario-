@@ -235,12 +235,13 @@ private void initLevel1() {
 	gameObjects.add(new Goombas(this,new Position(12,6)));
 	gameObjects.add(new Goombas(this,new Position(12,8)));
 	gameObjects.add(new Goombas(this,new Position(10,10)));
-	gameObjects.add(new Goombas(this,new Position(12,10)));
+	gameObjects.add(new Goombas(this,new Position(12,11)));
 	gameObjects.add(new Goombas(this,new Position(12, 14)));
 }
 private void initLevel2() {  
 	this.nLevel = 2;
 	this.remainingTime = 100;
+
 	this.gameObjects= new GameObjectContainer();
 	
 	// 1. Mapa
@@ -283,7 +284,7 @@ private void initLevel2() {
 	gameObjects.add(new Goombas(this,new Position(12,6)));
 	gameObjects.add(new Goombas(this,new Position(12,8)));
 	gameObjects.add(new Goombas(this,new Position(10,10)));
-	gameObjects.add(new Goombas(this,new Position(12,10)));
+	gameObjects.add(new Goombas(this,new Position(12,11)));
 	gameObjects.add(new Goombas(this,new Position(12, 14)));
 	gameObjects.add(new Box(this,new Position(9,4)));
 	gameObjects.add(new Mushroom(this,new Position(12,8)));
@@ -317,6 +318,8 @@ private void initLevelMinus1(){
 
 	@Override
 	public void marioDead() {
+		mario.dead();	// actaliza estado de mario a muerto para que no pueda volver a interactuar
+		
 		numLives--;
 		if(this.numLives>0) {
 			reset(this.level());

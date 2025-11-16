@@ -16,6 +16,9 @@ public class ActionCommand extends AbstractCommand {
     private static final String DETAILS = Messages.COMMAND_ACTION_DETAILS;
     private static final String HELP = Messages.COMMAND_ACTION_HELP;
     private ArrayList<Action> actionList;
+    private static String error;
+    private static String Err[];
+
 
     public ActionCommand( ArrayList<Action> actionList) {	//Llamamos al consturctor super
     	super(NAME,SHORTCUT,DETAILS,HELP);
@@ -33,11 +36,18 @@ public class ActionCommand extends AbstractCommand {
 		 }
 		 else {
 			 if(this.matchCommandName(commandWords[0])) {	//Veo si el primer argumento concuerda con la el nombre d ela clase
-				 for(int i=1;i<commandWords.length;i++) {	//Recorro las pocisiones haciendo parse y añado a lista
-					 Action acc=Action.parse(commandWords[i]);
-					 actionList.add(acc);
-					 
-				 }
+					 for(int i=1;i<commandWords.length;i++) {	//Recorro las pocisiones haciendo parse y añado a lista
+						 Action acc=Action.parse(commandWords[i]);
+						 if(acc!=null) {
+							 actionList.add(acc);
+							 error="ok";
+						 }
+						 else {
+							 Err=commandWords;
+							 error="error";
+							 return this;
+						 }
+					 }
 				 return this;	//al terminar
 			 	}
 			 else {
@@ -52,14 +62,21 @@ public class ActionCommand extends AbstractCommand {
 	 }
 	 @Override
 	 public void execute(GameModel game, GameView view) {
-		 for(int i=0;i<actionList.size();i++) {
-			 Action acc=actionList.get(i);
-			 game.addAction(acc);
+		 if(error!="error") {
+			 for(int i=0;i<actionList.size();i++) {
+				 Action acc=actionList.get(i);
+				 game.addAction(acc);
+			 }
+			 game.update();
+			 game.clearList();
+			 this.clearList();
+			 view.showGame();
 		 }
-		game.update();
-		game.clearList();
-		this.clearList();
-		view.showGame();
+		 else {
+			 view.showError(Messages.UNKNOWN_COMMAND.formatted(String.join(" ", Err)));
+			 game.update();
+			 view.showGame();
+		 }
 	 }
 			
 }

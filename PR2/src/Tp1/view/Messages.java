@@ -105,7 +105,8 @@ public class Messages {
 	public static final String COMMAND_AddAction_NAME = "addObject";
 	public static final String COMMAND_AddAction_SHORTCUT = "aO";
 	public static final String COMMAND_AddAction_DETAILS = "[a]dd[O]bject <object_description>";
-	public static final String COMMAND_AddAction_HELP = "adds to the board the object given by object_description";	
+	public static final String COMMAND_AddAction_HELP = "adds to the board the object given by object_description\n"
+			+ "\t\t <object_description> = (col,row) objName [dir [BIG|SMALL]]. Ej. (12,3) Mario LEFT SMALL";	
 //GAMEOBJECT
 	public static final String MARIO_NAME = "MARIO";
 	public static final String GOOMBA_NAME = "GOOMBA";

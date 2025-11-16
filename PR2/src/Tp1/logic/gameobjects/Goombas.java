@@ -71,7 +71,7 @@ public class Goombas extends MovingObject {	//No hace falta parse aqui pq ya est
 	//--------------------------------------------------
 		@Override
 		public boolean receiveInteraction(Mario obj) {	//Muere si mario es grande
-			
+			if(this.isAlive()) {
 				if(obj.isFalling()) {	//Si mario esta en la posicion del goomba y resulta que estaba cayendo el goomba muere
 					dead();
 					game.addPoints(100);
@@ -85,10 +85,15 @@ public class Goombas extends MovingObject {	//No hace falta parse aqui pq ya est
 					else {
 						this.game.addPoints(100);	//Se suman puntos
 						game.marioDead();		//Mario muere y se reinicia todo
+						dead();
 						
 					}
 				}
 				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	//--------------------------------------------------
 		@Override

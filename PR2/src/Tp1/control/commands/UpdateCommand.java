@@ -1,3 +1,4 @@
+//Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
 package tp1.control.commands;
 
 import tp1.logic.Game;
@@ -5,7 +6,7 @@ import tp1.logic.GameModel;
 import tp1.view.GameView;
 import tp1.view.Messages;
 
-public class UpdateCommand extends NoParamsCommand{	//Como hacer para ""
+public class UpdateCommand extends NoParamsCommand{	
 
 	private static final String NAME = Messages.COMMAND_UPDATE_NAME;
     private static final String SHORTCUT = Messages.COMMAND_UPDATE_SHORTCUT;

@@ -49,6 +49,9 @@ public class GameObjectContainer {
 	        gameObjects.addAll(buffer);	//Sino lo que hace es copiar el buffer en gameObjects
 	        buffer.clear();  // vaciamos el buffer después
 	    }
+		/*De esta forma con el buffer lo que hacemos es si se añade un mushroom en box se añade en el buffer 
+		 y se añade lo nuevo que haya en el buffer en el gameObjects, despues vaciamos el buffer para que no se 
+		 añadan mas y listo*/
 
 	}
 //--------------------------------------------------

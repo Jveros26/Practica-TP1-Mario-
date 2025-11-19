@@ -1,3 +1,4 @@
+//Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
 package tp1.control.commands;
 
 import tp1.logic.Game;

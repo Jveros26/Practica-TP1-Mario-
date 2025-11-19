@@ -1,3 +1,5 @@
+//Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
+
 package tp1.control.commands;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class ActionCommand extends AbstractCommand {
 							 actionList.add(acc);
 							 error="ok";
 						 }
-						 else {
+						 else {//Si da error en la accion guarda el comando q dio error y el mensaje de error
 							 Err=commandWords;
 							 error="error";
 							 return this;
@@ -62,20 +64,20 @@ public class ActionCommand extends AbstractCommand {
 	 }
 	 @Override
 	 public void execute(GameModel game, GameView view) {
-		 if(error!="error") {
+		 if(error!="error") {	//Si no dio error carga la lista en game con la que teniamos
 			 for(int i=0;i<actionList.size();i++) {
 				 Action acc=actionList.get(i);
 				 game.addAction(acc);
 			 }
-			 game.update();
-			 game.clearList();
-			 this.clearList();
-			 view.showGame();
+			 game.update();	//Updateo
+			 game.clearList();	//Limpio la lista del game
+			 this.clearList();	//Limpio esta lista
+			 view.showGame();	//Muestro juego
 		 }
 		 else {
-			 view.showError(Messages.UNKNOWN_COMMAND.formatted(String.join(" ", Err)));
-			 game.update();
-			 view.showGame();
+			 view.showError(Messages.UNKNOWN_COMMAND.formatted(String.join(" ", Err)));	//Muestro el comando que dio error
+			 game.update();	//updateo el juego para que se mueva mario
+			 view.showGame();	//Muestra juego
 		 }
 	 }
 			

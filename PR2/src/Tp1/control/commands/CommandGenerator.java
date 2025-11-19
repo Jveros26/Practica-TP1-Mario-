@@ -1,3 +1,4 @@
+//Grupo 6: Jorge Veros Moreno y Álvaro Rocha del Barrio
 package tp1.control.commands;
 
 import java.util.Arrays;
@@ -30,7 +31,7 @@ public class CommandGenerator {
 		
 		commands.append(Messages.HELP_AVAILABLE_COMMANDS).append(Messages.LINE_SEPARATOR);
 		
-		for (Command c:AVAILABLE_COMMANDS) {
+		for (Command c:AVAILABLE_COMMANDS) {	//Coje el helpText de todos los comandos y los mete en el StringBuilder
 			commands.append(c.helpText());
 		}
 		
